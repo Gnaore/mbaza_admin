@@ -1,0 +1,251 @@
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <i class="ti ti-building-bank text-primary"></i>
+          Banques
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <div
+        class="card-header d-flex align-items-center justify-content-between"
+      >
+        <h3 class="card-title fw-semibold">
+          <i class="ti ti-building-bank text-primary"></i>
+          Banques [<span class="text-danger">{{ banques.length }}</span
+          >]
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-4">
+            <form
+              [formGroup]="formGroup"
+              (ngSubmit)="ajouteBanque(formGroup.value)"
+            >
+              <div class="row">
+                <h4 class="mb-3">
+                  <strong>Editer une banque</strong>
+                </h4>
+
+                <div class="col-12 mb-2">
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="Libéllé"
+                    class="w-100"
+                    formControlName="libelleBanque"
+                  />
+                </div>
+                <div class="col-12 mb-2">
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="Sigle"
+                    class="w-100"
+                    formControlName="sigleBanque"
+                  />
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="banqueId"
+                    class="w-100"
+                    formControlName="banqueId"
+                    hidden
+                  />
+                </div>
+                <div class="col-12 mb-2">
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="banqueCode"
+                    class="w-100"
+                    formControlName="banqueCode"
+                    hidden
+                  />
+                </div>
+
+                <div class="col-12 mb-2">
+                  <p-dropdown
+                    [options]="countries"
+                    styleClass="w-100"
+                    [(ngModel)]="selectedCountry"
+                    optionLabel="libellePays"
+                    [filter]="true"
+                    filterBy="libellePays"
+                    [showClear]="true"
+                    placeholder="-- Choisir le pays --"
+                    formControlName="paysId"
+                  >
+                  
+                    <ng-template let-country pTemplate="selectedItem">
+                      <div
+                        class="d-flex align-items-center gap-2"
+                        *ngIf="selectedCountry"
+                      >
+                        <span
+                          [class]="
+                            'fi fi-' + selectedCountry.codePays.toLowerCase()
+                          "
+                        ></span>
+                        <div>{{ selectedCountry.libellePays }}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                      <div class="d-flex align-items-center gap-2">
+                        <span
+                          [class]="'fi fi-' + country.codePays.toLowerCase()"
+                        ></span>
+                        <div>{{ country.libellePays }}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                  
+                 
+                  <!--select class="form-select" formControlName="paysBanque">
+                    <option value="">-- Choisissez votre pays --</option>
+                    <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                    <option value="Burkina Faso">Burkina Faso</option>
+                    <option value="Mali">Mali</option>
+                    <option value="Congo Brazzaville">Congo Brazzaville</option>
+                    <option value="Congo RDC">Congo RDC</option>
+                    <option value="Senegal">Senegal</option>
+                    <option value="Togo">Togo</option>
+                    <option value="Benin">Benin</option>
+                    <option value="Gabon">Gabon</option>
+                    <option value="Cameroun">Cameroun</option>
+                    <option value="Guinée Conakry">Guinée Conakry</option>
+                  </select-->
+                </div>
+                <div class="col-12 mb-3">
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="Téléphone"
+                    class="w-100"
+                    formControlName="contactBanque"
+                  />
+                </div>
+                <div class="col-12">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-lg"
+                    (click)="annuler()"
+                  >
+                    <span class="ti ti-circle-x"></span>
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-success btn-lg ms-3"
+                    [disabled]="formGroup.invalid"
+                  >
+                    <span class="ti ti-database"></span>
+                    Enregistrer
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-8">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-striped">
+                <thead class="table-dark">
+                  <tr>
+                    <th>ID.</th>
+                    <th>Sigle.</th>
+                    <!--th>Libéllé.</th-->
+                    <th>Pays.</th>
+                    <th>Contact.</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let banque of banques; let i = index">
+                    <td>{{ banque.banqueCode }}</td>
+                    <td>{{ banque.sigleBanque }}</td>
+                    <!--td>{{banque.libelleBanque}}</td-->
+                    <td> 
+                      <span
+                      [class]="
+                        'fi fi-' + banque.pays.codePays.toLowerCase()
+                      "
+                    ></span>
+                      {{ banque.pays.libellePays }}</td>
+                    <td>
+                      <strong>[{{ banque.contactBanque }}]</strong>
+                    </td>
+                    <td>
+                      <a
+                        class="btn btn-sm btn-info"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        type="button"
+                        (click)="oneBanque(banque.banqueId)"
+                      >
+                        <i class="ti ti-edit"></i>
+                      </a>
+                      <a
+                        class="btn btn-sm btn-danger ms-3"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        type="button"
+                        (click)="supBanque(banque.banqueId)"
+                      >
+                        <i class="ti ti-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="2">
+                      <strong
+                        >Nombre d'enregistrement : {{ banques.length }}</strong
+                      >
+                    </td>
+                    <td colspan="3" class="py-0">
+                      <nav
+                        aria-label="Page navigation example"
+                        class="float-end"
+                      >
+                        <ul class="pagination mb-0">
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

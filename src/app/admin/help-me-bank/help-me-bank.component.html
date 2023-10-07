@@ -1,0 +1,156 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-home-exclamation text-primary"></i>
+                    Au secours ! ma banque
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-home-exclamation text-primary"></i>
+                    Au secours ! ma banque [<span class="text-danger">14</span>]
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <input type="search" pInputText placeholder="Recherche" class="w-100" />
+                    </div>
+                    <div class="col-3 mb-3">
+                        <p-calendar [(ngModel)]="rangeDates" placeholder="-- Choisir la période --"
+                            selectionMode="range" styleClass="w-100" [readonlyInput]="true"></p-calendar>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID du locataire.</th>
+                                <th>Nom du locataire.</th>
+                                <th>ID du bailleur.</th>
+                                <th>Nom du bailleur.</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let n of [].constructor(14); let i = index">
+                                <td>029029BA9</td>
+                                <td>Albert Kouadio</td>
+                                <td>7388298BA1</td>
+                                <td>KOUAME Olivier</td>
+                                <td>
+                                    <a class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                        <i class="ti ti-info-circle"></i>
+                                    </a>
+                                    <button type="button" (click)="confirm($event)"
+                                        class="btn btn-danger mx-2">Refuser</button>
+                                    <button type="button" (click)="confirm($event)"
+                                        class="btn btn-success">Accepter</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"><strong>Nombre d'enregistrement : 14</strong></td>
+                                <td colspan="3" class="py-0">
+                                    <nav aria-label="Page navigation example" class="float-end">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="ti ti-message rounded-circle bg-white text-warning p-2"></i>
+                    Au secours ! Ma banque
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <code class="col-12 px-3" style="text-align: justify;">
+                        <button type="button" class="btn btn-light mb-2">
+                            <span class="ti ti-printer"></span>
+                            Imprimer
+                        </button>
+                        <div class="alert alert-info mb-0">
+                            <div class="row">
+                                <div class="col-12">
+                                    Nom complet : <strong>Albert Léon</strong>
+                                </div>
+                                <div class="col-12">
+                                    Adressé à : <strong>Cofina</strong>
+                                </div>
+                                <div class="col-12">
+                                    Date : <strong>24 / 05 / 2023</strong>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <strong><u>Objet</u> : Demande de prépaiement de mon loyer</strong>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <strong>Madame / Monsieur,</strong>
+                                </div>
+                                <div class="col-12">
+                                    Je me permets de venir auprès de votre illustre institution financière vous informer qu’il a été convenu dans mon contrat de bail que la date limite de paiement du loyer mensuel est prévue le <strong>24/07/2023</strong>.
+                                </div>
+                                <div class="col-12">
+                                    Sur ce, j’ai été ce mois confronté à quelques difficultés financières passagères en raison <strong>(indiquer les motifs)</strong>. 
+                                </div>
+                                <div class="col-12">
+                                    De ce fait, il me sera difficile de régler le loyer à la date prévue.
+                                    En conséquence, je vous demande par la présente de bien vouloir prépayer mon loyer que je rembourserai le <strong>(indiquer la date de remboursement)</strong>.
+                                </div>
+                                <div class="col-12 my-3">
+                                    <strong><u>NB</u></strong> : je reconnais que la date de remboursement que j’ai indiquée respecte les termes du modèle de contrat que j’ai signé auprès de votre institution financière pour bénéficier de cette solution secours.
+                                </div>
+                                <div class="col-12">
+                                    Monsieur, Madame Merci pour cette solution financière qui nous facilite la vie ! <br><br>
+                                    Cordialement <strong>(Nom du locataire)</strong>.
+                                </div>
+                            </div>
+                        </div>
+                    </code>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p-confirmPopup [baseZIndex]="1"></p-confirmPopup>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

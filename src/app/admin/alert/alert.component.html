@@ -1,0 +1,165 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-bell-ringing text-primary"></i>
+                    Alertes huissier
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-bell-ringing text-primary"></i>
+                    Alertes huissier [<span class="text-danger">14</span>]
+                </h3>
+                <a class="btn btn-warning" (click)="back()">
+                    <i class="ti ti-arrow-back"></i>
+                    Retour
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <input type="search" class="form-control rounded-0" placeholder="Recherche">
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control rounded-0">
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control rounded-0">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Image.</th>
+                                <th>Bailleur.</th>
+                                <th>Identifiant.</th>
+                                <th>Date.</th>
+                                <th>Statut.</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let n of [].constructor(14); let i = index">
+                                <td align="center">
+                                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35"
+                                            class="rounded-circle">
+                                    </a>
+                                </td>
+                                <td><div class="text-overflow">Agence Albert Séraphin</div></td>
+                                <td>928899GH</td>
+                                <td><div class="text-overflow">Mar. 12 Avril 2023 <i class="ti ti-calendar"></i></div></td>
+                                <td *ngIf="i%2 == 0"><div class="alert alert-danger p-1 px-2"><i class="ti ti-clock"></i> En attente</div></td>
+                                <td *ngIf="i%2 == 1"><div class="alert alert-success p-1 px-2"><i class="ti ti-check"></i> Réglé</div></td>
+                                <td>
+                                    <a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="ti ti-info-circle"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"><strong>Nombre d'enregistrement : 14</strong></td>
+                                <td colspan="3" class="py-0">
+                                    <nav aria-label="Page navigation example" class="float-end">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLabel">
+                    <i class="ti ti-message rounded-circle bg-white text-warning p-2"></i>
+                    Alerte / Bailleur <strong class="text-warning">BA929892</strong></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <code class="col-12 px-3" style="text-align: justify;">
+                        <div class="alert alert-info mb-0">
+                            <div class="row">
+                                <div class="col-12">
+                                    Nom complet : <strong>Agence Albert</strong>
+                                </div>
+                                <div class="col-12">
+                                    Adresse : <strong>Cocody St Jean en face de l'Eglise Catholique</strong>
+                                </div>
+                                <div class="col-12">
+                                    Date : <strong>24 / 05 / 2023</strong>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <strong>Cher Maître,</strong>
+                                </div>
+                                <div class="col-12">
+                                    Nous vous informons par ce présent message que le(s) locataire(s) identifié(s) ci dessous n'est/ne sont pas en règle depuis le <strong>12 / 12 / 2022</strong>. <br>
+                                    Veuillez svp vous en occupez. Merci !
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <strong>Identification des locataires</strong>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Locataire</th>
+                                                <th>Contact</th>
+                                                <th>Email</th>
+                                                <th>Montant à payer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let n of [].constructor(3)">
+                                                <td>YAO Fulgence</td>
+                                                <td>+225 0789890909</td>
+                                                <td><a href="mailto:yao.fulgence@gmail.com">yao.fulgence@gmail.com</a></td>
+                                                <td style="color: red;">45,000 F</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </code>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
