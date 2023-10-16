@@ -36,12 +36,12 @@ export class UsersService {
         // 'Authorization':  'Bearer {{access_token}}'
       }),
     };
-    return this.httpClient.get<any>(this.urlG + 'auth/allusers', httpOptions);
+    return this.httpClient.get<any>(this.urlG + 'user/allusers', httpOptions);
   }
 
   saveUser(data: any): Observable<any> {
     return this.httpClient.post(
-      this.urlG + 'auth/signup',
+      this.urlG + 'user/signup',
       data,
       this.httpOptions
     );
@@ -55,7 +55,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${currentUserJSON.token}`,
     });
-    return this.httpClient.get(this.urlG + 'auth/oneuser/'+ id, { headers });
+    return this.httpClient.get(this.urlG + 'user/oneuser/'+ id, { headers });
   }
 
 
@@ -67,7 +67,7 @@ export class UsersService {
       Authorization: `Bearer ${currentUserJSON.token}`,
     });
     return this.httpClient.post(
-      this.urlG + 'auth/modif',
+      this.urlG + 'user/modif',
       data, { headers }
     );
   }
@@ -80,7 +80,7 @@ export class UsersService {
       Authorization: `Bearer ${currentUserJSON.token}`,
     });
     return this.httpClient.post(
-      this.urlG + 'auth/modifstatut',
+      this.urlG + 'user/modifstatut',
       data, { headers }
     );
   }
