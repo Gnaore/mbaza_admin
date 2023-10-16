@@ -65,6 +65,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     AdminRoutingModule,
     FusionChartsModule,
     FormsModule,
+    ReactiveFormsModule,
     NgCircleProgressModule.forRoot({}),
     ChipModule,
     DropdownModule,
@@ -72,13 +73,10 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     InputTextModule,
     ButtonModule,
     CalendarModule,
-
     TableModule,
     MultiSelectModule,
     TagModule,
-
     DialogModule,
-    ReactiveFormsModule,
     ToastrModule.forRoot(), // ToastrModule added
   ],
 })
