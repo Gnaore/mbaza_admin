@@ -50,7 +50,7 @@ entetes = entetes.set('Accept-Encoding', 'gzip, deflate, sdch');*/
     };
 
     return this.httpClient
-      .post<any>(this.urlG + 'auth/signin', info, httpOptions)
+      .post<any>(this.urlG + 'user/signin', info, httpOptions)
       .pipe(
         map((user) => {
           if (user && user.token) {
