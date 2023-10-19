@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
 
   //**en dev mac
-   urlg = 'http://10.10.2.84:3000/'
+   urlg = 'http://10.10.2.160:3000/'
 
   //*sur server distant
   //urlg = 'https://apimbaza.empreinte-ci.net/';

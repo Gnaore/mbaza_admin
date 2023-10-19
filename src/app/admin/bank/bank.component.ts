@@ -138,7 +138,7 @@ export class BankComponent implements OnInit {
     // console.log(id);
     this.banqueService.oneBanque(id).subscribe(
       (ret) => {
-        this.Onebanque = ret.data;
+        this.Onebanque = ret.data[0];
         this.formGroup.controls['banqueCode'].setValue(
           this.Onebanque.banqueCode
         );
@@ -150,13 +150,8 @@ export class BankComponent implements OnInit {
           this.Onebanque.libelleBanque
         );
 
-        this.paysService.onePays(this.Onebanque.paysId).subscribe(ret=>{
-          this.selectedCountry = ret.data;
-          console.log(this.selectedCountry);
-        })
-
+        this.selectedCountry = ret.data[0].pays
         
-
 
         this.formGroup.controls['contactBanque'].setValue(
           this.Onebanque.contactBanque
