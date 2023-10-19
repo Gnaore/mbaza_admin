@@ -152,7 +152,6 @@ export class BankComponent implements OnInit {
 
         this.selectedCountry = ret.data[0].pays
         
-
         this.formGroup.controls['contactBanque'].setValue(
           this.Onebanque.contactBanque
         );
