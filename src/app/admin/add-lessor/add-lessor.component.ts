@@ -151,38 +151,72 @@ export class AddLessorComponent {
       bailleurLienPhoto: this.file2,
     };
 
-    this.bailleurService.ajoutBailleur(boby).subscribe(
-      (ret) => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Enregistrement terminé avec succès',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-
-        this.oneBailleur(ret.data.bailleurId);
-        this.ajoutUtilisateur(f);
-        /*this.formGroup.reset();
-        this.lienPhotoretour2 = '';
-        this.file2 = '';
-        this.previewImage2 = '';
-        this.fileToUpload2 = '';
-
-        this.lienPhotoretour = '';
-        this.file = '';
-        this.previewImage = '';
-        this.fileToUpload = '';*/
-      },
-      (err) => {
-        console.log(err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.error.message,
-        });
-      }
-    );
+    if (!f.bailleurId) {
+      this.bailleurService.ajoutBailleur(boby).subscribe(
+        (ret) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Enregistrement terminé avec succès',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+  
+          this.oneBailleur(ret.data.bailleurId);
+          this.ajoutUtilisateur(f);
+          /*this.formGroup.reset();
+          this.lienPhotoretour2 = '';
+          this.file2 = '';
+          this.previewImage2 = '';
+          this.fileToUpload2 = '';
+  
+          this.lienPhotoretour = '';
+          this.file = '';
+          this.previewImage = '';
+          this.fileToUpload = '';*/
+        },
+        (err) => {
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
+        }
+      );
+    } else {
+      this.bailleurService.modifiBailleur(boby).subscribe(
+        (ret) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Modification terminée avec succès',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+  
+          this.oneBailleur(f.bailleurId);
+          /*this.formGroup.reset();
+          this.lienPhotoretour2 = '';
+          this.file2 = '';
+          this.previewImage2 = '';
+          this.fileToUpload2 = '';
+  
+          this.lienPhotoretour = '';
+          this.file = '';
+          this.previewImage = '';
+          this.fileToUpload = '';*/
+        },
+        (err) => {
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
+        }
+      );
+    }
     /* bailleurlienCNI,
     bailleurLienPhoto,*/
   }
@@ -210,14 +244,7 @@ export class AddLessorComponent {
         this.formGroup.controls['bailleurNumero'].setValue(
           ret.data.bailleurNumero
         );
-        this.formGroup.controls['banqueId'].setValue(ret.data.banqueId);
-        this.selectedBank = {
-          sigleBanque: ret.data.banque.sigleBanque,
-          banqueId: ret.data.banqueId,
-          pays: {
-            codePays: ret.data.banque.pays.codePays,
-          },
-        };
+        this.formGroup.controls['banqueId'].setValue(ret.data.banque.banqueId);
 
         // this.formGroup.controls['banqueId'].setValue(ret.data.banqueId);
         this.formGroup.controls['bailleurNumCompte'].setValue(

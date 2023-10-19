@@ -1,6 +1,7 @@
 import { ConfigService } from './../../services/config.service';
 import { Component, OnInit } from '@angular/core';
 import { BailleurService } from 'src/app/services/bailleur.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lessor-list',
@@ -32,10 +33,26 @@ export class LessorListComponent implements OnInit {
     );
   }
 
-  supBailleur(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
-  getOneBailleur(arg0: any) {
-    throw new Error('Method not implemented.');
+  supBailleur(id: any) {
+    Swal.fire({
+      title: 'Etes-vous vraiment certain ?',
+      text: 'Cet enregistrement sera supprimé !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.bailleurService.supBailleur(id).subscribe(
+          (ret) => {
+            this.readAllBailleur();
+          }, 
+          (err) => {
+            console.log(err.error.message);
+          }
+        )
+      }
+    });
   }
 }

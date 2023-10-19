@@ -1,138 +1,99 @@
 <div class="row">
-    <div class="col-12">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    <i class="ti ti-users text-primary"></i>
-                    Gestion des bailleurs
-                </li>
-            </ol>
-        </nav>
-    </div>
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <i class="ti ti-users text-primary"></i>
+          Gestion des bailleurs
+        </li>
+      </ol>
+    </nav>
+  </div>
 
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h3 class="card-title fw-semibold">
-                    <i class="ti ti-users text-primary"></i>
-                    Gestion des bailleurs
-                </h3>
-                <a routerLink="/admin/lessor-manager/add-lessor/0" class="btn btn-primary">
-                    <i class="ti ti-user-plus text-primary"></i>
-                    Nouveau bailleur
-                </a>
-            </div>
-            <div class="card-body">
-                <div class="alert alert-info">Gérez vos bailleurs (Ajoutez, modifiez, supprimez, listez les
-                    locataires d'un bailleur).</div>
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <input type="search" class="form-control rounded-0" placeholder="Recherche">
-                    </div>
-                   
-                </div>
-           
-                <p-table
-                [scrollable]="true"
-                #dt1
-                
-                currentPageReportTemplate="Affichage {first} sur {last} pour {{
-                  listeBailleur.length
-                }} utilisateur(s)"
-                [globalFilterFields]="['bailleurNomPrenoms', 'email', 'contact']"
-                [rowsPerPageOptions]="[5, 10, 25, 50]"
-                [paginator]="true"
-                [rows]="1"
-                [showCurrentPageReport]="true"
-                [value]="listeBailleur"
-                styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                [tableStyle]="{ 'min-width': '50rem', 'font-size': '15px' }"
-              >
-                <ng-template pTemplate="caption">
-                  <div class="flex">
-                    <span class="p-input-icon-left ml-auto w-50">
-                      <i class="ti ti-search"></i>
-                      <input
-                        pInputText
-                        type="text"
-                        class="form-control w-100"
-                        #search
-                        (input)="dt1.filterGlobal(search.value, 'contains')"
-                        placeholder="Mots clés"
-                      />
-                    </span>
-                  </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <th>Image.</th>
-                    <th>Identifiant.</th>
-                    <th>Nom & Prénom(s).</th>
-                    <th>Email.</th>
-                    <th>Contact.</th>
-                    <th>Adresse.</th>
-                    <th>Nbre Propiétés.</th>
-                    <th>Actions</th>
-                </ng-template>
-               
-                <ng-template pTemplate="body" let-n>
-                  <tr *ngFor="let n of listeBailleur">
-                    <td align="center">
-                      <a
-                        class="nav-link nav-icon-hover"
-                        href="javascript:void(0)"
-                        id="drop2"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <img
-                          *ngIf="!n.bailleurLienPhoto"
-                          src="assets/images/profile/user-1.jpg"
-                          alt=""
-                          width="35"
-                          height="35"
-                          class="rounded-circle"
-                        />
-                        <img
-                          *ngIf="n.bailleurLienPhoto"
-                          src="{{ urlg }}{{ n.bailleurLienPhoto }}"
-                          alt=""
-                          width="35"
-                          height="35"
-                          class="rounded-circle"
-                        />
-                      </a>
-                    </td>
-      
-                    <td>{{ n.bailleurNumero }}</td>
-                    <td>{{ n.bailleurNomPrenoms }}</td>
-                    <td>{{ n.bailleurEmail }}</td>
-                    <td>{{ n.bailleurTelephone }}</td>
-                    <td>{{ n.bailleurAdresse }}</td>
-                    <td>{{ n.proprietes.length }}</td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <a
-                        routerLink="/admin/lessor-manager/add-lessor/{{n.bailleurId}}"
-                          class="btn btn-sm btn-info me-3"
-                        >
-                          <i class="ti ti-edit"></i>
-                        </a>
-                        <a
-                          class="btn btn-sm btn-danger me-3"
-                          (click)="supBailleur(n.bailleurId)"
-                        >
-                          <i class="ti ti-trash"></i>
-                        </a>
-                        <a routerLink="/admin/lessor-manager/more-info/0" class="btn btn-sm btn-light ms-2">
-                            <i class="ti ti-chevron-right"></i>
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
-            </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h3 class="card-title fw-semibold">
+          <i class="ti ti-users text-primary"></i>
+          Gestion des bailleurs
+        </h3>
+        <a routerLink="/admin/lessor-manager/add-lessor/0" class="btn btn-primary">
+          <i class="ti ti-user-plus text-primary"></i>
+          Nouveau bailleur
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info">Gérez vos bailleurs (Ajoutez, modifiez, supprimez, listez les
+          locataires d'un bailleur).</div>
+        <div class="row mb-3">
+          <div class="col-6">
+            <input type="search" class="form-control rounded-0" placeholder="Recherche">
+          </div>
+
         </div>
+
+        <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
+                  listeBailleur.length
+                }} utilisateur(s)" [globalFilterFields]="['bailleurNomPrenoms', 'email', 'contact']"
+          [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="1" [showCurrentPageReport]="true"
+          [value]="listeBailleur" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem', 'font-size': '15px' }">
+          <ng-template pTemplate="caption">
+            <div class="flex">
+              <span class="p-input-icon-left ml-auto w-50">
+                <i class="ti ti-search"></i>
+                <input pInputText type="text" class="form-control w-100" #search
+                  (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <th>Image.</th>
+            <th>Identifiant.</th>
+            <th>Nom & Prénom(s).</th>
+            <th>Email.</th>
+            <th>Contact.</th>
+            <th>Adresse.</th>
+            <th>Nbre Propiétés.</th>
+            <th>Actions</th>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-n>
+            <tr *ngFor="let n of listeBailleur">
+              <td align="center">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img *ngIf="!n.bailleurLienPhoto" src="assets/images/profile/user-1.jpg" alt="" width="35" height="35"
+                    class="rounded-circle" />
+                  <img *ngIf="n.bailleurLienPhoto" src="{{ urlg }}{{ n.bailleurLienPhoto }}" alt="" width="35"
+                    height="35" class="rounded-circle" />
+                </a>
+              </td>
+
+              <td>{{ n.bailleurNumero }}</td>
+              <td>{{ n.bailleurNomPrenoms }}</td>
+              <td>{{ n.bailleurEmail }}</td>
+              <td>{{ n.bailleurTelephone }}</td>
+              <td>{{ n.bailleurAdresse }}</td>
+              <td>{{ n.proprietes.length }}</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <a routerLink="/admin/lessor-manager/add-lessor/{{n.bailleurId}}" class="btn btn-sm btn-info me-3">
+                    <i class="ti ti-edit"></i>
+                  </a>
+                  <a class="btn btn-sm btn-danger me-3" (click)="supBailleur(n.bailleurId)">
+                    <i class="ti ti-trash"></i>
+                  </a>
+                  <a routerLink="/admin/lessor-manager/more-info/0" class="btn btn-sm btn-light ms-2">
+                    <i class="ti ti-chevron-right"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
+  </div>
 </div>
