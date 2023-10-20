@@ -19,9 +19,7 @@
 
   <div class="col-12">
     <div class="card">
-      <div
-        class="card-header d-flex align-items-center justify-content-between"
-      >
+      <div class="card-header d-flex align-items-center justify-content-between">
         <h3 class="card-title fw-semibold">
           <i class="ti ti-user-plus text-primary"></i>
           Editer un bailleur
@@ -45,89 +43,50 @@
               <div class="row p-3">
                 <div class="col-6 mb-3">
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      placeholder="ID"
-                      formControlName="bailleurId"
-                      [(ngModel)]="MbailleurId"
-                      hidden
-                    />
-                    <label class="form-label"
-                      >Nom complet <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      placeholder="p.ex. John Doe / Agence Mbaza"
-                      formControlName="bailleurNomPrenoms"
-                    />
+                    <input type="text" class="form-control form-control-lg rounded-0" placeholder="ID"
+                      formControlName="bailleurId" [(ngModel)]="MbailleurId" hidden />
+                    <label class="form-label">Nom complet <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg rounded-0"
+                      placeholder="p.ex. John Doe / Agence Mbaza" formControlName="bailleurNomPrenoms" />
                   </div>
                 </div>
                 <div class="col-6 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      >Adresse <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      placeholder="p.ex. Riviera Bonoumin"
-                      formControlName="bailleurAdresse"
-                    />
+                    <label class="form-label">Adresse <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg rounded-0"
+                      placeholder="p.ex. Riviera Bonoumin" formControlName="bailleurAdresse" />
                   </div>
                 </div>
                 <div class="col-6 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      ><i class="ti ti-phone"></i> Numéro de téléphone
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      placeholder="+225 XX XX XX XX XX"
-                      formControlName="bailleurTelephone"
-                    />
+                    <label class="form-label"><i class="ti ti-phone"></i> Numéro de téléphone
+                      <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg rounded-0" placeholder="+225 XX XX XX XX XX"
+                      formControlName="bailleurTelephone" />
                   </div>
                 </div>
 
                 <div class="col-6 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      ><i class="ti ti-mail"></i> E-mail
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      placeholder="p.ex. name@domain"
-                      formControlName="bailleurEmail"
-                    />
+                    <label class="form-label"><i class="ti ti-mail"></i> E-mail
+                      <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg rounded-0" placeholder="p.ex. name@domain"
+                      formControlName="bailleurEmail" />
                   </div>
                 </div>
                 <div class="col-6 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      >Date de naissance
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="date"
-                      class="form-control form-control-lg rounded-0"
-                      formControlName="bailleurDateNaissance"
-                    />
+                    <label class="form-label">Date de naissance
+                      <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control form-control-lg rounded-0"
+                      formControlName="bailleurDateNaissance" />
                   </div>
                 </div>
                 <div class="col-6 mb-3">
                   <div class="form-group">
                     <label class="form-label">Numéro d'identification</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      placeholder="p.ex. numéro de passport / sécurité sociale"
-                      formControlName="bailleurNumero"
-                    />
+                    <input type="text" class="form-control form-control-lg rounded-0"
+                      placeholder="p.ex. numéro de passport / sécurité sociale" formControlName="bailleurNumero" />
                   </div>
                 </div>
               </div>
@@ -142,55 +101,33 @@
               <div class="row p-3">
                 <div class="col-12 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      >Nom de la Banque<span class="text-danger">*</span></label
-                    >
-                    <select
-                      class="form-select rounded-0"
-                      formControlName="banqueId"
-                    >
+                    <label class="form-label">Nom de la Banque<span class="text-danger">*</span></label>
+                    <select class="form-select rounded-0" formControlName="banqueId">
                       <option value={{n.banqueId}} *ngFor="let n of banks">{{n.sigleBanque}}</option>
-                     
                     </select>
                   </div>
-              
+
                 </div>
                 <div class="col-4 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      >Numéro de compte bancaire
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      formControlName="bailleurNumCompte"
-                    />
+                    <label class="form-label">Numéro de compte bancaire
+                      <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg rounded-0"
+                      formControlName="bailleurNumCompte" />
                   </div>
                 </div>
                 <div class="col-4 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      >Revenu annuel <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      appInputFormat
-                      formControlName="bailleurRevenu"
-                    />
+                    <label class="form-label">Revenu annuel <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg rounded-0" appInputFormat
+                      formControlName="bailleurRevenu" />
                   </div>
                 </div>
 
                 <div class="col-4 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      >Taux d'intérêt <span class="text-danger">*</span></label
-                    >
-                    <select
-                      class="form-select-lg form-select rounded-0"
-                      formControlName="bailleurTaux"
-                    >
+                    <label class="form-label">Taux d'intérêt <span class="text-danger">*</span></label>
+                    <select class="form-select-lg form-select rounded-0" formControlName="bailleurTaux">
                       <option value="">-- Choisir le taux --</option>
                       <option value="4">4%</option>
                       <option value="7">7%</option>
@@ -246,34 +183,23 @@
               <div class="row p-3">
                 <div class="col-4 mb-3">
                   <div class="form-group">
-                    <label class="form-label"
-                      >Personne à contacter en cas d'urgence</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      formControlName="bailleurPersUrgence"
-                    />
+                    <label class="form-label">Personne à contacter en cas d'urgence</label>
+                    <input type="text" class="form-control form-control-lg rounded-0"
+                      formControlName="bailleurPersUrgence" />
                   </div>
                 </div>
                 <div class="col-4 mb-3">
                   <div class="form-group">
                     <label class="form-label">Relation avec le bailleur</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      formControlName="bailleurRelationUrgence"
-                    />
+                    <input type="text" class="form-control form-control-lg rounded-0"
+                      formControlName="bailleurRelationUrgence" />
                   </div>
                 </div>
                 <div class="col-4 mb-3">
                   <div class="form-group">
                     <label class="form-label">Numéro de téléphone</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg rounded-0"
-                      formControlName="bailleurTelUrgence"
-                    />
+                    <input type="text" class="form-control form-control-lg rounded-0"
+                      formControlName="bailleurTelUrgence" />
                   </div>
                 </div>
               </div>
@@ -288,66 +214,30 @@
             <div class="col-12 row">
               <div class="col-6 input-group mb-3">
                 <div class="input-group-text">
-                  <label style="cursor: pointer" for="file"
-                    ><i class="ti ti-upload"></i> Carte d'identité / Passeport
-                    <span class="text-danger">*</span></label
-                  >
-                  <input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    id="file"
-                    class="form-control form-control-lg rounded-0 d-none"
-                    (change)="onFileChange($event)"
-                  />
+                  <label style="cursor: pointer" for="file"><i class="ti ti-upload"></i> Carte d'identité / Passeport
+                    <span class="text-danger">*</span></label>
+                  <input type="file" accept="image/png, image/jpeg" id="file"
+                    class="form-control form-control-lg rounded-0 d-none" (change)="onFileChange($event)" />
                 </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  readonly
-                  [value]="previewImage ? previewImage : ''"
-                  placeholder="Aucun fichier sélectionné"
-                />
+                <input type="text" class="form-control" readonly [value]="previewImage ? previewImage : ''"
+                  placeholder="Aucun fichier sélectionné" />
                 <div class="col-12" style="text-align: center">
-                  <img
-                    *ngIf="lienPhotoretour"
-                    src="{{ lienPhotoretour }}"
-                    alt=""
-                    width="100"
-                    height="100"
-                    class="rounded-circle"
-                  />
+                  <img *ngIf="lienPhotoretour" src="{{ lienPhotoretour }}" alt="" width="100" height="100"
+                    class="rounded-circle" />
                 </div>
               </div>
               <div class="col-6 input-group mb-3">
                 <div class="input-group-text">
-                  <label style="cursor: pointer" for="file2"
-                    ><i class="ti ti-upload"></i> Photo / Logo
-                    <span class="text-danger">*</span></label
-                  >
-                  <input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    id="file2"
-                    class="form-control form-control-lg rounded-0 d-none"
-                    (change)="onFileChange2($event)"
-                  />
+                  <label style="cursor: pointer" for="file2"><i class="ti ti-upload"></i> Photo / Logo
+                    <span class="text-danger">*</span></label>
+                  <input type="file" accept="image/png, image/jpeg" id="file2"
+                    class="form-control form-control-lg rounded-0 d-none" (change)="onFileChange2($event)" />
                 </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  readonly
-                  [value]="previewImage2 ? previewImage2 : ''"
-                  placeholder="Aucun fichier sélectionné"
-                />
+                <input type="text" class="form-control" readonly [value]="previewImage2 ? previewImage2 : ''"
+                  placeholder="Aucun fichier sélectionné" />
                 <div class="col-12" style="text-align: center">
-                  <img
-                    *ngIf="lienPhotoretour2"
-                    src="{{ lienPhotoretour2 }}"
-                    alt=""
-                    width="100"
-                    height="100"
-                    class="rounded-circle"
-                  />
+                  <img *ngIf="lienPhotoretour2" src="{{ lienPhotoretour2 }}" alt="" width="100" height="100"
+                    class="rounded-circle" />
                 </div>
               </div>
             </div>
@@ -355,19 +245,12 @@
           <div class="row">
             <div class="row bg-light py-2 rounded">
               <div class="col-12 d-flex">
-                <button
-                  class="btn btn-warning shadow"
-                  routerLink="/admin/lessor-manager"
-                >
+                <button class="btn btn-warning shadow" routerLink="/admin/lessor-manager">
                   <i class="ti ti-arrow-back"></i>
                   Retour
                 </button>
                 <button class="btn btn-danger ms-auto shadow">Annuler</button>
-                <button
-                  type="submit"
-                  class="btn btn-success ms-3 shadow"
-                  [disabled]="formGroup.invalid"
-                >
+                <button type="submit" class="btn btn-success ms-3 shadow" [disabled]="formGroup.invalid">
                   <i class="ti ti-database"></i>
                   Enregistrer
                 </button>
@@ -385,11 +268,7 @@
       <div class="col-12">
         <div class="row p-3">
           <div class="col-6 mb-3">
-            <button
-              class="btn btn-secondary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal1"
-            >
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
               <i class="ti ti-home-plus"></i>
               Ajouter une propriété
             </button>
@@ -430,13 +309,11 @@
                     </td>
                     <td>
                       <div class="d-flex">
-                        <a href="#" class="btn btn-sm btn-info">
+                        <a data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="setFormPropriete(n)"
+                          class="btn btn-sm btn-info">
                           <i class="ti ti-edit"></i>
                         </a>
-                        <a
-                          (click)="supPropriete(n.proprieteId)"
-                          class="btn btn-sm btn-danger ms-2"
-                        >
+                        <a (click)="supPropriete(n.proprieteId)" class="btn btn-sm btn-danger ms-2">
                           <i class="ti ti-trash"></i>
                         </a>
                       </div>
@@ -493,32 +370,17 @@
 </div> -->
 
 <!-- Modal ajout propriété -->
-<div
-  class="modal modal-lg fade"
-  id="exampleModal1"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <form
-    [formGroup]="formProprieteGroup"
-    (ngSubmit)="submitPropriete(formProprieteGroup.value)"
-  >
+<div class="modal modal-lg fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <form [formGroup]="formProprieteGroup" (ngSubmit)="submitPropriete(formProprieteGroup.value)">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content rounded-0">
         <div class="modal-header bg-dark">
           <h5 class="modal-title text-white" id="exampleModalLabel">
-            <i
-              class="ti ti-home-plus rounded-circle bg-white text-info p-2"
-            ></i>
+            <i class="ti ti-home-plus rounded-circle bg-white text-info p-2"></i>
             Nouvelle propriété
           </h5>
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body p-4">
           <div class="row">
@@ -527,37 +389,18 @@
             </div>
             <div class="col-5 mb-3">
               <div class="form-group">
-                <label class="form-label"
-                  >Adresse <span class="text-danger">*</span></label
-                >
-                <input
-                  type="text"
-                  class="form-control rounded-0"
-                  formControlName="proprieteId"
-                  placeholder="proprieteId"
-                  hidden
-                />
-                <input
-                  type="text"
-                  class="form-control rounded-0"
-                  formControlName="proprieteAdresse"
-                />
+                <label class="form-label">Adresse <span class="text-danger">*</span></label>
+                <input type="text" class="form-control rounded-0" formControlName="proprieteId"
+                  placeholder="proprieteId" hidden />
+                <input type="text" class="form-control rounded-0" formControlName="proprieteAdresse" />
               </div>
             </div>
             <div class="col-3 mb-3">
               <div class="form-group">
-                <label class="form-label"
-                  >Type de propriété<span class="text-danger">*</span></label
-                >
-                <select
-                  class="form-select rounded-0"
-                  formControlName="typebienId"
-                >
+                <label class="form-label">Type de propriété<span class="text-danger">*</span></label>
+                <select class="form-select rounded-0" formControlName="typebienId">
                   <option value="">-- Choisir le type de propriété --</option>
-                  <option
-                    *ngFor="let n of typesProprietes"
-                    value="{{ n.typebienId }}"
-                  >
+                  <option *ngFor="let n of typesProprietes" [value]="n.typebienId">
                     {{ n.libelleTypebien }}
                   </option>
                 </select>
@@ -565,65 +408,39 @@
             </div>
             <div class="col-4 mb-3">
               <div class="form-group">
-                <label class="form-label"
-                  >Année de construction
-                  <span class="text-danger">*</span></label
-                >
-                <input
-                  type="number"
-                  class="form-control rounded-0"
-                  formControlName="proprieteAnnee"
-                />
+                <label class="form-label">Année de construction
+                  <span class="text-danger">*</span></label>
+                <input type="number" class="form-control rounded-0" formControlName="proprieteAnnee" />
               </div>
             </div>
             <div class="col-3 mb-3">
               <div class="form-group">
                 <label class="form-label">Surface (m<sup>2</sup>)</label>
-                <input
-                  type="number"
-                  class="form-control rounded-0"
-                  formControlName="proprieteSurface"
-                />
+                <input type="number" class="form-control rounded-0" formControlName="proprieteSurface" />
               </div>
             </div>
             <div class="col-3 mb-3">
               <div class="form-group">
                 <label class="form-label">Nbre d'étages</label>
-                <input
-                  type="number"
-                  class="form-control rounded-0"
-                  formControlName="proprieteNbrEtage"
-                />
+                <input type="number" class="form-control rounded-0" formControlName="proprieteNbrEtage" />
               </div>
             </div>
             <div class="col-3 mb-3">
               <div class="form-group">
                 <label class="form-label">Nbre de chambres</label>
-                <input
-                  type="number"
-                  class="form-control rounded-0"
-                  formControlName="proprieteNbrChambre"
-                />
+                <input type="number" class="form-control rounded-0" formControlName="proprieteNbrChambre" />
               </div>
             </div>
             <div class="col-3 mb-3">
               <div class="form-group">
                 <label class="form-label">Nbre de salles de bains</label>
-                <input
-                  type="number"
-                  class="form-control rounded-0"
-                  formControlName="proprieteNbreSalleBain"
-                />
+                <input type="number" class="form-control rounded-0" formControlName="proprieteNbreSalleBain" />
               </div>
             </div>
             <div class="col-12 mb-3">
               <div class="form-group">
                 <label class="form-label">Description</label>
-                <textarea
-                  rows="5"
-                  class="form-control rounded-0"
-                  formControlName="proprieteDescription"
-                ></textarea>
+                <textarea rows="5" class="form-control rounded-0" formControlName="proprieteDescription"></textarea>
               </div>
             </div>
             <div class="col-12">
@@ -633,23 +450,13 @@
             <div class="col-4 mb-3">
               <div class="form-group">
                 <label class="form-label">Prix d'achat ou de location<span class="text-danger">*</span></label>
-                <input
-                  type="text"
-                  class="form-control rounded-0"
-                  appInputFormat
-                  formControlName="proprietePrix"
-                />
+                <input type="text" class="form-control rounded-0" appInputFormat formControlName="proprietePrix" />
               </div>
             </div>
             <div class="col-3 mb-3">
               <div class="form-group">
-                <label class="form-label"
-                  >Statut<span class="text-danger">*</span></label
-                >
-                <select
-                  class="form-select rounded-0"
-                  formControlName="proprieteStatu"
-                >
+                <label class="form-label">Statut<span class="text-danger">*</span></label>
+                <select class="form-select rounded-0" formControlName="proprieteStatu">
                   <option value="Disponible">Disponible</option>
                   <option value="Vendu">Vendu</option>
                   <option value="Loué">Loué</option>
@@ -658,9 +465,7 @@
             </div>
             <div class="col-5 mb-3">
               <div class="form-group">
-                <label class="form-label"
-                  >Hypothèques ou prêts liés à la propriété</label
-                >
+                <label class="form-label">Hypothèques ou prêts liés à la propriété</label>
                 <input type="text" class="form-control rounded-0" />
               </div>
             </div>
@@ -670,86 +475,45 @@
             <div class="col-12 mb-3">
               <div class="form-check d-inline-block me-3">
                 <label class="form-check-label" for="jardin">Jardin</label>
-                <input
-                  type="checkbox"
-                  class="form-check-input rounded-0"
-                  id="jardin"
-                  formControlName="proprieteJardin"
-                />
+                <input type="checkbox" class="form-check-input rounded-0" id="jardin"
+                  formControlName="proprieteJardin" />
               </div>
               <div class="form-check d-inline-block me-3">
                 <label class="form-check-label" for="piscine">Piscine</label>
-                <input
-                  type="checkbox"
-                  class="form-check-input rounded-0"
-                  id="piscine"
-                  formControlName="proprietePiscine"
-                />
+                <input type="checkbox" class="form-check-input rounded-0" id="piscine"
+                  formControlName="proprietePiscine" />
               </div>
               <div class="form-check d-inline-block me-3">
-                <label class="form-check-label" for="garage"
-                  >Garage ou espace de stationnement</label
-                >
-                <input
-                  type="checkbox"
-                  class="form-check-input rounded-0"
-                  id="garage"
-                  formControlName="proprieteGarage"
-                />
+                <label class="form-check-label" for="garage">Garage ou espace de stationnement</label>
+                <input type="checkbox" class="form-check-input rounded-0" id="garage"
+                  formControlName="proprieteGarage" />
               </div>
               <div class="form-check d-inline-block me-3">
-                <label class="form-check-label" for="balcon"
-                  >Balcon ou terrasse</label
-                >
-                <input
-                  type="checkbox"
-                  class="form-check-input rounded-0"
-                  id="balcon"
-                  formControlName="proprieteBalcon"
-                />
+                <label class="form-check-label" for="balcon">Balcon ou terrasse</label>
+                <input type="checkbox" class="form-check-input rounded-0" id="balcon"
+                  formControlName="proprieteBalcon" />
               </div>
               <div class="form-check d-inline-block me-3">
                 <label class="form-check-label" for="cheminee">Cheminée</label>
-                <input
-                  type="checkbox"
-                  class="form-check-input rounded-0"
-                  id="cheminee"
-                  formControlName="proprieteChemine"
-                />
+                <input type="checkbox" class="form-check-input rounded-0" id="cheminee"
+                  formControlName="proprieteChemine" />
               </div>
               <div class="form-check d-inline-block me-3">
-                <label class="form-check-label" for="climatisation"
-                  >Système de climatisation</label
-                >
-                <input
-                  type="checkbox"
-                  class="form-check-input rounded-0"
-                  id="climatisation"
-                  formControlName="proprieteClimatisation"
-                />
+                <label class="form-check-label" for="climatisation">Système de climatisation</label>
+                <input type="checkbox" class="form-check-input rounded-0" id="climatisation"
+                  formControlName="proprieteClimatisation" />
               </div>
               <div class="form-check d-inline-block me-3">
-                <label class="form-check-label" for="supplémentaires"
-                  >Équipements supplémentaires</label
-                >
-                <input
-                  type="checkbox"
-                  class="form-check-input rounded-0"
-                  [(ngModel)]="eqpmtSup"
-                  id="supplémentaires"
-                  formControlName="proprieteEquipement"
-                />
+                <label class="form-check-label" for="supplémentaires">Équipements supplémentaires</label>
+                <input type="checkbox" class="form-check-input rounded-0" [(ngModel)]="eqpmtSup" id="supplémentaires"
+                  formControlName="proprieteEquipement" />
               </div>
             </div>
             <div class="col-12 mb-3" *ngIf="eqpmtSup">
               <div class="d-flex mb-3">
                 <div class="form-group w-100">
-                  <input
-                    type="text"
-                    class="form-control rounded-0"
-                    placeholder="Nom de l'équipement"
-                    formControlName="proprieteequipementdetails"
-                  />
+                  <input type="text" class="form-control rounded-0" placeholder="Nom de l'équipement"
+                    formControlName="proprieteequipementdetails" />
                 </div>
                 <button type="button" class="btn btn-primary ms-3">
                   Ajouter
@@ -778,63 +542,43 @@
               <div class="form-group">
                 <label class="form-label">Coordonnées géopgraphiques</label>
                 <div class="d-flex">
-                  <input
-                    type="number"
-                    class="form-control rounded-0"
-                    placeholder="Longitude"
-                    formControlName="proprieteLongitude"
-                  />
-                  <input
-                    type="number"
-                    class="form-control rounded-0 ms-2"
-                    placeholder="Latitude"
-                    formControlName="proprieteLatitude"
-                  />
+                  <input type="number" class="form-control rounded-0" placeholder="Longitude"
+                    formControlName="proprieteLongitude" />
+                  <input type="number" class="form-control rounded-0 ms-2" placeholder="Latitude"
+                    formControlName="proprieteLatitude" />
                 </div>
               </div>
             </div>
             <div class="col-6 mb-3">
               <div class="form-group">
                 <label class="form-label">Quartier ou zone</label>
-                <input
-                  type="text"
-                  class="form-control rounded-0"
-                  formControlName="proprieteQuartier"
-                />
+                <input type="text" class="form-control rounded-0" formControlName="proprieteQuartier" />
               </div>
             </div>
             <div class="col-12">
               <h6 class="text-warning">Images</h6>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-12 mb-3">
               <div class="form-group">
-                <label class="btn btn-light-primary" for="filePropriete"
-                  ><i class="ti ti-upload"></i> Sélectionner des images
-                  <span class="text-danger">*</span></label
-                >
-                <input
-                  type="file"
-                  id="filePropriete"
-                  class="form-control form-control-lg rounded-0 d-none"
-                  formControlName="proprieteLienPhoto"
-                  (change)="onFileChangePropriete($event)"
-                />
+                <label class="btn btn-light-primary" for="filePropriete"><i class="ti ti-upload"></i> Sélectionner des
+                  images
+                  <span class="text-danger">*</span></label>
+                <input type="file" id="filePropriete" class="form-control form-control-lg rounded-0 d-none"
+                  (change)="onFileChangePropriete($event)" />
+                  <input type="text" class="form-control form-control-lg rounded-0 d-none"
+                  formControlName="proprieteLienPhoto"/>
               </div>
             </div>
-            <div class="row" *ngIf="fileToUploadPropriete">
+            <div class="row" *ngIf="formProprieteGroup.get('proprieteLienPhoto')?.value">
               <div class="col-6 mb-3">
                 <div class="border" style="height: 200px">
-                  <img
-                    src="{{ lienPhotoretourPropriete }}"
-                    alt=""
-                    class="w-100 h-100"
-                  />
+                  <img src="{{ lienPhotoretourPropriete }}" alt="" class="w-100 h-100" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <input type="text" formControlName="bailleurId" [(ngModel)]="MbailleurId"/>
+        <input type="text" formControlName="bailleurId" [(ngModel)]="MbailleurId" class="d-none"/>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-bs-dismiss="modal">
             Fermer
@@ -843,6 +587,6 @@
         </div>
       </div>
     </div>
-   
+
   </form>
 </div>
