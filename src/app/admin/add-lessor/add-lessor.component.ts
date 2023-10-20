@@ -56,7 +56,7 @@ export class AddLessorComponent {
     private tpyebienService: TpyebienService,
     private usersService: UsersService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   formGroup!: FormGroup;
   formProprieteGroup!: FormGroup;
@@ -161,7 +161,7 @@ export class AddLessorComponent {
             showConfirmButton: false,
             timer: 1500,
           });
-  
+
           this.oneBailleur(ret.data.bailleurId);
           this.ajoutUtilisateur(f);
           /*this.formGroup.reset();
@@ -194,7 +194,7 @@ export class AddLessorComponent {
             showConfirmButton: false,
             timer: 1500,
           });
-  
+
           this.oneBailleur(f.bailleurId);
           /*this.formGroup.reset();
           this.lienPhotoretour2 = '';
@@ -384,11 +384,12 @@ export class AddLessorComponent {
   resetPropriete() {
     this.formProprieteGroup.reset();
     this.formProprieteGroup.controls['bailleurId'].setValue(this.SauvID);
-   // this.MbailleurId = SauvID;
+    // this.MbailleurId = SauvID;
   }
 
   submitPropriete(f: any) {
     var body = {
+      proprieteId: parseInt(f.proprieteId),
       proprieteAnnee: parseInt(f.proprieteAnnee),
       proprieteSurface: parseFloat(f.proprieteSurface),
       proprieteNbrEtage: parseInt(f.proprieteNbrEtage),
@@ -415,14 +416,56 @@ export class AddLessorComponent {
       proprieteAdresse: f.proprieteAdresse,
     };
 
-    this.proprieteService.ajoutPropriete(body).subscribe((ret) => {
-      console.log(ret.data);
-      this.SauvID = this.MbailleurId;
-      this.previewImagePropriete = '';
-      this.lienPhotoretourPropriete = '';
-      this.allProprieteByBailleur(this.MbailleurId);
-      this.resetPropriete();
-    });
+    if (!f.proprieteId) {
+      this.proprieteService.ajoutPropriete(body).subscribe((ret) => {
+        console.log(ret.data);
+        this.SauvID = this.MbailleurId;
+        this.previewImagePropriete = '';
+        this.lienPhotoretourPropriete = '';
+        this.allProprieteByBailleur(this.MbailleurId);
+        this.resetPropriete();
+      });
+    } else {
+      this.proprieteService.modifiPropriete(body).subscribe((ret) => {
+        this.SauvID = this.MbailleurId;
+        this.previewImagePropriete = '';
+        this.lienPhotoretourPropriete = '';
+        this.allProprieteByBailleur(this.MbailleurId);
+        this.resetPropriete();
+      });
+    }
+  }
+
+  setFormPropriete(f: any) {
+    console.log(f);
+    this.lienPhotoretourPropriete = this.configService.urlg + f.proprieteLienPhoto;
+    this.formProprieteGroup.patchValue({
+      proprieteId: f.proprieteId,
+      proprieteAnnee: f.proprieteAnnee,
+      proprieteSurface: f.proprieteSurface,
+      proprieteNbrEtage: f.proprieteNbrEtage,
+      proprieteNbrChambre: f.proprieteNbrChambre,
+      proprieteNbreSalleBain: f.proprieteNbreSalleBain,
+      proprieteDescription: f.proprieteDescription,
+      proprieteStatu: f.proprieteStatu,
+      proprietePrix: f.proprietePrix,
+      proprietePret: f.proprietePret,
+      proprieteJardin: f.proprieteJardin ?? false,
+      proprietePiscine: f.proprietePiscine ?? false,
+      proprieteGarage: f.proprieteGarage ?? false,
+      proprieteBalcon: f.proprieteBalcon ?? false,
+      proprieteChemine: f.proprieteChemine ?? false,
+      proprieteClimatisation: f.proprieteClimatisation ?? false,
+      proprieteEquipement: f.proprieteEquipement ?? false,
+      proprieteequipementdetails: f.proprieteequipementdetails,
+      proprieteLongitude: f.proprieteLongitude,
+      proprieteLatitude: f.proprieteLatitude,
+      proprieteQuartier: f.proprieteQuartier,
+      proprieteLienPhoto: f.proprieteLienPhoto,
+      bailleurId: this.MbailleurId,
+      typebienId: f.typebien.typebienId,
+      proprieteAdresse: f.proprieteAdresse,
+    })
   }
 
   onFileChangePropriete(event: any) {
@@ -434,7 +477,11 @@ export class AddLessorComponent {
       this.uploadService.upload(formData).subscribe(
         (ret) => {
           console.log(ret);
+          this.formProprieteGroup.patchValue({
+            proprieteLienPhoto: ret.data
+          })
           this.lienPhotoretourPropriete = this.configService.urlg + ret.data;
+          // this.previewImagePropriete =  ret.data;
           this.file = ret.data;
           this.isLoading = false;
         },
