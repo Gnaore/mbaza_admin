@@ -63,6 +63,6 @@ oneBien(id: number): Observable<any> {
   const headers = new HttpHeaders({
     Authorization: `Bearer ${currentUserJSON.token}`,
   });
-  return this.httpClient.get(this.urlG + 'banque/' + id, { headers });
+  return this.httpClient.get(this.urlG + 'bien/' + id, { headers });
 }
 }

@@ -65,4 +65,61 @@ export class BailleurService {
     });
     return this.httpClient.get(this.urlG + 'bailleur/' + id, { headers });
   }
+
+
+
+  onebailleurincludePropr(id: number): Observable<any> {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return this.httpClient.get(this.urlG + 'bailleur/includePropr/' + id, { headers });
+  }
+
+
+  getOneByUserId(id: number): Observable<any> {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return this.httpClient.get(this.urlG + 'user/oneuser/' + id, { headers });
+  }
+
+  
+
+  allProprieteBailleur(id: number): Observable<any> {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return this.httpClient.get(this.urlG + 'propriete/bybailleur/' + id, { headers });
+  }
+
+  allProprieteBailleurDisponible(id: number): Observable<any> {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return this.httpClient.get(this.urlG + 'propriete/dispobybailleur/' + id, { headers });
+  }
+
+  allpayementbyBailleur(id: number): Observable<any> {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return this.httpClient.get(this.urlG + 'bailleur/allpayementbyBailleur/' + id, { headers });
+  }
+
+  
 }

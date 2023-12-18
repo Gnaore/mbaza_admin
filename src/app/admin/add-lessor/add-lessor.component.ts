@@ -21,6 +21,7 @@ import { ProprieteService } from 'src/app/services/propriete.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-add-lessor',
   templateUrl: './add-lessor.component.html',
@@ -55,8 +56,9 @@ export class AddLessorComponent {
     private proprieteService: ProprieteService,
     private tpyebienService: TpyebienService,
     private usersService: UsersService,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private router: Router 
+  ) {   }
 
   formGroup!: FormGroup;
   formProprieteGroup!: FormGroup;
@@ -66,10 +68,11 @@ export class AddLessorComponent {
   selectedTypePropriete: any;
   selectedBank: any;
   listepropriete: any[] = [];
+  id: any;
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.oneBailleur(id);
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.oneBailleur(this.id);
     this.initForm();
     this.allBanque();
     this.listeTypepropriete();
@@ -378,7 +381,40 @@ export class AddLessorComponent {
   }
 
   supPropriete(proprieteId: any) {
-    alert(proprieteId);
+    Swal.fire({
+      title: 'Etes-vous vraiment certain ?',
+      text: 'Cet enregistrement sera supprimé !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.isLoading = true
+        this.proprieteService.supPropriete(proprieteId).subscribe(
+          (ret) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Suppression terminée avec succès',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.isLoading = false
+            this.allProprieteByBailleur(this.id)
+          },
+          (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.statusText,
+            });
+          }
+        );
+      }
+    });
+
   }
 
   resetPropriete() {

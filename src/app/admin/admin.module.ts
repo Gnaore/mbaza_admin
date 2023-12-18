@@ -39,6 +39,9 @@ import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TagModule } from 'primeng/tag';
 
+import { NgxLoadingModule } from 'ngx-loading';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
   declarations: [
@@ -78,6 +81,15 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     TagModule,
     DialogModule,
     ToastrModule.forRoot(), // ToastrModule added
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: 'rgba(0,0,0,0.5)',
+      backdropBorderRadius: '4px',
+      primaryColour: '#ffffff',
+      secondaryColour: '#ffffff',
+      tertiaryColour: '#ffffff',
+      fullScreenBackdrop: false,
+    }),
   ],
 })
 export class AdminModule {}

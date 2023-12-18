@@ -169,7 +169,8 @@
                         'ADMINISTRATEUR',
                         'HUISSIER',
                         'BANQUE',
-                        'BAILLEUR'
+                        'BAILLEUR',
+                        'LOCATAIRE'
                       ]"
                       placeholder="Filtrer par role"
                       (onChange)="filter($event.value)"
@@ -202,6 +203,12 @@
                         <ng-container *ngIf="option === 'BAILLEUR'">
                           <p-tag
                             severity="danger"
+                            [value]="option | lowercase"
+                          ></p-tag>
+                        </ng-container>
+                        <ng-container *ngIf="option === 'LOCATAIRE'">
+                          <p-tag
+                            severity="info"
                             [value]="option | lowercase"
                           ></p-tag>
                         </ng-container>
@@ -300,6 +307,12 @@
                   ></p-tag>
                 </ng-container>
                 <ng-container *ngIf="n.role === 'BAILLEUR'">
+                  <p-tag
+                    severity="warning"
+                    [value]="n.role | lowercase"
+                  ></p-tag>
+                </ng-container>
+                <ng-container *ngIf="n.role === 'LOCATAIRE'">
                   <p-tag
                     severity="warning"
                     [value]="n.role | lowercase"

@@ -25,6 +25,7 @@
           data-bs-toggle="modal"
           data-bs-target="#exampleModal1"
           class="btn btn-primary"
+          (click)="resetForm()"
         >
           <i class="ti ti-plus text-primary"></i>
           Nouveau bien
@@ -63,6 +64,17 @@
             <input type="date" class="form-control rounded-0" />
           </div>
         </div>
+        
+        <ngx-loading
+        [show]="loading"
+        [config]="{
+          animationType: ngxLoadingAnimationTypes.wanderingCubes,
+          primaryColour: primaryColour,
+          secondaryColour: secondaryColour,
+          backdropBorderRadius: '3px'
+        }"
+      ></ngx-loading>
+
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped">
             <thead class="table-dark">
@@ -114,10 +126,11 @@
                       class="btn btn-sm btn-info"
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal1"
+                      (click)="getOneBien(n.bienId)"
                     >
                       <i class="ti ti-edit"></i>
                     </a>
-                    <a href="#" class="btn btn-sm btn-danger ms-2">
+                    <a (click)="suprimeBien(n.bienId)" class="btn btn-sm btn-danger ms-2">
                       <i class="ti ti-trash"></i>
                     </a>
                   </div>
@@ -192,7 +205,7 @@
           <div class="row">
             <div class="col-12">
               <h6 class="text-warning">Informations générales</h6>
-              <input type="text" formControlName="bienId" />
+              <input type="text" formControlName="bienId" hidden/>
             </div>
             <div class="col-6 mb-3">
               <div class="form-group">
@@ -315,11 +328,16 @@
                  
                   (change)="onFileChangeContrat($event)"
                 />
-                <input type="text" formControlName="bienContrat" />
+                <input type="text" formControlName="bienContrat" hidden/>
               </div>
             </div>
-            <div class="col-12">
-              <p-chip label={{libelleContrat}} [removable]="false" (onRemove)="supContrat(libelleContrat)"></p-chip>
+            <div class="col-12" >
+              <p-chip  
+              style="cursor: pointer" 
+              label={{libelleContrat}} 
+              [removable]="false" 
+              (onRemove)="supContrat(libelleContrat)"
+             (click)="openDoc(libelleContrat)"></p-chip>
             </div>
             <div class="col-12">
               <h6 class="text-warning">Images</h6>
@@ -337,7 +355,7 @@
                   
                   (change)="onFileChangeBien($event)"
                 />
-                <input type="text" formControlName="bienImage" />
+                <input type="text" formControlName="bienImage" hidden/>
               </div>
             </div>
             <div class="col-12">
@@ -348,6 +366,7 @@
                     src="{{ lienPhotoretourPropriete }}"
                       alt=""
                       class="w-100 h-100"
+                      (click)="openDoc2(lienPhotoretourPropriete)"
                     />
                    
                   </div>
