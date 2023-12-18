@@ -11,7 +11,7 @@
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     <i class="ti ti-user text-primary"></i>
-                    B0003456
+                    {{codeBailleur}}
                 </li>
             </ol>
         </nav>
@@ -22,7 +22,7 @@
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h3 class="card-title fw-semibold">
                     <i class="ti ti-dashboard text-primary"></i>
-                    Tableau de bord / <span class="text-warning">B0003456</span>
+                    Tableau de bord / <span class="text-warning">{{codeBailleur}}</span>
                 </h3>
                 <a routerLink="/admin/lessor-manager/" class="btn btn-warning">
                     <i class="ti ti-arrow-back text-primary"></i>
@@ -32,11 +32,26 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-3 mb-5">
-                        <div class="rounded shadow bg-warning bg-opacity-50 text-white" style="cursor: pointer;" (click)="goTo('tenant/0')">
+                        <div class="rounded shadow bg-danger bg-opacity-50 text-white" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getAllPropriete(id)">
+                            <div class="row px-3 py-3">
+                                <div class="col-8">
+                                    <h4 class="text-white">Propriétés.</h4>
+                                    <h1><strong>{{nbrPropriete}}</strong></h1>
+                                </div>
+                                <div class="col-4 d-flex align-items-center justify-content-center">
+                                    <h1 class="mb-0 bg-white rounded p-2">
+                                        <i class="ti ti-home text-danger"></i>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 mb-5">
+                        <div class="rounded shadow bg-warning bg-opacity-50 text-white" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#locataireModal" >
                             <div class="row px-3 py-3">
                                 <div class="col-8">
                                     <h4 class="text-white">Locataires.</h4>
-                                    <h1><strong>56</strong></h1>
+                                    <h1><strong>{{nbrLocataire}}</strong></h1>
                                 </div>
                                 <div class="col-4 d-flex align-items-center justify-content-center">
                                     <h1 class="mb-0 bg-white rounded p-2">
@@ -46,8 +61,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="rounded shadow bg-info bg-opacity-50 text-white" style="cursor: pointer;" (click)="goTo('alerts/0')">
+                    <!--div class="col-3">
+                        <div class="rounded shadow bg-info bg-opacity-50 text-white" style="cursor: pointer;" (click)="goTo()">
                             <div class="row px-3 py-3">
                                 <div class="col-8">
                                     <h4 class="text-white">Alertes.</h4>
@@ -60,23 +75,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="rounded shadow bg-danger bg-opacity-50 text-white" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <div class="row px-3 py-3">
-                                <div class="col-8">
-                                    <h4 class="text-white">Propriétés.</h4>
-                                    <h1><strong>5</strong></h1>
-                                </div>
-                                <div class="col-4 d-flex align-items-center justify-content-center">
-                                    <h1 class="mb-0 bg-white rounded p-2">
-                                        <i class="ti ti-home text-danger"></i>
-                                    </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
+                    </div-->
+                    
+                    <!--div class="col-3">
                         <div class="rounded shadow text-white" style="background-color: rgba(255, 54, 54, 0.747); cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                             <div class="row px-3 py-3">
                                 <div class="col-8">
@@ -90,10 +91,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div-->
+                   
+                </div>
+                <div class="row mb-3">
                     <div class="col-6 d-flex align-items-center">
                         <h3 class="m-0"><strong>Transactions récentes</strong></h3>
                     </div>
+              
                     <div class="col-6 d-flex">
                         <div class="form-group w-50">
                             <label class="form-label">Période du : </label>
@@ -104,26 +109,35 @@
                             <input type="date" class="form-control border-0 bg-light">
                         </div>
                     </div>
-                </div>
+               </div>
+                <ngx-loading
+                [show]="loading"
+                [config]="{
+                  animationType: ngxLoadingAnimationTypes.wanderingCubes,
+                  primaryColour: primaryColour,
+                  secondaryColour: secondaryColour,
+                  backdropBorderRadius: '3px'
+                }"
+              ></ngx-loading>
                 <table class="table table-bordered table-responsive table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th>Référence.</th>
-                            <th>Locataire.</th>
-                            <th>Libéllé.</th>
-                            <th>Montant.</th>
+                            <th>Ref. Locatire.</th>
+                            <th>Réf. Paiement</th>
                             <th>Date.</th>
-                            <th>Heure.</th>
+                            <th>Montant.</th>
+                            <th>Mois.</th>
+                            <th>Statut.</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let n of [].constructor(14)">
-                            <td class="fw-semibold">07827882TG</td>
-                            <td>Wilfied Samuel Henock</td>
-                            <td><div class="text-overflow">Paiement par Orange Money</div></td>
-                            <td class="alert alert-success fw-semibold"><div class="text-overflow">425,000 F</div></td>
-                            <td><div class="text-overflow">Lun. 11 Avril 2023 <i class="ti ti-calendar text-warning"></i></div></td>
-                            <td><div class="text-overflow">11:54:08 <i class="ti ti-clock text-info"></i></div></td>
+                        <tr *ngFor="let n of listpayement" >
+                            <td *ngIf="n.idWaveCallback" class="fw-semibold" >{{n.locataireRef}}</td>
+                            <td *ngIf="n.idWaveCallback">{{n.idWaveCallback}}</td>
+                            <td *ngIf="n.idWaveCallback"><div class="text-overflow">{{n.when_completed | date: 'EEEE d MMMM yyyy' }}  </div></td>
+                            <td *ngIf="n.idWaveCallback" class="alert alert-success fw-semibold"><div class="text-overflow">{{n.amount | number:'1.0':'fr' }} {{n.currency}}</div></td>
+                            <td *ngIf="n.idWaveCallback"><div class="text-overflow">{{n.loyer_mois}} <i class="ti ti-calendar text-warning"></i></div></td>
+                            <td *ngIf="n.idWaveCallback"><div class="text-overflow">{{n.payment_status}} <i class="ti ti-clock text-info"></i></div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -163,18 +177,67 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let n of [].constructor(5); let i = index;">
-                                    <td>07827882TG</td>
-                                    <td>Cocody St Jean, en face de l'église</td>
-                                    <td>Villa</td>
-                                    <td>2020</td>
-                                    <th class="alert alert-info">135,000 F</th>
-                                    <td><div class="alert {{ i%2 == 0 ? 'alert-success' : 'alert-warning' }} py-1">{{ i%2 == 0 ? 'Disponible' : 'Loué' }}</div></td>
+                                <tr *ngFor="let n of listpropriete; let i = index;">
+                                    <td>{{n.proprieteCode}}</td>
+                                    <td>{{n.proprieteAdresse}}</td>
+                                    <td>{{n.typebien.libelleTypebien}}</td>
+                                    <td>{{n.proprieteAnnee}}</td>
+                                    <th class="alert alert-info">{{n.proprietePrix}}</th>
+                                    <td><div class="alert {{ n.proprieteStatu == 'Disponible' ? 'alert-success' : 'alert-warning' }} py-1">{{n.proprieteStatu}}</div></td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-info">
                                             <i class="ti ti-file-export"></i>
                                         </a>
                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Locataires -->
+<div class="modal modal-xl fade" id="locataireModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLabel">
+                    <i class="ti ti-home-2 rounded-circle bg-white text-info p-2"></i>
+                    Locataires</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <input type="search" class="form-control rounded-0" placeholder="Recherche">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-responsive table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Ref.</th>
+                                    <th>Nom et prenoms.</th>
+                                    <th>Telephone.</th>
+                                    <th>Email.</th>
+                                    <th>Nationalite.</th>
+                                    <th>Profession.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let n of listlocataire; let i = index;">
+                                    <td class="alert alert-info">{{n.locataireRef}}</td>
+                                    <td>{{n.locataireNom}}</td>
+                                    <td>{{n.locataireTel}}</td>
+                                    <td>{{n.locataireEmail}}</td>
+                                    <td>{{n.locataireNationalite}}</td>
+                                    <td>{{n.locataireProfession}}</td>
                                 </tr>
                             </tbody>
                         </table>
