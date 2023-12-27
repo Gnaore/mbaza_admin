@@ -20,6 +20,7 @@ import {
 import { ProprieteService } from 'src/app/services/propriete.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ToastrService } from 'ngx-toastr';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 
 @Component({
@@ -45,6 +46,10 @@ export class AddLessorComponent {
   previewImagePropriete: any;
   fileToUploadPropriete: any;
   lienPhotoretourPropriete: any;
+
+  ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  primaryColour = this.configService.PrimaryWhite;
+  secondaryColour = this.configService.SecondaryGrey;
 
   constructor(
     private banqueService: BanqueService,
@@ -72,7 +77,8 @@ export class AddLessorComponent {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.oneBailleur(this.id);
+    if (this.id !== '0') 
+      this.oneBailleur(this.id);
     this.initForm();
     this.allBanque();
     this.listeTypepropriete();
@@ -135,6 +141,7 @@ export class AddLessorComponent {
   }
 
   onSubmit(f: any) {
+    this.isLoading = true;
     var boby = {
       bailleurId: f.bailleurId,
       bailleurNomPrenoms: f.bailleurNomPrenoms,
@@ -154,6 +161,17 @@ export class AddLessorComponent {
       bailleurLienPhoto: this.file2,
     };
 
+    // Subject: Ouverture de compte M'baaza
+    // Message: 
+    //    Bonjour cher abonné Mbaaza !
+    //    Votre compte vient d'être créé avec succès.
+    //    Pour accéder à votre espace bailleur, veuillez cliquer sur le lien suivant : <a href="">Accéder à mon espace</a>.
+    //    Ci-dessous, vos identifiants de connexion :
+    //      E-mail : <b>name@domain</b>.
+    //      Mot de passe : <b>123</b>.
+    //    Veuillez procéder à la modification de votre mot de passe après la première connexion.
+    //    L'équipe de Mbaaza vous remercie pour votre confiance.
+
     if (!f.bailleurId) {
       this.bailleurService.ajoutBailleur(boby).subscribe(
         (ret) => {
@@ -167,6 +185,7 @@ export class AddLessorComponent {
 
           this.oneBailleur(ret.data.bailleurId);
           this.ajoutUtilisateur(f);
+          this.isLoading = false;
           /*this.formGroup.reset();
           this.lienPhotoretour2 = '';
           this.file2 = '';
@@ -185,6 +204,7 @@ export class AddLessorComponent {
             title: 'Oops...',
             text: err.error.message,
           });
+          this.isLoading = false;
         }
       );
     } else {
@@ -199,6 +219,7 @@ export class AddLessorComponent {
           });
 
           this.oneBailleur(f.bailleurId);
+          this.isLoading = false;
           /*this.formGroup.reset();
           this.lienPhotoretour2 = '';
           this.file2 = '';
@@ -217,6 +238,7 @@ export class AddLessorComponent {
             title: 'Oops...',
             text: err.error.message,
           });
+          this.isLoading = false;
         }
       );
     }
@@ -225,6 +247,7 @@ export class AddLessorComponent {
   }
 
   oneBailleur(id: any) {
+    this.isLoading = true;
     this.bailleurService.onebailleur(id).subscribe(
       (ret) => {
         this.MbailleurId = ret.data.bailleurId;
@@ -273,9 +296,11 @@ export class AddLessorComponent {
           this.configService.urlg + ret.data.bailleurLienPhoto;
         this.file2 = ret.data.bailleurLienPhoto;
         this.allProprieteByBailleur(id);
+        this.isLoading = false;
       },
       (err) => {
         console.log(err.error.message);
+        this.isLoading = false;
       }
     );
   }

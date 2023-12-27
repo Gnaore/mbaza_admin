@@ -31,6 +31,12 @@
       </div>
       <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
         <div class="card-body">
+          <ngx-loading [show]="isLoading" [config]="{
+            animationType: ngxLoadingAnimationTypes.wanderingCubes,
+            primaryColour: primaryColour,
+            secondaryColour: secondaryColour,
+            backdropBorderRadius: '3px'
+          }"></ngx-loading>
           <div class="alert alert-warning">
             Vérifiez la conformité des informations avant l'enregistrement.
           </div>
