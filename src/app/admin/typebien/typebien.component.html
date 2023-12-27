@@ -78,80 +78,68 @@
             </div>
   
             <div class="col-8">
-              <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped">
-                  <thead class="table-dark">
-                    <tr>
-                      <th>ID.</th>
-                      <th>Type.</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let typebien of typebiens; let i = index">
-                      <td>{{ i+1 }}</td>
-                      <td>{{ typebien.libelleTypebien }}</td>
-                      <td>
-                        <a
-                          class="btn btn-sm btn-info"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          type="button"
-                          (click)="oneTypebien(typebien.typebienId)"
-                        >
-                          <i class="ti ti-edit"></i>
-                        </a>
-                        <a
-                          class="btn btn-sm btn-danger ms-3"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          type="button"
-                          (click)="supTypebien(typebien.typebienId)"
-                        >
-                          <i class="ti ti-trash"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td colspan="2">
-                        <strong
-                          >Nombre d'enregistrement : {{ typebiens.length }}</strong
-                        >
-                      </td>
-                      <td colspan="3" class="py-0">
-                        <nav
-                          aria-label="Page navigation example"
-                          class="float-end"
-                        >
-                          <ul class="pagination mb-0">
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                              </a>
-                            </li>
-                            <li class="page-item active">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
+              <p-table
+          [scrollable]="true"
+          #dt1
+          currentPageReportTemplate="Affichage {first} sur {last} pour {{
+            typebiens.length
+          }} utilisateur(s)"
+          [globalFilterFields]="['libelleTypebien']"
+          [rowsPerPageOptions]="[5, 10, 25, 50]"
+          [paginator]="true"
+          [rows]="5"
+          [showCurrentPageReport]="true"
+          [value]="typebiens"
+          styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'font-size': '15px' }"
+        >
+          <ng-template pTemplate="caption">
+            <div class="flex">
+              <span class="p-input-icon-left ml-auto w-50">
+                <i class="ti ti-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  class="form-control w-100"
+                  #search
+                  (input)="dt1.filterGlobal(search.value, 'contains')"
+                  placeholder="Mots clés"
+                />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Libéllé</th>
+              <th>Actions.</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-typebien>
+            <tr>
+              <td>
+                {{typebien.libelleTypebien}}
+            </td>
+             
+              <td>
+                <div class="d-flex align-items-center">
+                  <a href="#" class="btn btn-sm btn-info me-3"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal1"
+                  (click)="oneTypebien(typebien.typebienId)"
+                  >
+                    <i class="ti ti-edit"></i>
+                  </a>
+                  <a  class="btn btn-sm btn-danger me-3"
+                  (click)="supTypebien(typebien.typebienId)"
+                  >
+                    <i class="ti ti-trash"></i>
+                  </a>
+                </div>
+                
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
             </div>
           </div>
         </div>
