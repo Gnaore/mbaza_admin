@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ResetPasswordService } from 'src/app/services/reset-password.service';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +12,16 @@ import { ResetPasswordService } from 'src/app/services/reset-password.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(private authService: AuthService) { }
+    
+    constructor(private authService: AuthService, private configService: ConfigService) { }
 
   private builder = inject(FormBuilder);
   private router = inject(Router);
   private resetPasswordService = inject(ResetPasswordService);
+  ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  primaryColour = this.configService.PrimaryWhite;
+  secondaryColour = this.configService.SecondaryGrey;
+
 
   formGroup!: FormGroup;
   email!: FormGroup;
@@ -42,7 +49,7 @@ export class LoginComponent {
   }
 
   login(f: any) {
-
+    this.afficheErreur = false;
     this.isLoading = true;
     /* const loginFormData = new FormData();
      loginFormData.append('userName', f.userName);
