@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ResetPasswordService } from 'src/app/services/reset-password.service';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { ConfigService } from 'src/app/services/config.service';
+import { ROLE } from 'src/app/enum/role.enum';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,10 @@ export class LoginComponent {
   reponse: any;
   error: { success: boolean, errorMessage: string } = { success: false, errorMessage: "" };
   afficheErreur: boolean = false;
+  noAccess: boolean = false;
   msgErreur = "En attente de vos identifiants";
+
+  role = ROLE;
 
   ngOnInit() {
     this.initForm();
@@ -50,6 +54,7 @@ export class LoginComponent {
 
   login(f: any) {
     this.afficheErreur = false;
+    this.noAccess = false;
     this.isLoading = true;
     /* const loginFormData = new FormData();
      loginFormData.append('userName', f.userName);
@@ -61,8 +66,15 @@ export class LoginComponent {
     //console.log(body);
     this.authService.login(body).subscribe(result => {
       this.reponse = result;
+      if (result.user.userrole === this.role.ADMIN || result.user.userrole === this.role.ROOT)
+        window.location.href = '/admin';  
+      else {
+        localStorage.clear();
+        this.isLoading = false;
+        this.noAccess = true;
+      }
+      
       //this.router.navigate(['/tableaudebord']);
-      window.location.href = '/admin';
     }, (err) => {
       localStorage.clear();
       this.msgErreur = err.error.message

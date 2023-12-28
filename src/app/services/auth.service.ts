@@ -75,6 +75,6 @@ entetes = entetes.set('Accept-Encoding', 'gzip, deflate, sdch');*/
   logout() {
     localStorage.removeItem('currentUser');
     this.concurentUserSubject.next({});
-    this.router.navigate(['/auth']);
+    window.location.href = '/auth';  
   }
 }
