@@ -27,15 +27,12 @@
         <div class="alert alert-info">Gérez vos bailleurs (Ajoutez, modifiez, supprimez, listez les
           locataires d'un bailleur).</div>
 
-          <ngx-loading
-          [show]="loading"
-          [config]="{
+        <ngx-loading [show]="loading" [config]="{
             animationType: ngxLoadingAnimationTypes.wanderingCubes,
             primaryColour: primaryColour,
             secondaryColour: secondaryColour,
             backdropBorderRadius: '3px'
-          }"
-        ></ngx-loading>
+          }"></ngx-loading>
 
         <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
                   listeBailleur.length
@@ -53,14 +50,16 @@
             </div>
           </ng-template>
           <ng-template pTemplate="header">
-            <th class="text-center">Image.</th>
-            <th class="text-center">Identifiant.</th>
-            <th class="text-center">Nom & Prénom(s).</th>
-            <th class="text-center">Email.</th>
-            <th class="text-center">Contact.</th>
-            <th class="text-center">Adresse.</th>
-            <th class="text-center">Nbre Propiétés.</th>
-            <th class="text-center" pFrozenColumn>Actions</th>
+            <tr>
+              <th class="text-center">Image.</th>
+              <th class="text-center">Identifiant.</th>
+              <th class="text-center">Nom & Prénom(s).</th>
+              <th class="text-center">Email.</th>
+              <th class="text-center">Contact.</th>
+              <th class="text-center">Adresse.</th>
+              <th class="text-center">Nbre Propiétés.</th>
+              <th class="text-center" pFrozenColumn>Actions</th>
+            </tr>
           </ng-template>
 
           <ng-template pTemplate="body" let-n>

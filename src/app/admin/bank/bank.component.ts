@@ -1,7 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { BanqueService } from 'src/app/services/banque.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { PaysService } from 'src/app/services/pays.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
@@ -16,8 +18,9 @@ export class BankComponent implements OnInit {
     private banqueService: BanqueService,
     private paysService: PaysService,
     private formBuilder: FormBuilder,
+    private configService: ConfigService,
     private router: Router
-  ) {}
+  ) { }
 
   countries: any[] = [];
   selectedCountry: any;
@@ -26,10 +29,15 @@ export class BankComponent implements OnInit {
 
   banques: any[] = [];
   Onebanque: any = [];
+  isLoading: boolean = false;
 
   //private builder = inject(FormBuilder);
 
   formGroup!: FormGroup;
+
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public primaryColour = this.configService.PrimaryWhite;
+  public secondaryColour = this.configService.SecondaryGrey;
 
   initForm() {
     this.formGroup = this.formBuilder.group({
@@ -49,7 +57,7 @@ export class BankComponent implements OnInit {
   }
 
   ajouteBanque(f: any) {
-
+    this.isLoading = true
     var body = {
       banqueId: f.banqueId,
       libelleBanque: f.libelleBanque,
@@ -69,6 +77,7 @@ export class BankComponent implements OnInit {
           });
           this.formGroup.reset();
           this.allBanque();
+          this.isLoading = false;
         },
         (err) => {
           console.log(err);
@@ -77,6 +86,7 @@ export class BankComponent implements OnInit {
             title: 'Oops...',
             text: err.statusText,
           });
+          this.isLoading = false;
         }
       );
     } else {
@@ -91,6 +101,7 @@ export class BankComponent implements OnInit {
           });
           this.formGroup.reset();
           this.allBanque();
+          this.isLoading = false;
         },
         (err) => {
           console.log(err);
@@ -99,6 +110,7 @@ export class BankComponent implements OnInit {
             title: 'Oops...',
             text: err.statusText,
           });
+          this.isLoading = false;
         }
       );
     }
@@ -115,13 +127,16 @@ export class BankComponent implements OnInit {
   }
 
   allBanque() {
+    this.isLoading = true;
     this.banqueService.AllBanque().subscribe(
       (ret) => {
         this.banques = ret.data;
+        this.isLoading = false;
       },
       (err) => {
         if (err.status == 401) {
           this.router.navigateByUrl('/login');
+          this.isLoading = false;
         } else {
           console.log(err.status);
           Swal.fire({
@@ -129,13 +144,14 @@ export class BankComponent implements OnInit {
             title: 'Oops...',
             text: err.status,
           });
+          this.isLoading = false;
         }
       }
     );
   }
 
   oneBanque(id: number) {
-    // console.log(id);
+    this.isLoading = true;
     this.banqueService.oneBanque(id).subscribe(
       (ret) => {
         this.Onebanque = ret.data[0];
@@ -150,13 +166,12 @@ export class BankComponent implements OnInit {
           this.Onebanque.libelleBanque
         );
 
+        this.isLoading = false;
         this.selectedCountry = ret.data[0].pays
-        
+
         this.formGroup.controls['contactBanque'].setValue(
           this.Onebanque.contactBanque
         );
-
-
       },
       (err) => {
         console.log(err);
@@ -165,6 +180,7 @@ export class BankComponent implements OnInit {
           title: 'Oops...',
           text: err.statusText,
         });
+        this.isLoading = false;
       }
     );
   }
@@ -180,6 +196,7 @@ export class BankComponent implements OnInit {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.isLoading = true;
         this.banqueService.supBanque(id).subscribe(
           (ret) => {
             Swal.fire({
@@ -190,6 +207,7 @@ export class BankComponent implements OnInit {
               timer: 1500,
             });
             this.allBanque();
+            this.isLoading = false;
           },
           (err) => {
             Swal.fire({
@@ -197,6 +215,7 @@ export class BankComponent implements OnInit {
               title: 'Oops...',
               text: err.statusText,
             });
+            this.isLoading = false;
           }
         );
       }

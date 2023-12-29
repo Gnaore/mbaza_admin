@@ -5,6 +5,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { PaysService } from 'src/app/services/pays.service';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
   selector: 'app-user',
@@ -36,10 +37,15 @@ export class UserComponent implements OnInit {
 
   formGroup!: FormGroup;
   isLoading: boolean = false;
+  loading: boolean = false;
   showPwd: boolean = false;
   reponse: any;
   afficheErreur: boolean = false;
   msgErreur = 'En attente de vos identifiants';
+
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public primaryColour = this.configService.PrimaryWhite;
+  public secondaryColour = this.configService.SecondaryGrey;
 
   ngOnInit(): void {
     this.listePays();
@@ -137,10 +143,12 @@ export class UserComponent implements OnInit {
   }
 
   listeUtilisateurs() {
+    this.loading = true;
     this.listUers = [];
     this.usersService.getAllUsers().subscribe((ret) => {
       this.listUers = ret.data;
       console.log(this.listUers);
+      this.loading = false;
     });
   }
 

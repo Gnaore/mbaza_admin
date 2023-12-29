@@ -49,6 +49,7 @@ export class ChattelsComponent implements OnInit {
   libelleContrat: String = '';
 
   public loading = false;
+  public isLoading = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public primaryColour = this.configService.PrimaryWhite;
   public secondaryColour = this.configService.SecondaryGrey;
@@ -96,6 +97,7 @@ export class ChattelsComponent implements OnInit {
       this.loading = false
     }, (err) => {
       if (err.error.statusCode == 401) { this.router.navigateByUrl("/auth") }
+      this.loading = false
     });
   }
 
@@ -119,7 +121,7 @@ export class ChattelsComponent implements OnInit {
     };
     if (f.bienId) {
       //Mise a jour
-      this.loading = true
+      this.isLoading = true
       this.bienService.modifiBien(body).subscribe(
         (ret) => {
           Swal.fire({
@@ -129,7 +131,7 @@ export class ChattelsComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.loading = false
+          this.isLoading = false
           this.closeModal.nativeElement.click();
           this.listBien();
           this.bienFormGroup.reset()
@@ -142,12 +144,12 @@ export class ChattelsComponent implements OnInit {
             title: 'Oops...',
             text: err.statusText,
           });
-          this.loading = false
+          this.isLoading = false
         }
       );
     } else {
       //Nouveau
-      this.loading = true
+      this.isLoading = true
       this.bienService.ajoutBien(body).subscribe(
         (ret) => {
           Swal.fire({
@@ -157,7 +159,7 @@ export class ChattelsComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.loading = false
+          this.isLoading = false
           this.closeModal.nativeElement.click();
           this.listBien();
           this.bienFormGroup.reset()
@@ -170,7 +172,7 @@ export class ChattelsComponent implements OnInit {
             title: 'Oops...',
             text: err.statusText,
           });
-          this.loading = false
+          this.isLoading = false
         }
       );
     }
@@ -232,7 +234,7 @@ export class ChattelsComponent implements OnInit {
   }
 
   getOneBien(id: any) {
-    this.loading = true
+    this.isLoading = true
     this.bienService.oneBien(id).subscribe(rep => {
       this.oneBien = rep.data
       this.bienFormGroup.controls['bienId'].setValue(this.oneBien.bienId)
@@ -252,7 +254,7 @@ export class ChattelsComponent implements OnInit {
       this.lienPhotoretourPropriete = this.configService.urlg + this.oneBien.bienImage;
       this.libelleContrat = this.oneBien.bienContrat
       this.bienFormGroup.controls['bienImage'].setValue(this.oneBien.bienImage)
-      this.loading = false
+      this.isLoading = false
     }, (err) => {
       if (err.error.statusCode == 401) { this.router.navigateByUrl("/auth") }
       Swal.fire({
@@ -260,7 +262,7 @@ export class ChattelsComponent implements OnInit {
         title: 'Oops...',
         text: err.statusText,
       });
-      this.loading = false
+      this.isLoading = false
     });
   }
 

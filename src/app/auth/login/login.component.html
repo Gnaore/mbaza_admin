@@ -18,6 +18,10 @@
                     <small>Problème d'authentification, verifiez votre login et mot de passe.</small>
                     <small>Assurez-vous aussi de l'état de la touche Majuscule</small>
                 </div>
+                <div class="alert alert-danger mt-3" *ngIf="noAccess">
+                    <small>Votre compte ne bénéficie pas des droits pour accéder à cet espace.</small>
+                    <small>Merci de bien vouloir contacter votre administrateur pour plus d'informations.</small>
+                </div>
                 <div>
                     <div class="form-group mb-3">
                         <label for="" class="form-label fw-semibold">E-mail <span class="text-danger">*</span></label>

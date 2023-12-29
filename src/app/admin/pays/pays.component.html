@@ -116,7 +116,7 @@
           [globalFilterFields]="['libellePays']"
           [rowsPerPageOptions]="[5, 10, 25, 50]"
           [paginator]="true"
-          [rows]="1"
+          [rows]="5"
           [showCurrentPageReport]="true"
           [value]="listpays"
           styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
@@ -144,7 +144,7 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-n>
-            <tr *ngFor="let n of listpays">
+            <tr>
               <td>
                 <span [class]="'fi fi-' + n.codePays.toLowerCase()"> </span>
                 <span class="ml-1 vertical-align-middle"> {{n.libellePays}}</span>
