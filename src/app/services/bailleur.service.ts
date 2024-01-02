@@ -56,6 +56,16 @@ export class BailleurService {
     return this.httpClient.get(this.urlG + 'bailleur/all', { headers });
   }
 
+  paiementParBAilleur(critere: string): Observable<any> {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return this.httpClient.get(this.urlG + 'bailleur/allpayementbyCodeBailleur/' + critere, { headers });
+  }
+
   onebailleur(id: number): Observable<any> {
     const currentUser = localStorage.getItem('currentUser');
     const currentUserJSON = JSON.parse(currentUser!.toString());

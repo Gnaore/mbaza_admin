@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { ConfigService } from 'src/app/services/config.service';
 import { TpyebienService } from 'src/app/services/tpyebien.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
@@ -14,8 +16,9 @@ export class TypebienComponent implements OnInit {
   constructor(
     private typebienService: TpyebienService,
     private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router,
+    private configService: ConfigService
+  ) { }
 
   countries: any[] = [];
   selectedCountry: any;
@@ -28,6 +31,11 @@ export class TypebienComponent implements OnInit {
   //private builder = inject(FormBuilder);
 
   formGroup!: FormGroup;
+
+  public loading = false;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public primaryColour = this.configService.PrimaryWhite;
+  public secondaryColour = this.configService.SecondaryGrey;
 
   initForm() {
     this.formGroup = this.formBuilder.group({
@@ -98,9 +106,11 @@ export class TypebienComponent implements OnInit {
   }
 
   allTypebien() {
+    this.loading = true;
     this.typebienService.AllTypebien().subscribe(
       (ret) => {
         this.typebiens = ret.data;
+        this.loading = false;
       },
       (err) => {
         if (err.status == 401) {
@@ -112,8 +122,9 @@ export class TypebienComponent implements OnInit {
             title: 'Oops...',
             text: err.status,
           });
+          this.loading = false;
         }
-       
+
       }
     );
   }

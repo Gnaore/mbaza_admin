@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { ConfigService } from 'src/app/services/config.service';
 import { PaysService } from 'src/app/services/pays.service';
 import Swal from 'sweetalert2';
 
@@ -17,11 +19,16 @@ export class PaysComponent {
   onepays: any;
 
   private builder = inject(FormBuilder);
+  private configService = inject(ConfigService);
 
   formGroup!: FormGroup;
   isLoading: boolean = false;
   reponse: any;
 
+  public loading = false;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public primaryColour = this.configService.PrimaryWhite;
+  public secondaryColour = this.configService.SecondaryGrey;
   ngOnInit(): void {
     this.initForm();
     this.listPays();
@@ -89,25 +96,26 @@ export class PaysComponent {
   }
 
   listPays() {
+    this.loading = true;
     this.listpays = [];
     this.paysService.AllPays().subscribe((ret) => {
       this.listpays = ret.data;
-      console.log(this.listpays);
+      this.loading = false;
     });
   }
 
   getOnePays(id: number) {
+    this.loading = true;
     this.paysService.onePays(id).subscribe((result) => {
       this.onepays = result.data;
       this.formGroup.controls['libellePays'].setValue(this.onepays.libellePays);
       this.formGroup.controls['codePays'].setValue(this.onepays.codePays);
       this.formGroup.controls['paysId'].setValue(this.onepays.paysId);
-      console.log(this.onepays);
+      this.loading = false;
     });
   }
 
   supPays(id: any){
-    
     Swal.fire({
       title: 'Etes-vous vraiment certain ?',
       text: 'Cet enregistrement sera supprimé !',
@@ -118,6 +126,7 @@ export class PaysComponent {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.loading = true;
         this.paysService.supPays(id).subscribe(
           (ret) => {
             Swal.fire({
@@ -128,6 +137,7 @@ export class PaysComponent {
               timer: 1500,
             });
             this.listPays();
+            this.loading = false;
           },
           (err) => {
             Swal.fire({
@@ -135,6 +145,7 @@ export class PaysComponent {
               title: 'Oops...',
               text: err.statusText,
             });
+            this.loading = false;
           }
         );
       }
