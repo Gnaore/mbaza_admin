@@ -92,7 +92,7 @@ export class AddLessorComponent {
       bailleurAdresse: ['', Validators.required],
       bailleurEmail: ['', [Validators.email, Validators.required]],
       bailleurDateNaissance: ['', Validators.required],
-      bailleurNumero: [''],
+      bailleurNumero: ['', Validators.required],
       banqueId: [],
       bailleurNumCompte: ['', Validators.required],
       bailleurRevenu: ['', Validators.required],
