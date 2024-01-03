@@ -7,10 +7,10 @@ export class ConfigService {
 
   //**en dev mac
   //urlg = 'http://10.10.2.160:3000/'
-  //  urlg = 'http://localhost:3000/'
+    urlg = 'http://localhost:3000/'
 
   //EN PROD
-  urlg = 'https://mbaza-eb3d8ec0412e.herokuapp.com/'
+  //urlg = 'https://mbaza-eb3d8ec0412e.herokuapp.com/'
 
 
   //*sur server distant
