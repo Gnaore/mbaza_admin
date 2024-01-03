@@ -17,6 +17,7 @@ export class PaymentFormComponent implements OnInit {
   selectedBailleur: any;
   activeBailleur: any;
   detailPaiement: any;
+  montantTotalParBailleur: number = 0;
 
   bailleurService = inject(BailleurService);
   configService = inject(ConfigService);
@@ -45,6 +46,10 @@ export class PaymentFormComponent implements OnInit {
     const critere = id + ',' + dateStart + ',' + dateEnd;
     this.bailleurService.paiementParBAilleur(critere).subscribe({
       next: (response) => {
+        response.data.forEach((paiement: any) => {
+          this.montantTotalParBailleur += +paiement.amount;
+        });
+        console.log(this.montantTotalParBailleur);
         this.paiements = response.data
         this.loading = false;
       },

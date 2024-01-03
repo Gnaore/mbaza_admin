@@ -26,11 +26,13 @@
                             selectionMode="range" styleClass="w-100" [readonlyInput]="true"></p-calendar>
                     </div>
                     <div class="col-5">
-                        <p-dropdown [options]="bailleurs" [(ngModel)]="selectedBailleur" optionLabel="bailleurNomPrenoms"
-                            styleClass="w-100" placeholder="-- Choisir le bailleur --"></p-dropdown>
+                        <p-dropdown [options]="bailleurs" [(ngModel)]="selectedBailleur"
+                            optionLabel="bailleurNomPrenoms" styleClass="w-100"
+                            placeholder="-- Choisir le bailleur --"></p-dropdown>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-lg btn-primary w-100" (click)="paiementParBailleur()" [disabled]="!selectedBailleur || !rangeDates">
+                        <button class="btn btn-lg btn-primary w-100" (click)="paiementParBailleur()"
+                            [disabled]="!selectedBailleur || !rangeDates">
                             <span class="ti ti-search"></span>
                             Rechercher
                         </button>
@@ -50,11 +52,10 @@
                           }"></ngx-loading>
                         <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
                             paiements.length
-                          }} utilisateur(s)"
-                            [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5"
+                          }} utilisateur(s)" [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5"
                             [showCurrentPageReport]="true" [value]="paiements"
                             styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
-                            [tableStyle]="{ 'min-width': '80rem', 'font-size': '15px' }">
+                            [tableStyle]="{ 'min-width': '60rem', 'font-size': '15px' }">
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th class="text-center">Numéro de paiement.</th>
@@ -72,6 +73,29 @@
                                     <td>{{ n.locataireRef }}</td>
                                     <td>{{ n.locataireNom }}</td>
                                     <td>{{ n.amount }}</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <tr *ngIf="paiements?.length !== 0">
+                                    <td class="text-center">
+                                        Montant total : <h3><strong class="text-info">{{ montantTotalParBailleur }} FCFA</strong></h3>
+                                    </td>
+                                    <td colspan="2" class="text-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div>
+                                                Prestation MBAZA : <h3><strong class="text-success">{{ (montantTotalParBailleur * activeBailleur.bailleurTaux)/100 }} FCFA</strong></h3>
+                                            </div>
+                                            <div class="ms-3">
+                                                <h1>/</h1>
+                                            </div>
+                                            <div>
+                                                <h2><strong style="color: red;">{{ activeBailleur.bailleurTaux }}%</strong></h2>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center" colspan="2">
+                                        Montant à verser au bailleur : <h3><strong class="text-danger">{{ montantTotalParBailleur - ((montantTotalParBailleur * activeBailleur.bailleurTaux)/100) }} FCFA</strong></h3>
+                                    </td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -130,13 +154,17 @@
     <hr>
     <div class="row">
         <div class="col-12 mb-2">
-            <label class="form-label">Frais de prestation : <strong class="text-info">{{ activeBailleur?.bailleurTaux }}%</strong></label>
+            <label class="form-label">Frais de prestation : <strong class="text-info">{{ activeBailleur?.bailleurTaux
+                    }}%</strong></label>
         </div>
         <div class="col-12 mb-2">
-            <label class="form-label">Montant à verser au bailleur : <strong class="text-danger">{{ detailPaiement?.amount - (detailPaiement?.amount * activeBailleur?.bailleurTaux)/100 }} FCFA</strong></label>
+            <label class="form-label">Montant à verser au bailleur : <strong class="text-danger">{{
+                    detailPaiement?.amount - (detailPaiement?.amount * activeBailleur?.bailleurTaux)/100 }}
+                    FCFA</strong></label>
         </div>
         <div class="col-12 mb-2">
-            <label class="form-label">Montant à verser à Mbaza : <strong class="text-success">{{ (detailPaiement?.amount * activeBailleur?.bailleurTaux)/100 }} FCFA</strong></label>
+            <label class="form-label">Montant à verser à Mbaza : <strong class="text-success">{{ (detailPaiement?.amount
+                    * activeBailleur?.bailleurTaux)/100 }} FCFA</strong></label>
         </div>
     </div>
 </p-dialog>
