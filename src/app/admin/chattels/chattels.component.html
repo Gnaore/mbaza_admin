@@ -13,12 +13,7 @@
 
   <div class="col-12">
     <div class="card">
-      <ngx-loading [show]="loading" [config]="{
-        animationType: ngxLoadingAnimationTypes.wanderingCubes,
-        primaryColour: primaryColour,
-        secondaryColour: secondaryColour,
-        backdropBorderRadius: '3px'
-      }"></ngx-loading>
+      
       <div class="card-header d-flex align-items-center justify-content-between">
         <h3 class="card-title fw-semibold">
           <i class="ti ti-star text-primary"></i>
@@ -35,11 +30,17 @@
           Gérez vos biens immobiliers (Ajoutez, modifiez, supprimez, listez les
           biens immobiliers).
         </div>
+        <ngx-loading [show]="loading" [config]="{
+          animationType: ngxLoadingAnimationTypes.wanderingCubes,
+          primaryColour: primaryColour,
+          secondaryColour: secondaryColour,
+          backdropBorderRadius: '3px'
+        }"></ngx-loading>
         <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
-            listeBien.length
+            listeBien?.length
           }} utilisateur(s)" [globalFilterFields]="['bienReference', 'bienLibelle', 'typebien.libelleTypebien', 'bienNomBailleur']"
           [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-          [value]="listeBien" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+          [value]="listeBien!" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
           [tableStyle]="{ 'min-width': '50rem', 'font-size': '15px' }">
           <ng-template pTemplate="caption">
             <div class="flex">
