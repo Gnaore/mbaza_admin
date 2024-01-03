@@ -150,39 +150,17 @@ export class BankComponent implements OnInit {
     );
   }
 
-  oneBanque(id: number) {
-    this.isLoading = true;
-    this.banqueService.oneBanque(id).subscribe(
-      (ret) => {
-        this.Onebanque = ret.data[0];
-        this.formGroup.controls['banqueCode'].setValue(
-          this.Onebanque.banqueCode
-        );
-        this.formGroup.controls['sigleBanque'].setValue(
-          this.Onebanque.sigleBanque
-        );
-        this.formGroup.controls['banqueId'].setValue(this.Onebanque.banqueId);
-        this.formGroup.controls['libelleBanque'].setValue(
-          this.Onebanque.libelleBanque
-        );
+  oneBanque(banque: any) {
+    this.formGroup.patchValue({
+      banqueCode: banque.banqueCode,
+      sigleBanque: banque.sigleBanque,
+      banqueId: banque.banqueId,
+      libelleBanque: banque.libelleBanque,
+      contactBanque: banque.contactBanque,
+      paysId: banque.pays.paysId,
+    });
 
-        this.isLoading = false;
-        this.selectedCountry = ret.data[0].pays
-
-        this.formGroup.controls['contactBanque'].setValue(
-          this.Onebanque.contactBanque
-        );
-      },
-      (err) => {
-        console.log(err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.statusText,
-        });
-        this.isLoading = false;
-      }
-    );
+    this.selectedCountry = this.countries.find(country => country.paysId == banque.pays.paysId)
   }
 
   supBanque(id: number) {
