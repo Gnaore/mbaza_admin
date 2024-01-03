@@ -150,6 +150,7 @@ export class BankComponent implements OnInit {
     );
   }
 
+  // récupération des informations de la banque
   oneBanque(banque: any) {
     this.formGroup.patchValue({
       banqueCode: banque.banqueCode,
