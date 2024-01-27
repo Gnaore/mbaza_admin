@@ -1,0 +1,165 @@
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <i class="ti ti-building-bank text-primary"></i>
+          Banques
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h3 class="card-title fw-semibold">
+          <i class="ti ti-building-bank text-primary"></i>
+          Banques [<span class="text-danger">{{ banques.length }}</span>]
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-4">
+            <form [formGroup]="formGroup" (ngSubmit)="ajouteBanque(formGroup.value)">
+              <div class="row">
+                <h4 class="mb-3">
+                  <strong>Editer une banque</strong>
+                </h4>
+
+                <div class="col-12 mb-2">
+                  <input type="text" pInputText placeholder="Libéllé" class="w-100" formControlName="libelleBanque" />
+                </div>
+                <div class="col-12 mb-2">
+                  <input type="text" pInputText placeholder="Sigle" class="w-100" formControlName="sigleBanque" />
+                  <input type="text" pInputText placeholder="banqueId" class="w-100" formControlName="banqueId"
+                    hidden />
+                </div>
+                <div class="col-12 mb-2 d-none">
+                  <input type="text" pInputText placeholder="banqueCode" class="w-100" formControlName="banqueCode"
+                    hidden />
+                </div>
+
+                <div class="col-12 mb-2">
+                  <p-dropdown [options]="countries" styleClass="w-100" [(ngModel)]="selectedCountry"
+                    optionLabel="libellePays" [filter]="true" filterBy="libellePays" [showClear]="true"
+                    placeholder="-- Choisir le pays --" formControlName="paysId">
+
+                    <ng-template let-country pTemplate="selectedItem">
+                      <div class="d-flex align-items-center gap-2" *ngIf="selectedCountry">
+                        <span [class]="
+                            'fi fi-' + selectedCountry.codePays.toLowerCase()
+                          "></span>
+                        <div>{{ selectedCountry.libellePays }}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                      <div class="d-flex align-items-center gap-2">
+                        <span [class]="'fi fi-' + country.codePays.toLowerCase()"></span>
+                        <div>{{ country.libellePays }}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+
+
+                  <!--select class="form-select" formControlName="paysBanque">
+                    <option value="">-- Choisissez votre pays --</option>
+                    <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                    <option value="Burkina Faso">Burkina Faso</option>
+                    <option value="Mali">Mali</option>
+                    <option value="Congo Brazzaville">Congo Brazzaville</option>
+                    <option value="Congo RDC">Congo RDC</option>
+                    <option value="Senegal">Senegal</option>
+                    <option value="Togo">Togo</option>
+                    <option value="Benin">Benin</option>
+                    <option value="Gabon">Gabon</option>
+                    <option value="Cameroun">Cameroun</option>
+                    <option value="Guinée Conakry">Guinée Conakry</option>
+                  </select-->
+                </div>
+                <div class="col-12 mb-3">
+                  <input type="text" pInputText placeholder="Téléphone" class="w-100" formControlName="contactBanque" />
+                </div>
+                <div class="col-12">
+                  <button type="button" class="btn btn-danger btn-lg" (click)="annuler()">
+                    <span class="ti ti-circle-x"></span>
+                    Annuler
+                  </button>
+                  <button type="submit" class="btn btn-success btn-lg ms-3" [disabled]="formGroup.invalid">
+                    <span class="ti ti-database"></span>
+                    Enregistrer
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-8">
+            <ngx-loading
+          [show]="isLoading"
+          [config]="{
+            animationType: ngxLoadingAnimationTypes.wanderingCubes,
+            primaryColour: primaryColour,
+            secondaryColour: secondaryColour,
+            backdropBorderRadius: '3px'
+          }"
+        ></ngx-loading>
+            <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
+              banques.length
+            }} utilisateur(s)" [globalFilterFields]="['sigleBanque', 'contactBanque']"
+              [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+              [value]="banques" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+              [tableStyle]="{ 'font-size': '15px' }">
+              <ng-template pTemplate="caption">
+                <div class="flex">
+                  <span class="p-input-icon-left ml-auto w-50">
+                    <i class="ti ti-search"></i>
+                    <input pInputText type="text" class="form-control w-100" #search
+                      (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+                  </span>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th class="text-center">ID.</th>
+                <th class="text-center">Sigle.</th>
+                <th class="text-center">Pays.</th>
+                <th class="text-center">Contact.</th>
+                <th class="text-center" pFrozenColumn>Actions.</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-banque>
+                <tr>
+                  <td>{{ banque.banqueCode }}</td>
+                  <td>{{ banque.sigleBanque }}</td>
+                  <!--td>{{banque.libelleBanque}}</td-->
+                  <td>
+                    <span [class]="
+                        'fi fi-' + banque.pays.codePays.toLowerCase()
+                      "></span>
+                    {{ banque.pays.libellePays }}
+                  </td>
+                  <td>
+                    <strong>[{{ banque.contactBanque }}]</strong>
+                  </td>
+                  <td>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-info"
+                      (click)="oneBanque(banque)">
+                      <i class="ti ti-edit"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger ms-2"
+                      href="javascript:void(0)" (click)="supBanque(banque.banqueId)">
+                      <i class="ti ti-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

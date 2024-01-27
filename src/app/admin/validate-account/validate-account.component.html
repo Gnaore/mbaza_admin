@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-checklist text-primary"></i>
+                    Validation des comptes
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-checklist text-primary"></i>
+                    Validation des comptes [<span class="text-danger">14</span>]
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <input type="search" class="form-control mb-3" placeholder="Recherche">
+                    </div>
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID.</th>
+                                        <th>Nom complet.</th>
+                                        <th>Numéro de compte.</th>
+                                        <th>Téléphone.</th>
+                                        <th>Email.</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let n of [].constructor(4); let i = index">
+                                        <td>928899GH</td>
+                                        <td>Benois AMARI</td>
+                                        <td class="bg-opacity-10 fw-semibold {{ i%2 == 0 ? 'bg-danger' : '' }}" *ngIf="!addAccountNumber[i]">
+                                            {{ i%2 == 0 ? '738 8292 628' : 'Pas de compte'}}
+                                        </td>
+                                        <td *ngIf="addAccountNumber[i]">
+                                            <input type="text" class="form-control">
+                                        </td>
+                                        <td>+225 0707070707</td>
+                                        <td>benois.amaris@yahoo.fr</td>
+                                        <td *ngIf="i%2 == 0">
+                                            <a class="btn btn-sm btn-danger me-3" (click)="confirm($event)">
+                                                REJETER
+                                            </a>
+                                            <a class="btn btn-sm btn-success" (click)="confirm($event)">
+                                                VALIDER
+                                            </a>
+                                            <p-confirmPopup></p-confirmPopup>
+                                        </td>
+                                        <td *ngIf="i%2 != 0">
+                                            <a class="btn btn-sm {{ !addAccountNumber[i] ? 'btn-info' : 'btn-danger' }}" (click)="addAccountNumber[i] = !addAccountNumber[i]">
+                                                {{ !addAccountNumber[i] ? 'AJOUTER UN NUMERO DE COMPTE' : 'ANNULER' }}
+                                            </a>
+                                            <a class="btn btn-sm btn-success ms-3" (click)="confirm($event)" *ngIf="addAccountNumber[i]">
+                                                VALIDER
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3"><strong>Nombre d'enregistrement : 14</strong></td>
+                                        <td colspan="3" class="py-0">
+                                            <nav aria-label="Page navigation example" class="float-end">
+                                                <ul class="pagination mb-0">
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="#" aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

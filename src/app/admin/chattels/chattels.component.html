@@ -1,0 +1,264 @@
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <i class="ti ti-star text-primary"></i>
+          Biens immobiliers
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h3 class="card-title fw-semibold">
+          <i class="ti ti-star text-primary"></i>
+          Gestion des biens immobiliers
+        </h3>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-primary"
+          (click)="resetForm()">
+          <i class="ti ti-plus text-primary"></i>
+          Nouveau bien
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info">
+          Gérez vos biens immobiliers (Ajoutez, modifiez, supprimez, listez les
+          biens immobiliers).
+        </div>
+        <ngx-loading [show]="loading" [config]="{
+          animationType: ngxLoadingAnimationTypes.wanderingCubes,
+          primaryColour: primaryColour,
+          secondaryColour: secondaryColour,
+          backdropBorderRadius: '3px'
+        }"></ngx-loading>
+        <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
+            listeBien?.length
+          }} utilisateur(s)" [globalFilterFields]="['bienReference', 'bienLibelle', 'typebien.libelleTypebien', 'bienNomBailleur']"
+          [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+          [value]="listeBien!" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem', 'font-size': '15px' }">
+          <ng-template pTemplate="caption">
+            <div class="flex">
+              <span class="p-input-icon-left ml-auto w-50">
+                <i class="ti ti-search"></i>
+                <input pInputText type="text" class="form-control w-100" #search
+                  (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Référence.</th>
+              <th>Libéllé.</th>
+              <th>
+                Type.
+                <p-columnFilter field="typebien" matchMode="in" display="menu" [showClearButton]="false"
+                  [showApplyButton]="false" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-multiSelect [ngModel]="value" [options]="listTypeBien" placeholder="Filtrer par type de biens" (onChange)="filter($event.value)">
+                      <ng-template let-option pTemplate="item">
+                        <span>{{ option.libelleTypebien }}</span>
+                        
+                      </ng-template>
+                    </p-multiSelect>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th>Prix.</th>
+              <th>Nom complet Bailleur.</th>
+              <th>Contact Bailleur.</th>
+              <th>Actions.</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-n>
+            <tr>
+
+              <td>{{ n.bienReference }}</td>
+              <td>{{ n.bienLibelle }}</td>
+              <td>{{ n.typebien.libelleTypebien }}</td>
+              <td><strong>{{ n.bienPrix }} XOF</strong></td>
+              <td>{{ n.bienNomBailleur }}</td>
+              <td>{{ n.bienContactBailleur }}</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <a class="btn btn-sm btn-info me-3" (click)="getOneBien(n.bienId)" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal1">
+                    <i class="ti ti-edit"></i>
+                  </a>
+                  <a class="btn btn-sm btn-danger" (click)="suprimeBien(n.bienId)">
+                    <i class="ti ti-trash"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal ajout propriété -->
+<form [formGroup]="bienFormGroup">
+  <div class="modal modal-lg fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <ngx-loading [show]="isLoading" [config]="{
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      primaryColour: primaryColour,
+      secondaryColour: secondaryColour,
+      backdropBorderRadius: '3px'
+    }"></ngx-loading>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content rounded-0">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="exampleModalLabel">
+            <i class="ti ti-star rounded-circle bg-white text-info p-2"></i>
+            Edition d'un bien
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+            #closeModal></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <div class="row">
+            <div class="col-12">
+              <h6 class="text-warning">Informations générales</h6>
+              <input type="text" formControlName="bienId" hidden />
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label class="form-label">Libéllé <span class="text-danger">*</span></label>
+                <input type="text" class="form-control rounded-0" formControlName="bienLibelle" />
+              </div>
+            </div>
+            <div class="col-3 mb-3">
+              <div class="form-group">
+                <label class="form-label">Type de bien <span class="text-danger">*</span></label>
+                <select class="form-select rounded-0" formControlName="typebienId">
+                  <option value="">-- Filtrer par type de biens --</option>
+                  <option value="{{ n.typebienId }}" *ngFor="let n of listTypeBien">
+                    {{ n.libelleTypebien }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3 form-group">
+              <label class="form-label">Catégorie du bien <span class="text-danger">*</span></label>
+              <select class="form-select rounded-0" formControlName="bienCategorie">
+                <option value="">-- Choisir --</option>
+                <option value="Location">Location</option>
+                <option value="Vente">Vente</option>
+              </select>
+            </div>
+            <div class="col-12 mb-3">
+              <div class="form-group">
+                <label class="form-label">Description <span class="text-danger">*</span></label>
+                <textarea rows="5" class="form-control rounded-0" formControlName="bienDescription"></textarea>
+              </div>
+            </div>
+            <div class="col-4 mb-3">
+              <div class="form-group">
+                <label class="form-label">Surface (m<sup>2</sup>)</label>
+                <input type="number" class="form-control rounded-0" formControlName="bienSurface" />
+              </div>
+            </div>
+            <div class="col-4 mb-3">
+              <div class="form-group">
+                <label class="form-label">Nbre de pièces</label>
+                <input type="number" class="form-control rounded-0" formControlName="bienNbrePiece" />
+              </div>
+            </div>
+            <div class="col-4 mb-3">
+              <div class="form-group">
+                <label class="form-label">Prix d'achat / location
+                  <span class="text-danger">*</span></label>
+                <input type="number" class="form-control rounded-0" formControlName="bienPrix" />
+              </div>
+            </div>
+            <div class="col-3 mb-3">
+              <div class="form-group">
+                <label class="form-label">Ville <span class="text-danger">*</span></label>
+                <input type="text" class="form-control rounded-0" formControlName="bienVille" />
+              </div>
+            </div>
+            <div class="col-3 mb-3">
+              <div class="form-group">
+                <label class="form-label">Commune / Quartier <span class="text-danger">*</span></label>
+                <input type="text" class="form-control rounded-0" formControlName="bienCommuneQuartier" />
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label class="form-label">Adresse <span class="text-danger">*</span></label>
+                <input type="text" class="form-control rounded-0" formControlName="bienAdresse" />
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label class="form-label">Nom complet du bailleur
+                  <span class="text-danger">*</span></label>
+                <input type="text" class="form-control rounded-0" formControlName="bienNomBailleur" />
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label class="form-label">Contact du bailleur <span class="text-danger">*</span></label>
+                <input type="text" class="form-control rounded-0" formControlName="bienContactBailleur" />
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label class="btn btn-light-primary" for="file"><i class="ti ti-upload"></i> Contrat commercial
+                  <span class="text-danger">*</span></label>
+                <input type="file" id="file" class="form-control form-control-lg rounded-0 d-none"
+                  (change)="onFileChangeContrat($event)" />
+                <input type="text" formControlName="bienContrat" hidden />
+              </div>
+            </div>
+            <div class="col-12">
+              <p-chip style="cursor: pointer" label={{libelleContrat}} [removable]="false"
+                (onRemove)="supContrat(libelleContrat)" (click)="openDoc(libelleContrat)"></p-chip>
+            </div>
+            <div class="col-12">
+              <h6 class="text-warning">Images</h6>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label class="btn btn-light-primary" for="file2"><i class="ti ti-upload"></i> Sélectionner des images
+                  <span class="text-danger">*</span></label>
+                <input type="file" id="file2" class="form-control form-control-lg rounded-0 d-none"
+                  (change)="onFileChangeBien($event)" />
+                <input type="text" formControlName="bienImage" hidden />
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <div class="border" style="height: 200px">
+                    <img src="{{ lienPhotoretourPropriete }}" alt="" class="w-100 h-100"
+                      (click)="openDoc2(lienPhotoretourPropriete)" />
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">
+            Fermer
+          </button>
+          <button type="button" class="btn btn-success" (click)="submitBien(bienFormGroup.value)"
+            [disabled]="bienFormGroup.invalid">
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

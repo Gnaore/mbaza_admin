@@ -1,0 +1,720 @@
+<div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <i class="ti ti-user-circle text-primary"></i>
+          Gestion des utilisateurs
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <ngx-loading
+          [show]="loading"
+          [config]="{
+            animationType: ngxLoadingAnimationTypes.wanderingCubes,
+            primaryColour: primaryColour,
+            secondaryColour: secondaryColour,
+            backdropBorderRadius: '3px'
+          }"
+        ></ngx-loading>
+      <div
+        class="card-header d-flex align-items-center justify-content-between"
+      >
+        <h3 class="card-title fw-semibold">
+          <i class="ti ti-user-circle text-primary"></i>
+          Gestion des utilisateurs
+        </h3>
+        <a
+        (click)="reset()"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal1"
+        >
+          <i class="ti ti-user-plus"></i>
+          Nouvel utilisateur
+        </a>
+      </div>
+      <!--div class="card-body">
+                <div class="alert alert-info">Gérez vos utilisateurs (Ajoutez, modifiez, désactivez ou attribuez des rôles à vos
+                    utilisateurs).</div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <input type="search" class="form-control rounded-0" placeholder="Recherche">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Image.</th>
+                                <th>Nom & Prénom(s).</th>
+                                <th>Email.</th>
+                                <th>Contact.</th>
+                                <th>Rôle.</th>
+                                <th>Statut.</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let n of listUers">
+                                <td align="center">
+                                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35"
+                                            class="rounded-circle">
+                                    </a>
+                                </td>
+                                <td><div class="text-overflow">{{n.username}}</div></td>
+                                <td><div class="text-overflow">{{n.email}}</div></td>
+                                <td><div class="text-overflow">{{n.contact}}</div></td>
+                                <td><div class="alert alert-danger py-1">{{n.role}}</div></td>
+                                <td><div class="alert alert-success py-1">Connecté</div></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="#" class="btn btn-sm btn-info">
+                                            <i class="ti ti-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-danger ms-2">
+                                            <i class="ti ti-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"><strong>Nombre d'enregistrement : {{listUers.length}}</strong></td>
+                                <td colspan="4" class="py-0">
+                                    <nav aria-label="Page navigation example" class="float-end">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div-->
+      <div class="card-body">
+        <div class="alert alert-info">
+          Gérez vos utilisateurs (Ajoutez, modifiez, désactivez ou attribuez des
+          rôles à vos utilisateurs).
+        </div>
+        <p-table
+          [scrollable]="true"
+          #dt1
+          currentPageReportTemplate="Affichage {first} sur {last} pour {{
+            listUers.length
+          }} utilisateur(s)"
+          [globalFilterFields]="['username', 'email', 'contact']"
+          [rowsPerPageOptions]="[5, 10, 25, 50]"
+          [paginator]="true"
+          [rows]="5"
+          [showCurrentPageReport]="true"
+          [value]="listUers"
+          styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem', 'font-size': '15px' }"
+        >
+          <ng-template pTemplate="caption">
+            <div class="flex">
+              <span class="p-input-icon-left ml-auto w-50">
+                <i class="ti ti-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  class="form-control w-100"
+                  #search
+                  (input)="dt1.filterGlobal(search.value, 'contains')"
+                  placeholder="Mots clés"
+                />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Image.</th>
+              <th>Nom & Prénom(s).</th>
+              <th>Email.</th>
+              <th>Contact.</th>
+              <th>
+                Rôle.
+                <p-columnFilter
+                  field="role"
+                  matchMode="in"
+                  display="menu"
+                  [showClearButton]="false"
+                  [showApplyButton]="false"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
+                  [showAddButton]="false"
+                >
+                  <ng-template
+                    pTemplate="filter"
+                    let-value
+                    let-filter="filterCallback"
+                  >
+                    <p-multiSelect
+                      [ngModel]="value"
+                      [options]="[
+                        'ROOT',
+                        'ADMINISTRATEUR',
+                        'HUISSIER',
+                        'BANQUE',
+                        'BAILLEUR',
+                        'LOCATAIRE'
+                      ]"
+                      placeholder="Filtrer par role"
+                      (onChange)="filter($event.value)"
+                    >
+                      <ng-template let-option pTemplate="item">
+                        <ng-container *ngIf="option === 'ROOT'">
+                          <p-tag
+                            severity="info"
+                            [value]="option | lowercase"
+                          ></p-tag>
+                        </ng-container>
+                        <ng-container *ngIf="option === 'ADMINISTRATEUR'">
+                          <p-tag
+                            severity="success"
+                            [value]="option | lowercase"
+                          ></p-tag>
+                        </ng-container>
+                        <ng-container *ngIf="option === 'HUISSIER'">
+                          <p-tag
+                            severity="danger"
+                            [value]="option | lowercase"
+                          ></p-tag>
+                        </ng-container>
+                        <ng-container *ngIf="option === 'BANQUE'">
+                          <p-tag
+                            severity="warning"
+                            [value]="option | lowercase"
+                          ></p-tag>
+                        </ng-container>
+                        <ng-container *ngIf="option === 'BAILLEUR'">
+                          <p-tag
+                            severity="danger"
+                            [value]="option | lowercase"
+                          ></p-tag>
+                        </ng-container>
+                        <ng-container *ngIf="option === 'LOCATAIRE'">
+                          <p-tag
+                            severity="info"
+                            [value]="option | lowercase"
+                          ></p-tag>
+                        </ng-container>
+                      </ng-template>
+                    </p-multiSelect>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th>
+                Statut.
+                <p-columnFilter
+                  field="statut"
+                  matchMode="in"
+                  display="menu"
+                  [showClearButton]="false"
+                  [showApplyButton]="false"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
+                  [showAddButton]="false"
+                >
+                  <ng-template
+                    pTemplate="filter"
+                    let-value
+                    let-filter="filterCallback"
+                  >
+                    <p-multiSelect
+                      [ngModel]="value"
+                      [options]="[false, true]"
+                      placeholder="Filtrer par statut"
+                      (onChange)="filter($event.value)"
+                    >
+                      <ng-template let-option pTemplate="item">
+                        <ng-container *ngIf="option === false">
+                          <p-tag severity="info" value="inactif"></p-tag>
+                        </ng-container>
+                        <ng-container *ngIf="option === true">
+                          <p-tag severity="success" value="actif"></p-tag>
+                        </ng-container>
+                      </ng-template>
+                    </p-multiSelect>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th>Actions.</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-n>
+            <tr>
+              <td align="center">
+                <a
+                  class="nav-link nav-icon-hover"
+                  href="javascript:void(0)"
+                  id="drop2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    *ngIf="!n.lienphoto"
+                    src="assets/images/profile/user-1.jpg"
+                    alt=""
+                    width="35"
+                    height="35"
+                    class="rounded-circle"
+                  />
+                  <img
+                    *ngIf="n.lienphoto"
+                    src="{{ urlg }}{{ n.lienphoto }}"
+                    alt=""
+                    width="35"
+                    height="35"
+                    class="rounded-circle"
+                  />
+                </a>
+              </td>
+
+              <td>{{ n.username }}</td>
+              <td>{{ n.email }}</td>
+              <td>{{ n.contact }}</td>
+              <td>
+                <ng-container *ngIf="n.role === 'ROOT'">
+                  <p-tag severity="info" [value]="n.role | lowercase"></p-tag>
+                </ng-container>
+                <ng-container *ngIf="n.role === 'ADMINISTRATEUR'">
+                  <p-tag
+                    severity="success"
+                    [value]="n.role | lowercase"
+                  ></p-tag>
+                </ng-container>
+                <ng-container *ngIf="n.role === 'HUISSIER'">
+                  <p-tag severity="danger" [value]="n.role | lowercase"></p-tag>
+                </ng-container>
+                <ng-container *ngIf="n.role === 'BANQUE'">
+                  <p-tag
+                    severity="warning"
+                    [value]="n.role | lowercase"
+                  ></p-tag>
+                </ng-container>
+                <ng-container *ngIf="n.role === 'BAILLEUR'">
+                  <p-tag
+                    severity="warning"
+                    [value]="n.role | lowercase"
+                  ></p-tag>
+                </ng-container>
+                <ng-container *ngIf="n.role === 'LOCATAIRE'">
+                  <p-tag
+                    severity="warning"
+                    [value]="n.role | lowercase"
+                  ></p-tag>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="n.statut === false">
+                  <p-tag severity="info" value="inactif"></p-tag>
+                </ng-container>
+                <ng-container *ngIf="n.statut === true">
+                  <p-tag severity="success" value="actif"></p-tag>
+                </ng-container>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <a
+                    class="btn btn-sm btn-info me-3"
+                    (click)="getOneUtilisateur(n.userId)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal1"
+                  >
+                    <i class="ti ti-edit"></i>
+                  </a>
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      [checked]="n.statut"
+                      (change)="checkChange(n.statut, n.userId)"
+                    />
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal ajout utilisateur -->
+<form [formGroup]="formGroup" (ngSubmit)="ajoutUtilisateur(formGroup.value)">
+  <div
+    class="modal fade"
+    id="exampleModal1"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-0">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="exampleModalLabel">
+            <i
+              class="ti ti-user-circle rounded-circle bg-white text-warning p-2"
+            ></i>
+            Nouveau compte utilisateur
+          </h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 mb-2">
+              <p-dropdown
+                [options]="countries"
+                styleClass="w-100"
+                [(ngModel)]="selectedCountry"
+                optionLabel="libellePays"
+                [filter]="true"
+                filterBy="libellePays"
+                [showClear]="true"
+                placeholder="-- Choisir le pays --"
+                formControlName="paysId"
+              >
+                <ng-template let-country pTemplate="selectedItem">
+                  <div
+                    class="d-flex align-items-center gap-2"
+                    *ngIf="selectedCountry"
+                  >
+                    <span
+                      [class]="
+                        'fi fi-' + selectedCountry.codePays.toLowerCase()
+                      "
+                    ></span>
+                    <div>{{ selectedCountry.libellePays }}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                  <div class="d-flex align-items-center gap-2">
+                    <span
+                      [class]="'fi fi-' + country.codePays.toLowerCase()"
+                    ></span>
+                    <div>{{ country.libellePays }}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group mb-3">
+                <label class="form-label"
+                  >Nom & prénom(s) <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  placeholder="ID"
+                  formControlName="userId"
+                  hidden
+                />
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  placeholder="p.ex. John Doe"
+                  formControlName="username"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-3">
+                <label class="form-label"
+                  >Email <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  placeholder="p.ex. john.doe@mbaza.com"
+                  formControlName="email"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mb-3">
+                <label class="form-label"
+                  >Contact <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  placeholder="p.ex. +225 XX XX XX XX XX"
+                  formControlName="contact"
+                />
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group mb-3">
+                <label class="form-label"
+                  >Rôle <span class="text-danger">*</span></label
+                >
+                <select class="form-select" formControlName="role">
+                  <option value="">-- Attribuez un rôle --</option>
+                  <option value="ROOT">ROOT</option>
+                  <option value="ADMINISTRATEUR">ADMINISTRATEUR</option>
+                </select>
+
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="input-group mb-3">
+                <div class="input-group-text">
+                  <label style="cursor: pointer" for="file2"
+                    ><i class="ti ti-upload"></i> Sélectionner une image
+                    <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    id="file2"
+                    class="form-control form-control-lg rounded-0 d-none"
+                    (change)="onFileChange($event)"
+                  />
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly
+                  [value]="previewImage ? previewImage : ''"
+                  placeholder="Aucun fichier sélectionné"
+                />
+              </div>
+            </div>
+            <div class="col-12" style="text-align: center">
+              <img
+                *ngIf="lienPhotoretour"
+                src="{{ lienPhotoretour.replace('./files/', '') }}"
+                alt=""
+                width="100"
+                height="100"
+                class="rounded-circle"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-warning"
+            data-bs-dismiss="modal"
+            #closeModal
+          >
+            Fermer
+          </button>
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="formGroup.invalid"
+          >
+            Créer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Modal pénalités -->
+<div
+  class="modal fade"
+  id="exampleModal3"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-0">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-white" id="exampleModalLabel">
+          <i
+            class="ti ti-user-circle rounded-circle bg-white text-warning p-2"
+          ></i>
+          Nouveau compte utilisateur
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <p-dropdown
+              [options]="countries"
+              styleClass="w-100 mb-3"
+              [(ngModel)]="selectedCountry"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              [showClear]="true"
+              placeholder="-- Choisir le pays --"
+            >
+              <ng-template pTemplate="selectedItem">
+                <div
+                  class="d-flex align-items-center gap-2"
+                  *ngIf="selectedCountry"
+                >
+                  <span
+                    [class]="'fi fi-' + selectedCountry.code.toLowerCase()"
+                  ></span>
+                  <div>{{ selectedCountry.name }}</div>
+                </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                <div class="d-flex align-items-center gap-2">
+                  <span [class]="'fi fi-' + country.code.toLowerCase()"></span>
+                  <div>{{ country.name }}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="col-12">
+            <div class="form-group mb-3">
+              <label class="form-label"
+                >Nom & prénom(s) <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control rounded-0"
+                placeholder="p.ex. John Doe"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group mb-3">
+              <label class="form-label"
+                >Email <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control rounded-0"
+                placeholder="p.ex. john.doe@mbaza.com"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group mb-3">
+              <label class="form-label"
+                >Contact <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control rounded-0"
+                placeholder="p.ex. +225 XX XX XX XX XX"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group mb-3">
+              <label class="form-label"
+                >Rôle <span class="text-danger">*</span></label
+              >
+              <select class="form-select">
+                <option value="">-- Attribuez un rôle --</option>
+                <option value="">SUPER ADMINISTRATEUR</option>
+                <option value="">ADMINISTRATEUR</option>
+                <option value="">HUISSIER</option>
+                <option value="">BANQUE</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="input-group mb-3">
+              <div class="input-group-text">
+                <label style="cursor: pointer" for="file2"
+                  ><i class="ti ti-upload"></i> Sélectionner une image
+                  <span class="text-danger">*</span></label
+                >
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  id="file2"
+                  class="form-control form-control-lg rounded-0 d-none"
+                  (change)="onFileChange($event)"
+                />
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                readonly
+                [value]="previewImage ? previewImage : ''"
+                placeholder="Aucun fichier sélectionné"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group mb-3">
+              <label class="form-label"
+                >Définir un mot de passe
+                <span class="text-danger">*</span></label
+              >
+              <input type="password" class="form-control rounded-0" />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-check">
+              <label class="form-check-label" for="automaticPassword"
+                >Générer un mot de passe</label
+              >
+              <input
+                id="automaticPassword"
+                type="checkbox"
+                class="form-check-input rounded-0"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="activeUserAccount"
+              />
+              <label class="form-check-label" for="activeUserAccount"
+                >Activer / Désactiver</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">
+          Fermer
+        </button>
+        <button type="button" class="btn btn-success">Créer</button>
+      </div>
+    </div>
+  </div>
+</div>
