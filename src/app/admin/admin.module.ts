@@ -41,6 +41,7 @@ import { TagModule } from 'primeng/tag';
 
 import { NgxLoadingModule } from 'ngx-loading';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { QRCodeModule } from 'angularx-qrcode';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -78,6 +79,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     CalendarModule,
     TableModule,
     MultiSelectModule,
+    QRCodeModule,
     TagModule,
     DialogModule,
     ToastrModule.forRoot(), // ToastrModule added

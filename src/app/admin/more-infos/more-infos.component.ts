@@ -28,6 +28,9 @@ export class MoreInfosComponent implements OnInit {
   listpropriete: any[] | undefined
   listlocataire: any[] | undefined
 
+  qrcode = "";
+  url = this.configService.urlFront
+
   public loading = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public primaryColour = this.configService.PrimaryWhite;

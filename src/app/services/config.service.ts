@@ -12,6 +12,7 @@ export class ConfigService {
 
   //EN PROD heroku
   urlg = 'https://mbaza-eb3d8ec0412e.herokuapp.com/'
+  urlFront = "https://mbaaza.com/"
 
   //EN PROD vercel
   //urlg = 'https://mbaza-api.vercel.app/'

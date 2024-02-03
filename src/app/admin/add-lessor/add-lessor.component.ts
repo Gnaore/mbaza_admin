@@ -62,8 +62,8 @@ export class AddLessorComponent {
     private tpyebienService: TpyebienService,
     private usersService: UsersService,
     private toastr: ToastrService,
-    private router: Router 
-  ) {   }
+    private router: Router
+  ) { }
 
   formGroup!: FormGroup;
   formProprieteGroup!: FormGroup;
@@ -77,7 +77,7 @@ export class AddLessorComponent {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    if (this.id !== '0') 
+    if (this.id !== '0')
       this.oneBailleur(this.id);
     this.initForm();
     this.allBanque();
@@ -102,6 +102,8 @@ export class AddLessorComponent {
       bailleurRelationUrgence: [''],
       bailleurlienCNI: [''],
       bailleurLienPhoto: [''],
+      bailleurTelHussier: [''],
+      bailleurEmailHussier: ['']
     });
 
     this.formProprieteGroup = this.formBuilder.group({
@@ -159,6 +161,9 @@ export class AddLessorComponent {
       bailleurRelationUrgence: f.bailleurRelationUrgence,
       bailleurlienCNI: this.file,
       bailleurLienPhoto: this.file2,
+      bailleurTelHussier: f.bailleurTelHussier,
+      bailleurEmailHussier: f.bailleurEmailHussier,
+
     };
 
     // Subject: Ouverture de compte M'baaza
@@ -184,7 +189,7 @@ export class AddLessorComponent {
           });
 
           this.oneBailleur(ret.data.bailleurId);
-          this.ajoutUtilisateur(f,ret.data.bailleurId);
+          this.ajoutUtilisateur(f, ret.data.bailleurId);
           this.isLoading = false;
           /*this.formGroup.reset();
           this.lienPhotoretour2 = '';
@@ -288,6 +293,12 @@ export class AddLessorComponent {
         );
         this.formGroup.controls['bailleurRelationUrgence'].setValue(
           ret.data.bailleurRelationUrgence
+        );
+        this.formGroup.controls['bailleurEmailHussier'].setValue(
+          ret.data.bailleurEmailHussier
+        );
+        this.formGroup.controls['bailleurTelHussier'].setValue(
+          ret.data.bailleurTelHussier
         );
         this.lienPhotoretour =
           this.configService.urlg + ret.data.bailleurlienCNI;

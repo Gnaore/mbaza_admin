@@ -228,6 +228,7 @@
                                     <th>Email.</th>
                                     <th>Nationalite.</th>
                                     <th>Profession.</th>
+                                    <th>Code Paiement.</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -238,6 +239,20 @@
                                     <td>{{n.locataireEmail}}</td>
                                     <td>{{n.locataireNationalite}}</td>
                                     <td>{{n.locataireProfession}}</td>
+                                    <td>
+                                        
+                                        <div class="qrcodeImage"  style="text-align: center;">
+                                            <qrcode
+                                              [qrdata]="url+'pay-onlineqr/' +n.locataireRef"
+                                              [allowEmptyString]='false'
+                                              [elementType]="'img'"
+                                              [errorCorrectionLevel]="'M'"
+                                              [width]="100"
+                                              [margin]="4"
+                                              [scale]="1"
+                                            ></qrcode>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
