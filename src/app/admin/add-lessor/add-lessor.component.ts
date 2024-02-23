@@ -21,14 +21,25 @@ import { ProprieteService } from 'src/app/services/propriete.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ToastrService } from 'ngx-toastr';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { MessageService } from 'primeng/api';
+
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
 
 
 @Component({
   selector: 'app-add-lessor',
   templateUrl: './add-lessor.component.html',
   styleUrls: ['./add-lessor.component.scss'],
+  providers: [MessageService]
 })
 export class AddLessorComponent {
+
+  uploadedFiles: any[] = [];
+
+
   previewImage: any;
   lienPhotoretour: any;
   previewImage2: any;
@@ -62,7 +73,8 @@ export class AddLessorComponent {
     private tpyebienService: TpyebienService,
     private usersService: UsersService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   formGroup!: FormGroup;
@@ -83,6 +95,15 @@ export class AddLessorComponent {
     this.allBanque();
     this.listeTypepropriete();
   }
+
+  onUpload(event:UploadEvent) {
+    for(let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
+
+    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+}
+
 
   initForm() {
     this.formGroup = this.formBuilder.group({

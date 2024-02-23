@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InputFormatDirective } from './input-format.directive';
 import { ValidateAccountComponent } from './admin/validate-account/validate-account.component';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AuthService } from './services/auth.service';
@@ -13,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
-import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [

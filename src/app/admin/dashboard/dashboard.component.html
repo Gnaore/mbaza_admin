@@ -26,7 +26,7 @@
                             <div class="row px-3 py-3">
                                 <div class="col-8">
                                     <h4 class="text-white">Locataires.</h4>
-                                    <h2><strong>1045</strong></h2>
+                                    <h2><strong>{{nbreLocataires}}</strong></h2>
                                 </div>
                                 <div class="col-4 d-flex align-items-center justify-content-center">
                                     <h2 class="mb-0 bg-white rounded p-2">
@@ -42,7 +42,7 @@
                             <div class="row px-3 py-3">
                                 <div class="col-8">
                                     <h4 class="text-white">Bailleurs.</h4>
-                                    <h2><strong>59</strong></h2>
+                                    <h2><strong>{{nbreBailleurs}}</strong></h2>
                                 </div>
                                 <div class="col-4 d-flex align-items-center justify-content-center">
                                     <h2 class="mb-0 bg-white rounded p-2">
@@ -58,7 +58,7 @@
                             <div class="row px-3 py-3">
                                 <div class="col-8">
                                     <h4 class="text-white">Propriétés.</h4>
-                                    <h2><strong>154</strong></h2>
+                                    <h2><strong>{{nbreProprietes}}</strong></h2>
                                 </div>
                                 <div class="col-4 d-flex align-items-center justify-content-center">
                                     <h2 class="mb-0 bg-white rounded p-2">
@@ -74,7 +74,7 @@
                             <div class="row px-3 py-3">
                                 <div class="col-8">
                                     <h4 class="text-white">Revenu.</h4>
-                                    <h2><strong>1,000K</strong></h2>
+                                    <h2><strong>{{totalRevenu}}</strong></h2>
                                 </div>
                                 <div class="col-4 d-flex align-items-center justify-content-center">
                                     <h2 class="mb-0 bg-white rounded p-2">
@@ -96,22 +96,22 @@
                 <small class="text-muted opacity-75">Effectifs des biens immobiliers enregistrés sur le site internet de
                     M'baza</small>
                 <div class="d-flex justify-content-between mt-3">
-                    <circle-progress [percent]="85" [radius]="100" subtitle="Total" subtitleFontSize="18"
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Total" subtitleFontSize="18"
                         subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
                         [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
                         [animationDuration]="300"></circle-progress>
 
-                    <circle-progress [percent]="55" [radius]="100" subtitle="Loués" subtitleFontSize="18"
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Loués" subtitleFontSize="18"
                         subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
                         [outerStrokeColor]="'#00a2c2'" [innerStrokeColor]="'#95e4df'" [animation]="true"
                         [animationDuration]="300"></circle-progress>
 
-                    <circle-progress [percent]="17" [radius]="100" subtitle="Achetés" subtitleFontSize="18"
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Achetés" subtitleFontSize="18"
                         subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
                         [outerStrokeColor]="'#c23a00'" [innerStrokeColor]="'#e59a9a'" [animation]="true"
                         [animationDuration]="300"></circle-progress>
 
-                    <circle-progress [percent]="12" [radius]="100" subtitle="Disponibles" subtitleFontSize="18"
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Disponibles" subtitleFontSize="18"
                         subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
                         [outerStrokeColor]="'#c200b2'" [innerStrokeColor]="'#e59ad7'" [animation]="true"
                         [animationDuration]="300"></circle-progress>

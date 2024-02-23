@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DialogModule } from 'primeng/dialog';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
@@ -18,6 +17,7 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     DialogModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes,

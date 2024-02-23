@@ -132,12 +132,9 @@
 
                 <div class="col-4 mb-3">
                   <div class="form-group">
-                    <label class="form-label">Taux d'intérêt <span class="text-danger">*</span></label>
-                    <select class="form-select-lg form-select rounded-0" formControlName="bailleurTaux">
-                      <option value="">-- Choisir le taux --</option>
-                      <option value="4">4%</option>
-                      <option value="7">7%</option>
-                    </select>
+                    <label class="form-label">Taux d'intérêt (%)<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg rounded-0" appInputFormat
+                    formControlName="bailleurTaux" />
                   </div>
                 </div>
                 <!-- <div class="col-6 mb-3">
@@ -304,11 +301,12 @@
       <div class="col-12">
         <div class="row p-3">
           <div class="col-6 mb-3">
-            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal1" >
               <i class="ti ti-home-plus"></i>
               Ajouter une propriété
             </button>
-          </div>
+           
+           </div>
           <div class="col-12 mb-3">
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped">
@@ -604,14 +602,21 @@
                   <input type="text" class="form-control form-control-lg rounded-0 d-none"
                   formControlName="proprieteLienPhoto"/>
               </div>
+              <p-fileUpload [maxFileSize]="1000000" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" >
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
             </div>
-            <div class="row" *ngIf="formProprieteGroup.get('proprieteLienPhoto')?.value">
+            <!--div class="row" *ngIf="formProprieteGroup.get('proprieteLienPhoto')?.value">
               <div class="col-6 mb-3">
                 <div class="border" style="height: 200px">
                   <img src="{{ lienPhotoretourPropriete }}" alt="" class="w-100 h-100" />
                 </div>
               </div>
-            </div>
+            </div-->
           </div>
         </div>
         <input type="text" formControlName="bailleurId" [(ngModel)]="MbailleurId" class="d-none"/>

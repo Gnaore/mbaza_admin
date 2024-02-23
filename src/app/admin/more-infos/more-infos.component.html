@@ -22,7 +22,7 @@
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h3 class="card-title fw-semibold">
                     <i class="ti ti-dashboard text-primary"></i>
-                    Tableau de bord / <span class="text-warning">{{codeBailleur}}</span>
+                    Tableau de bord / <span class="text-warning">Code : {{codeBailleur}} | Nom & Prénoms : {{nom}}  | Contact : {{contact}} </span>
                 </h3>
                 <a routerLink="/admin/lessor-manager/" class="btn btn-warning">
                     <i class="ti ti-arrow-back text-primary"></i>
@@ -185,8 +185,11 @@
                                     <th class="alert alert-info">{{n.proprietePrix}}</th>
                                     <td><div class="alert {{ n.proprieteStatu == 'Disponible' ? 'alert-success' : 'alert-warning' }} py-1">{{n.proprieteStatu}}</div></td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-info">
+                                        <a *ngIf="n.proprieteStatu == 'Disponible' " data-bs-toggle="modal" data-bs-target="#ajoutlocataireModal" (click)="getRefPropriete(n.proprieteCode)" class="btn btn-sm btn-info">
                                             <i class="ti ti-file-export"></i>
+                                        </a>
+                                        <a *ngIf="n.proprieteStatu != 'Disponible' " data-bs-toggle="modal" data-bs-target="#ajoutlocataireModal"  (click)="getRefPropriete('null')" class="btn btn-sm btn-info">
+                                            <i class="ti ti-menu"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -308,6 +311,30 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ajout Locataire -->
+<div class="modal modal-xl fade" id="ajoutlocataireModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLabel">
+                    <i class="ti ti-alert-triangle rounded-circle bg-white text-warning p-2"></i>
+                    Ajouter un Locataire </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                   
+                    <app-tenant-list [idBailleur] = id [refPropriete] = refPropriete ></app-tenant-list>
                 </div>
             </div>
             <div class="modal-footer">

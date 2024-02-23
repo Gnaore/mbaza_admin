@@ -76,5 +76,15 @@ export class ProprieteService {
     });
     return this.httpClient.get(this.urlG + 'propriete/' + id, { headers });
   }
+
+  oneproprietebyCode(id: string): Observable<any> {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return this.httpClient.get(this.urlG + 'propriete/proprietebycode/' + id, { headers });
+  }
 }
 

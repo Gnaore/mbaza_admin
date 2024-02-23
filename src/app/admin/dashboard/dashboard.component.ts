@@ -1,20 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BailleurService } from 'src/app/services/bailleur.service';
+import { BienService } from 'src/app/services/bien.service';
+import { ProprieteService } from 'src/app/services/propriete.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent  implements OnInit{
 
   doughnutSource!: Object;
   barSource!: Object;
   pieSource!: Object;
   lineSource!: Object;
 
+  biens!: any[];
+  proprietes!: any[];
+  bailleurs!: any[];
+  locataires!: any[];
+
+  nbreBiens = 0
+  nbreProprietes = 0
+  nbreBailleurs = 0
+  nbreLocataires = 0
+  totalRevenu = 0
+
   constructor(
-    private router: Router
+    private router: Router,
+    private bienservices: BienService,
+    private proprieteService: ProprieteService,
+    private bailleurService: BailleurService
   ) {
 
     // Configuration Bar Chart
@@ -182,8 +199,35 @@ export class DashboardComponent {
     this.pieSource = pieSource;
     this.lineSource = lineSource;
   }
-  
+  ngOnInit() {
+    this.allBien()  
+    this.allPropriete() 
+    this.allBailleur()
+  }
+
   goTo(path: string) {
     this.router.navigate(['/admin/' + path]);
   }
+
+  allBailleur() {
+    this.bailleurService.AllBailleur().subscribe(ret => {
+      this.bailleurs = ret.data
+      this.nbreBailleurs = this.bailleurs.length
+    });
+  }
+ 
+  allPropriete() {
+    this.proprieteService.AllPropriete().subscribe(ret => {
+      this.proprietes = ret.data
+      this.nbreProprietes = this.proprietes.length
+    });
+  }
+
+  allBien() {
+    this.bienservices.AllBien().subscribe(ret => {
+      this.biens = ret.data
+      this.nbreBiens = this.biens.length
+    });
+  }
+
 }
