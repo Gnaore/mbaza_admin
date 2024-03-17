@@ -12,7 +12,7 @@ import { TenantComponent } from './tenant/tenant.component';
 import { UserComponent } from './user/user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChattelsComponent } from './chattels/chattels.component';
-import { FusionChartsModule } from 'angular-fusioncharts';
+//import { FusionChartsModule } from 'angular-fusioncharts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { InputFormatDirective } from '../input-format.directive';
@@ -24,9 +24,9 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CalendarModule } from 'primeng/calendar';
 
 // Import FusionCharts library and chart modules
-import * as FusionCharts from 'fusioncharts';
+/*import * as FusionCharts from 'fusioncharts';
 import * as charts from 'fusioncharts/fusioncharts.charts';
-import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';*/
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { BankComponent } from './bank/bank.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
@@ -48,7 +48,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TenantListComponent } from './tenant-list/tenant-list.component';
 
-FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
+//FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
   declarations: [
     PanelComponent,
@@ -73,7 +73,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FusionChartsModule,
+  // FusionChartsModule,
     FormsModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({}),

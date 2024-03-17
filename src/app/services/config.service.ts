@@ -11,9 +11,15 @@ export class ConfigService {
   //  urlg = 'http://localhost:3000/'
 
   //EN PROD heroku
-  urlg = 'https://mbaza-eb3d8ec0412e.herokuapp.com/'
-  urlFront = "https://mbaaza.com/"
+  //urlg = 'https://mbaza-eb3d8ec0412e.herokuapp.com/'
 
+
+  //En prod LWS
+  urlg = 'https://apimbaza.mbaaza.com/'
+  urlgimg = 'https://apimbaza.mbaaza.com/files/'
+  urlFront = "https://mbaaza.com/"
+  urlGsms = 'https://rapidinfos.com/api/api_http.php'
+  
   //EN PROD vercel
   //urlg = 'https://mbaza-api.vercel.app/'
 

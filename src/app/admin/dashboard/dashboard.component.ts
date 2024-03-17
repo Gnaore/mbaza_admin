@@ -34,7 +34,7 @@ export class DashboardComponent  implements OnInit{
     private bailleurService: BailleurService
   ) {
 
-    // Configuration Bar Chart
+ /*   // Configuration Bar Chart
     const barData = [
       {
         label: "Côte d'Ivoire",
@@ -198,7 +198,10 @@ export class DashboardComponent  implements OnInit{
     this.barSource = barSource;
     this.pieSource = pieSource;
     this.lineSource = lineSource;
+     */
   }
+
+ 
   ngOnInit() {
     this.allBien()  
     this.allPropriete() 

@@ -65,17 +65,25 @@ export class LoginComponent {
     };
   
 
-    //console.log(body);
+   
     this.authService.login(body).subscribe(result => {
       this.reponse = result;
-      
-      if (result.user.userrole === this.role.ADMIN || result.user.userrole === this.role.ROOT)
-        window.location.href = '/admin';  
-      else {
+      console.log(this.reponse);
+      if(this.reponse.data.succes == true){
+        if (result.data.data.user.userrole === this.role.ADMIN || result.data.data.user.userrole === this.role.ROOT)
+          window.location.href = '/admin/dashboard';  
+        else {
+          localStorage.clear();
+          this.isLoading = false;
+          this.noAccess = true;
+        }
+      } else {
         localStorage.clear();
+        this.msgErreur = this.reponse.data.message
+        this.afficheErreur = true;
         this.isLoading = false;
-        this.noAccess = true;
       }
+      
       
       //this.router.navigate(['/tableaudebord']);
     }, (err) => {

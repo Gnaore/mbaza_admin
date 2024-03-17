@@ -47,7 +47,8 @@ export class TenantListComponent {
   listLocataire: any
   url = this.configService.urlFront
   urlg = this.configService.urlg
-  urlphotoDefault = this.configService.urlg + "defaultprofil.png"
+  urlphotoDefault = this.configService.urlgimg + "defaultprofil.png"
+  urlimg = this.configService.urlgimg 
   reponse: any;
 
   affiche = false
@@ -60,6 +61,9 @@ export class TenantListComponent {
 
   previewImage: any;
   lienPhotoretour: any;
+  lienPhotoretourCNI: any;
+  previewImageCNI: any;
+
   previewImage2: any;
   lienPhotoretour2: any;
   file: any;
@@ -73,7 +77,6 @@ export class TenantListComponent {
 
   qrcode = "";
   nomQrcode = ""
-  urlimg = ""
 
   detailsPaiementDialog = false;
   modifLocataire = false;
@@ -256,7 +259,7 @@ export class TenantListComponent {
       this.formGroup.controls['locataireTelgarant'].setValue(this.oneLocataire.locataireTelgarant);
       this.formGroup.controls['locataireTypecontrat'].setValue(this.oneLocataire.locataireTypecontrat);
       //this.formGroup.controls['locatairePhoto'].setValue(this.oneLocataire.locatairePhoto);
-      this.lienPhotoretour = this.configService.urlg + this.oneLocataire.locatairePhoto;
+      this.lienPhotoretour = this.configService.urlgimg + this.oneLocataire.locatairePhoto;
       // this.formGroup.controls['bailleurId'].setValue(this.oneLocataire.bailleurId);
       this.formGroup.controls['proprieteCode'].setValue(this.oneLocataire.propriete.proprieteCode);
       // this.formGroup.controls['localisation'].setValue(this.oneLocataire.localisation);
@@ -296,7 +299,7 @@ export class TenantListComponent {
       formData.append('file', this.fileToUpload);
       this.uploadService.upload(formData).subscribe(
         (ret) => {
-          this.lienPhotoretour = this.configService.urlg + ret.data;
+          this.lienPhotoretour = this.configService.urlgimg + ret.data;
           this.file = ret.data;
           this.isLoading = false;
         },
@@ -307,6 +310,30 @@ export class TenantListComponent {
       );
     }
   }
+
+  onFileChangeCNI(event: any) {
+    this.lienPhotoretourCNI = '';
+    this.file = '';
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.previewImageCNI = file.name;
+      this.fileToUpload = file;
+      const formData = new FormData();
+      formData.append('file', this.fileToUpload);
+      this.uploadService.upload(formData).subscribe(
+        (ret) => {
+          this.lienPhotoretourCNI = this.configService.urlgimg + ret.data;
+          this.file = ret.data;
+          this.isLoading = false;
+        },
+        (err) => {
+          this.previewImageCNI = '';
+          this.isLoading = false;
+        }
+      );
+    }
+  }
+
 
 
   submitModifLocataire(f: any) {
@@ -606,7 +633,7 @@ export class TenantListComponent {
       formData.append('file', blob, "qrcode.png");
       this.uploadService.upload(formData).subscribe(
         (ret) => {
-          this.urlimg = this.configService.urlg + ret.data;
+          this.urlimg = this.configService.urlgimg + ret.data;
           this.nomQrcode = ret.data;
           this.isLoading = false;
         },

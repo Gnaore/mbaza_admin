@@ -22,6 +22,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { ToastrService } from 'ngx-toastr';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { MessageService } from 'primeng/api';
+import { SmsService } from 'src/app/services/sms.service';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -74,7 +75,8 @@ export class AddLessorComponent {
     private usersService: UsersService,
     private toastr: ToastrService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private smsService: SmsService
   ) { }
 
   formGroup!: FormGroup;
@@ -163,6 +165,20 @@ export class AddLessorComponent {
     });
   }
 
+  envoiSms(to: string, email: string, ){
+    let text = "Bienvenue chez MBAAZA, Votre compte viens d'être ouvert sur la plateform des Bailleurs. Trouvez vos identifiant dans votre boite email " + email +" +RC+ https://mbaaza.com"
+    const smsFormData = new FormData();
+    smsFormData.append('username', 'MBAZA');
+    smsFormData.append('password', 'MBAAZA1978');
+    smsFormData.append('sender', 'MBAAZA');
+    smsFormData.append('to', to);
+    smsFormData.append('text', text);
+    smsFormData.append('url', 'mbaaza.com');
+    smsFormData.append('type', 'text');
+    smsFormData.append('datetime', '2024-02-29 11:47:21');
+  }
+
+
   onSubmit(f: any) {
     this.isLoading = true;
     var boby = {
@@ -185,7 +201,7 @@ export class AddLessorComponent {
       bailleurTelHussier: f.bailleurTelHussier,
       bailleurEmailHussier: f.bailleurEmailHussier,
 
-    };
+    }
 
     // Subject: Ouverture de compte M'baaza
     // Message: 
@@ -322,10 +338,10 @@ export class AddLessorComponent {
           ret.data.bailleurTelHussier
         );
         this.lienPhotoretour =
-          this.configService.urlg + ret.data.bailleurlienCNI;
+          this.configService.urlgimg + ret.data.bailleurlienCNI;
         this.file = ret.data.bailleurlienCNI;
         this.lienPhotoretour2 =
-          this.configService.urlg + ret.data.bailleurLienPhoto;
+          this.configService.urlgimg + ret.data.bailleurLienPhoto;
         this.file2 = ret.data.bailleurLienPhoto;
         this.allProprieteByBailleur(id);
         this.isLoading = false;
@@ -353,6 +369,7 @@ export class AddLessorComponent {
     this.usersService.saveUser(body).subscribe(
       (result) => {
         this.toastr.success("L'utilisateur créé avec succés");
+        this.envoiSms(f.bailleurTelephone,f.bailleurEmail);
       },
       (err) => {
         this.toastr.error(err);
@@ -385,7 +402,7 @@ export class AddLessorComponent {
       this.uploadService.upload(formData).subscribe(
         (ret) => {
           console.log(ret);
-          this.lienPhotoretour = this.configService.urlg + ret.data;
+          this.lienPhotoretour = this.configService.urlgimg + ret.data;
           this.file = ret.data;
           this.isLoading = false;
         },
@@ -409,7 +426,7 @@ export class AddLessorComponent {
       this.uploadService.upload(formData).subscribe(
         (ret) => {
           console.log(ret);
-          this.lienPhotoretour2 = this.configService.urlg + ret.data;
+          this.lienPhotoretour2 = this.configService.urlgimg + ret.data;
           this.onFileChange2 = ret.data;
           this.file2 = ret.data;
           this.isLoading = false;
@@ -532,7 +549,7 @@ export class AddLessorComponent {
 
   setFormPropriete(f: any) {
     console.log(f);
-    this.lienPhotoretourPropriete = this.configService.urlg + f.proprieteLienPhoto;
+    this.lienPhotoretourPropriete = this.configService.urlgimg + f.proprieteLienPhoto;
     this.formProprieteGroup.patchValue({
       proprieteId: f.proprieteId,
       proprieteAnnee: f.proprieteAnnee,
@@ -574,7 +591,7 @@ export class AddLessorComponent {
           this.formProprieteGroup.patchValue({
             proprieteLienPhoto: ret.data
           })
-          this.lienPhotoretourPropriete = this.configService.urlg + ret.data;
+          this.lienPhotoretourPropriete = this.configService.urlgimg + ret.data;
           // this.previewImagePropriete =  ret.data;
           this.file = ret.data;
           this.isLoading = false;

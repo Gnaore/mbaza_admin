@@ -53,8 +53,10 @@ entetes = entetes.set('Accept-Encoding', 'gzip, deflate, sdch');*/
       .post<any>(this.urlG + 'user/signin', info, httpOptions)
       .pipe(
         map((user) => {
-          if (user && user.token) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
+          if (user && user.data.data.token) {
+           // alert(user.data.data.token)
+            //console.log(user)
+            localStorage.setItem('currentUser', JSON.stringify(user.data.data));
             this.concurentUserSubject.next(user);
           }
           return user;

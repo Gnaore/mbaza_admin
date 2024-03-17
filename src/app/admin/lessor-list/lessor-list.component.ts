@@ -20,7 +20,7 @@ export class LessorListComponent implements OnInit {
   ) { }
   listeBailleur: any[] = [];
   urlg = '';
-
+  urlgimg = '';
   public loading = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public primaryColour = this.configService.PrimaryWhite;
@@ -28,6 +28,8 @@ export class LessorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.urlg = this.configService.urlg;
+    this.urlgimg = this.configService.urlgimg;
+
     this.readAllBailleur();
   }
 
