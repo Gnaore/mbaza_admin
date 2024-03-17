@@ -33,6 +33,7 @@ export class UserComponent implements OnInit {
   lienPhotoretour: any;
   file: any;
   urlg: any;
+  urlgimg: any;
 
   private builder = inject(FormBuilder);
 
@@ -55,6 +56,7 @@ export class UserComponent implements OnInit {
     this.initForm();
     this.listeUtilisateurs();
     this.urlg = this.configService.urlg;
+    this.urlgimg = this.configService.urlgimg;
 
     /* this.countries = [
       { name: "Côte d'Ivoire", code: 'CI' },
@@ -167,7 +169,7 @@ export class UserComponent implements OnInit {
         // this.formGroup.controls['paysId'].setValue(ret.data.paysId);
         // this.selectedCountry = ret.data.paysId;
         this.formGroup.controls['role'].setValue(ret.data.role);
-        this.lienPhotoretour = this.configService.urlg + ret.data.lienphoto;
+        this.lienPhotoretour = this.configService.urlgimg + ret.data.lienphoto;
         this.file = ret.data.lienphoto;
         this.paysService.onePays(ret.data.paysId).subscribe((ret) => {
           this.selectedCountry = ret.data;
@@ -195,7 +197,7 @@ export class UserComponent implements OnInit {
       this.uploadService.upload(formData).subscribe(
         (ret) => {
           console.log(ret);
-          this.lienPhotoretour = this.configService.urlg + ret.data;
+          this.lienPhotoretour = this.configService.urlgimg + ret.data;
           this.file = ret.data;
           this.isLoading = false;
         },

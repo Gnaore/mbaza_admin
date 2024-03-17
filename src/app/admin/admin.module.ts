@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { PanelComponent } from './panel/panel.component';
@@ -103,5 +103,6 @@ import { TenantListComponent } from './tenant-list/tenant-list.component';
       fullScreenBackdrop: false,
     }),
   ],
+ providers: [DatePipe]
 })
 export class AdminModule {}

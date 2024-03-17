@@ -23,6 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { MessageService } from 'primeng/api';
 import { SmsService } from 'src/app/services/sms.service';
+import { DatePipe } from '@angular/common';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -76,8 +77,17 @@ export class AddLessorComponent {
     private toastr: ToastrService,
     private router: Router,
     private messageService: MessageService,
-    private smsService: SmsService
+    private smsService: SmsService,
+    private datePipe: DatePipe
   ) { }
+
+
+  formatDate(): string {
+    const currentDate = new Date();
+    // Formater la date actuelle au format "YYYY-MM-DD HH:mm:ss"
+    const formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd HH:mm:ss');
+    return formattedDate || ''; // Assurer que la valeur retournée n'est pas nulle
+  }
 
   formGroup!: FormGroup;
   formProprieteGroup!: FormGroup;
@@ -166,16 +176,21 @@ export class AddLessorComponent {
   }
 
   envoiSms(to: string, email: string, ){
-    let text = "Bienvenue chez MBAAZA, Votre compte viens d'être ouvert sur la plateform des Bailleurs. Trouvez vos identifiant dans votre boite email " + email +" +RC+ https://mbaaza.com"
-    const smsFormData = new FormData();
-    smsFormData.append('username', 'MBAZA');
-    smsFormData.append('password', 'MBAAZA1978');
-    smsFormData.append('sender', 'MBAAZA');
-    smsFormData.append('to', to);
-    smsFormData.append('text', text);
-    smsFormData.append('url', 'mbaaza.com');
-    smsFormData.append('type', 'text');
-    smsFormData.append('datetime', '2024-02-29 11:47:21');
+    let text = "Bienvenue chez MBAAZA, Votre compte viens d'être ouvert sur la plateform des Bailleurs. Trouvez vos identifiant dans votre boite mail \n " + email 
+    var boby = {
+      sender:'MBAAZA',
+      to: to,
+      text: text,
+      url: 'mbaaza.com',
+      type: 'unicode',
+      datetime: this.formatDate()
+    }
+    this.smsService.sms(boby).subscribe((ret)=>{
+      this.toastr.success("SMS ENVOIE");
+    },(error)=>{
+      console.log(error);
+      this.toastr.success("Erreur " + error );
+    });
   }
 
 
