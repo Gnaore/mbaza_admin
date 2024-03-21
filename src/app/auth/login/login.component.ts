@@ -78,17 +78,19 @@ export class LoginComponent {
           this.noAccess = true;
         }
       } else {
-        localStorage.clear();
-        this.msgErreur = this.reponse.data.message
+   
         this.afficheErreur = true;
         this.isLoading = false;
+        this.msgErreur = this.reponse.data.data.message
+        localStorage.clear();
+        
       }
       
       
       //this.router.navigate(['/tableaudebord']);
     }, (err) => {
       localStorage.clear();
-      this.msgErreur = err.error.message
+      this.msgErreur = err.error
       console.log(err);
       this.afficheErreur = true;
       this.isLoading = false;

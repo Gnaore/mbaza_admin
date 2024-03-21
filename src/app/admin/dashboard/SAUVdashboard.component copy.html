@@ -120,8 +120,102 @@
         </div>
     </div>
 
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <circle-progress [percent]="12" [radius]="100" subtitle="Terrains" subtitleColor="#418671" subtitleFontSize="12"
+                        [radius]="70" subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8"
+                        [innerStrokeWidth]="8" [outerStrokeColor]="'#957e93'" [innerStrokeColor]="'#e2d5e0'"
+                        [animation]="true" [animationDuration]="300"></circle-progress>
+
+                    <circle-progress [percent]="18" [radius]="100" subtitle="Duplex" subtitleColor="#418671" subtitleFontSize="12" [radius]="70"
+                        subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+                        [outerStrokeColor]="'#957e93'" [innerStrokeColor]="'#e2d5e0'" [animation]="true"
+                        [animationDuration]="300"></circle-progress>
+
+                    <circle-progress [percent]="21" [radius]="100" subtitle="Appartements" subtitleColor="#418671" subtitleFontSize="12"
+                        [radius]="70" subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8"
+                        [innerStrokeWidth]="8" [outerStrokeColor]="'#957e93'" [innerStrokeColor]="'#e2d5e0'"
+                        [animation]="true" [animationDuration]="300"></circle-progress>
+
+                    <circle-progress [percent]="24" [radius]="100" subtitle="Studio" subtitleColor="#418671" subtitleFontSize="12" [radius]="70"
+                        subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+                        [outerStrokeColor]="'#957e93'" [innerStrokeColor]="'#e2d5e0'" [animation]="true"
+                        [animationDuration]="300"></circle-progress>
+
+                    <circle-progress [percent]="10" [radius]="100" subtitle="Villas" subtitleColor="#418671" subtitleFontSize="12" [radius]="70"
+                        subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+                        [outerStrokeColor]="'#957e93'" [innerStrokeColor]="'#e2d5e0'" [animation]="true"
+                        [animationDuration]="300"></circle-progress>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!--fusioncharts type="spline" [dataSource]="lineSource" height="400" width="100%">
+                </fusioncharts-->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <!--fusioncharts type="bar2d" [dataSource]="barSource" height="400" width="100%">
+                </fusioncharts-->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body text-center">
+                <!--fusioncharts type="pie2d" [dataSource]="pieSource" height="400">
+                </fusioncharts-->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="fw-semibold text-opacity-75">Effectif des locataires par nationalité</h4>
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Pays.</th>
+                            <th>Nombre de locataires.</th>
+                            <th>Pourcentage (%).</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Côte d'Ivoire</td>
+                            <td class="fw-bold">456</td>
+                            <th class="text-warning">54,78%</th>
+                        </tr>
+                        <tr>
+                            <td>Camerounais</td>
+                            <td class="fw-bold">210</td>
+                            <th class="text-warning">32,67%</th>
+                        </tr>
+                        <tr>
+                            <td>Beninois</td>
+                            <td class="fw-bold">23</td>
+                            <th class="text-warning">12,54%</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
         <div class="card">
             <div class="card-body text-center">
                 <!--fusioncharts type="doughnut2d" [dataSource]="doughnutSource" height="400">

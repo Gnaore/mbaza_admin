@@ -53,9 +53,9 @@ entetes = entetes.set('Accept-Encoding', 'gzip, deflate, sdch');*/
       .post<any>(this.urlG + 'user/signin', info, httpOptions)
       .pipe(
         map((user) => {
-          if (user && user.data.data.token) {
+          if (user && user.data.statuscode == 200) {
            // alert(user.data.data.token)
-            //console.log(user)
+           // console.log(user)
             localStorage.setItem('currentUser', JSON.stringify(user.data.data));
             this.concurentUserSubject.next(user);
           }

@@ -302,7 +302,7 @@
       <div class="col-12">
         <div class="row p-3">
           <div class="col-6 mb-3">
-            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal1" >
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="OuvrirAjoutPropriete()">
               <i class="ti ti-home-plus"></i>
               Ajouter une propriété
             </button>
@@ -595,14 +595,24 @@
             </div>
             <div class="col-12 mb-3">
               <div class="form-group">
-                <label class="btn btn-light-primary" for="filePropriete"><i class="ti ti-upload"></i> Sélectionner des
-                  images
+                <label class="btn btn-light-primary" for="filePropriete"><i class="ti ti-upload"></i> Sélectionner l'image principale
                   <span class="text-danger">*</span></label>
-                <input type="file" id="filePropriete" class="form-control form-control-lg rounded-0 d-none"
+                  
+                  <input type="file" id="filePropriete" class="form-control form-control-lg rounded-0 d-none"
                   (change)="onFileChangePropriete($event)" />
+                  <div class="row" *ngIf="formProprieteGroup.get('proprieteLienPhoto')?.value">
+                    <div class="col-6 mb-3">
+                      <div class="border" style="height: 200px">
+                        <img src="{{ lienPhotoretourPropriete }}" alt="" class="w-100 h-100" />
+                      </div>
+                    </div>
+                  </div>
+                  <p></p>
+                  <label class="btn btn-light-primary" for="filePropriete"><i class="ti ti-upload"></i> Sélectionner les autres images </label>
                   <input type="text" class="form-control form-control-lg rounded-0 d-none"
                   formControlName="proprieteLienPhoto"/>
               </div>
+
               <p-fileUpload [maxFileSize]="1000000" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" >
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
@@ -611,18 +621,12 @@
                 </ng-template>
             </p-fileUpload>
             </div>
-            <!--div class="row" *ngIf="formProprieteGroup.get('proprieteLienPhoto')?.value">
-              <div class="col-6 mb-3">
-                <div class="border" style="height: 200px">
-                  <img src="{{ lienPhotoretourPropriete }}" alt="" class="w-100 h-100" />
-                </div>
-              </div>
-            </div-->
+       
           </div>
         </div>
         <input type="text" formControlName="bailleurId" [(ngModel)]="MbailleurId" class="d-none"/>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="fermeFenPropriete()">
             Fermer
           </button>
           <button type="submit" class="btn btn-success" [disabled]="formProprieteGroup.invalid">Enregistrer</button>

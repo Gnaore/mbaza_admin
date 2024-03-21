@@ -418,6 +418,7 @@ export class AddLessorComponent {
         (ret) => {
           console.log(ret);
           this.lienPhotoretour = this.configService.urlgimg + ret.data;
+          console.log(this.lienPhotoretour);
           this.file = ret.data;
           this.isLoading = false;
         },
@@ -607,6 +608,7 @@ export class AddLessorComponent {
             proprieteLienPhoto: ret.data
           })
           this.lienPhotoretourPropriete = this.configService.urlgimg + ret.data;
+          console.log(this.lienPhotoretourPropriete);
           // this.previewImagePropriete =  ret.data;
           this.file = ret.data;
           this.isLoading = false;
@@ -618,5 +620,18 @@ export class AddLessorComponent {
         }
       );
     }
+  }
+
+  fermeFenPropriete(){
+    this.formProprieteGroup.reset()
+    //this.allProprieteByBailleur(this.id);
+    this.lienPhotoretourPropriete = ""
+    this.uploadedFiles = []
+    this.oneBailleur(this.id);
+  }
+
+  OuvrirAjoutPropriete(){
+    this.formProprieteGroup.reset()
+    this.oneBailleur(this.id);
   }
 }
