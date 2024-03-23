@@ -1,12 +1,15 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BailleurService } from 'src/app/services/bailleur.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocataireService } from 'src/app/services/locataire.service';
 import { ProprieteService } from 'src/app/services/propriete.service';
+import { SmsService } from 'src/app/services/sms.service';
 import { UploadService } from 'src/app/services/upload.service';
 import Swal from 'sweetalert2';
 //import * as html2pdf from 'html2pdf.js';
@@ -36,8 +39,19 @@ export class TenantListComponent {
     private locataireService: LocataireService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private smsService: SmsService,
+    private datePipe: DatePipe,
+    private toastr: ToastrService,
   ) { }
+
+  formatDate(): string {
+    const currentDate = new Date();
+    // Formater la date actuelle au format "YYYY-MM-DD HH:mm:ss"
+    const formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd HH:mm:ss');
+    return formattedDate || ''; // Assurer que la valeur retournée n'est pas nulle
+  }
 
   userId: number = 0
   bailleurInfo: any
@@ -48,7 +62,7 @@ export class TenantListComponent {
   url = this.configService.urlFront
   urlg = this.configService.urlg
   urlphotoDefault = this.configService.urlgimg + "defaultprofil.png"
-  urlimg = this.configService.urlgimg 
+  urlimg = this.configService.urlgimg
   reponse: any;
 
   affiche = false
@@ -105,6 +119,8 @@ export class TenantListComponent {
   numAnneencours = 0
   numJour = 0
 
+  idB = ""
+
   ngOnInit(): void {
     this.numMoisencours = this.dateJour.getMonth() + 1
     this.numAnneencours = this.dateJour.getFullYear()
@@ -112,6 +128,9 @@ export class TenantListComponent {
     // alert(  this.numJour + "- " + this.numMoisencours + " - " + this.numAnneencours)
     this.initForm()
     this.getOneBailleur()
+    this.route.params.subscribe(params => {
+      this.idB = params['id']
+    });
 
     /* $('.select').select2({
        minimumResultsForSearch: -1,
@@ -120,9 +139,29 @@ export class TenantListComponent {
 
   }
 
+
   selectRow() {
     console.log(this.selectedLocataire);
   }
+
+  envoiSms(to: string, email: string,) {
+    let text = "Cher locataire, votre compte Mbaaza a été créé avec succès! Veuillez consulter votre boîte mail ( " + email + " ) pour trouver vos identifiants de connexion. Bienvenue sur Mbaaza! \n https://www.mbaaza.com"
+    var boby = {
+      sender: 'MBAAZA',
+      to: to,
+      text: text,
+      url: 'mbaaza.com',
+      type: 'unicode',
+      datetime: this.formatDate()
+    }
+    this.smsService.sms(boby).subscribe((ret) => {
+      this.toastr.success("SMS ENVOIE");
+    }, (error) => {
+      console.log(error);
+      this.toastr.success("Erreur " + error);
+    });
+  }
+
 
   TogglAfficheFormulaire() {
     this.afficherFormulaire = !this.afficherFormulaire
@@ -163,7 +202,7 @@ export class TenantListComponent {
       type: [''],
       prix: [''],
       locataireDateentre: ['', Validators.required]
-      
+
     });
   }
 
@@ -282,7 +321,7 @@ export class TenantListComponent {
     this.bailleurService.allProprieteBailleurDisponible(id).subscribe(ret => {
       this.listProprietes = ret.data
       this.nbreDispo = this.listProprietes.length
-     // alert(this.nbreDispo)
+      // alert(this.nbreDispo)
     }, (error) => {
       if (error.status == 401) { this.router.navigateByUrl("/auth") }
     });
@@ -415,9 +454,8 @@ export class TenantListComponent {
     this.qrcode = this.url + "pay-onlineqr/" + reference
 
     //Creation de la provision
-    const date = new Date()
-    const mois = date.getMonth()
-    const annee = date.getFullYear()
+    const mois = f.locataireDateentre.substring(5, 7)
+    const annee = f.locataireDateentre.substring(0, 4)
 
     this.locataireService.moisrestant(mois).subscribe(ret => {
 
@@ -435,7 +473,6 @@ export class TenantListComponent {
           nummois: unmois.moisNumero
         })
       });
-
 
       var body = {
         locataireId: parseInt(f.locataireId),
@@ -476,9 +513,11 @@ export class TenantListComponent {
             timer: 1500,
           });
 
-          this.allLocataireByBailleur(ret.data.bailleurId);
+          //  this.allLocataireByBailleur(ret.data.bailleurId);
+          this.envoiSms(f.locataireTel, f.locataireEmail)
           this.ajoutUtilisateur(f, this.nomQrcode)
-
+          this.getOneBailleur()
+          this.allLocataireByBailleur(this.idB);
 
         },
         (err) => {
@@ -505,10 +544,8 @@ export class TenantListComponent {
 
   fermer() {
     this.detailsPaiementDialog = false
-    this.modifLocataire = false  
+    this.modifLocataire = false
   }
-
-
 
   onChangePropriete(refPropriete: any) {
     this.codePropriete = refPropriete
@@ -721,7 +758,7 @@ export class TenantListComponent {
   }
 
   confirm1(event: Event) {
-   // alert("ffff")
+    // alert("ffff")
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Voulez-vous envoyer une alerte à votre Hussier ?',
@@ -741,6 +778,6 @@ export class TenantListComponent {
 
   onAnnuler() {
     this.formGroup.reset();
-   // window.location.href = '/owner/tenant-list'
+    // window.location.href = '/owner/tenant-list'
   }
 }

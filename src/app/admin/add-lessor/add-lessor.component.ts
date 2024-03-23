@@ -176,7 +176,7 @@ export class AddLessorComponent {
   }
 
   envoiSms(to: string, email: string, ){
-    let text = "Bienvenue chez MBAAZA, Votre compte viens d'être ouvert sur la plateform des Bailleurs. Trouvez vos identifiant dans votre boite mail \n " + email 
+    let text = "Cher bailleur, votre compte Mbaaza est désormais actif! Vos identifiants de connexion ont été envoyés à votre adresse e-mail "+ email +" . Connectez-vous dès maintenant pour gérer vos biens en toute transparence sur Mbaaza. \n https://www.mbaaza.com" 
     var boby = {
       sender:'MBAAZA',
       to: to,
@@ -544,6 +544,11 @@ export class AddLessorComponent {
     };
 
     if (!f.proprieteId) {
+      if (f.proprieteStatu != "Disponible") {
+        alert("Le statut passerra automatiquement en DISPONIBLE car c'est une nouvelle propriété.")
+        body.proprieteStatu =  "Disponible"
+        console.log(body);
+      }
       this.proprieteService.ajoutPropriete(body).subscribe((ret) => {
         console.log(ret.data);
         this.SauvID = this.MbailleurId;
