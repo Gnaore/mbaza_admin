@@ -120,6 +120,7 @@ export class TenantListComponent {
   numJour = 0
 
   idB = ""
+  vproprietePrix = 0;
 
   ngOnInit(): void {
     this.numMoisencours = this.dateJour.getMonth() + 1
@@ -167,13 +168,14 @@ export class TenantListComponent {
     this.afficherFormulaire = !this.afficherFormulaire
   }
 
-  detailsPaiement(locataireRef: string, locataireNom: string, locataireTel: string, locataireEmail: string, locatairePhoto: string) {
+  detailsPaiement(locataireRef: string, locataireNom: string, locataireTel: string, locataireEmail: string, locatairePhoto: string, proprietePrix: number) {
     this.getOneLocataireByRef(locataireRef)
     this.vlocataireNom = locataireNom
     this.vlocataireTel = locataireTel
     this.vlocataireRef = locataireRef
     this.vlocataireEmail = locataireEmail
     this.vlocatairePhoto = locatairePhoto
+    this.vproprietePrix = proprietePrix
   }
 
   initForm() {

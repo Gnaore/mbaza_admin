@@ -266,7 +266,7 @@
                     </button>
 
                     <button class="btn btn-warning  me-2" title="Suivi paiements"
-                        (click)="detailsPaiement(loc.locataireRef,loc.locataireNom,loc.locataireTel,loc.locataireEmail, loc.locatairePhoto)">
+                        (click)="detailsPaiement(loc.locataireRef,loc.locataireNom,loc.locataireTel,loc.locataireEmail, loc.locatairePhoto,loc.propriete.proprietePrix)">
                         <i class="ti ti-search"></i>
                     </button>
 
@@ -401,8 +401,10 @@
 
 
 
+                         
                             <a class="btn btn-secondary " *ngIf="locataire.when_completed">
-                                <p-badge [value]="'Reglé'" severity="success"></p-badge>
+                                <p-badge *ngIf="locataire.amount == vproprietePrix" [value]="'Reglé'" severity="success"></p-badge>
+                                <p-badge *ngIf="locataire.amount < vproprietePrix" [value]="'Partiellement'" severity="success"></p-badge>
                             </a>
 
 
