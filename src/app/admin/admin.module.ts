@@ -47,11 +47,15 @@ import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { QRCodeModule } from 'angularx-qrcode';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TenantListComponent } from './tenant-list/tenant-list.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { ReservationPayeeComponent } from './reservation-payee/reservation-payee.component';
 
 //FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
   declarations: [
     PanelComponent,
+    ReservationComponent,
+    ReservationPayeeComponent,
     LessorPanelComponent,
     LessorListComponent,
     AddLessorComponent,
