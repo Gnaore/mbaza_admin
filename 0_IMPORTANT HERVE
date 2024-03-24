@@ -1,0 +1,7 @@
+***IMPORTANT
+1- L'application web se trouve à la racine "public_html" : https://mbaaza.com/
+2- L'aplication admin est dans le dossier "public_html/application" : https://app.mbaaza.com/
+3- L'api se trouve dans le dossier "public_html/apimbaza"
+
+4- La ligna à ajouter dans index.htlm pour stabiliser le css : 
+ <link rel="stylesheet" href="styles.acc4f61531ea306a.css">

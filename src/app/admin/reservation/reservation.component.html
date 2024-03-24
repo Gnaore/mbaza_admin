@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-calendar-time text-primary"></i>
+                    Reservations en attente
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-calendar-time text-primary"></i>
+                    Reservations en attente
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">Vous recevrez dans cette partie, la liste de toutes les reservations de résidences, hotel, etc... éffectuées sur la plateforme Mbaaza</div>
+                <p-table [scrollable]="true" #dt1
+                    currentPageReportTemplate="Affichage {first} de {last} à {totalRecords} entrées"
+                    [globalFilterFields]="['name', 'email', 'contact']" [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [value]="users"
+                    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                    [tableStyle]="{'min-width': '50rem', 'font-size': '15px'}">
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <span class="p-input-icon-left ml-auto w-50">
+                                <i class="ti ti-search"></i>
+                                <input pInputText type="text" class="form-control w-100" #search
+                                    (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nom du client.</th>
+                            <th>Email du client.</th>
+                            <th>Contact du client.</th>
+                            <th>Hotel / Résidence.</th>
+                            <th>Période de reservation.</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-user>
+                        <tr data-bs-target="#exampleModal1" style="cursor: pointer;" data-bs-toggle="modal">
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.tel }}</td>
+                            <td>
+                                Résidence Alassane Ouattara
+                            </td>
+                            <td>
+                                20/11/2023 12:00 - 22/11/2023 15:00
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pénalités -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div>
+                    <div class="p-0 rounded">
+                        <div class="background-primary px-4 pb-5 pt-3 h-100 rounded">
+                            <div class="text-end">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <h5 class="text-light text-center mb-5 fw-semibold">Détails de la réservation</h5>
+                            <div class="d-flex justify-content-between text-light">
+                                <small>N° de reservation : </small>
+                                <small>20112023TRS001X</small>
+                            </div>
+                            <hr class="border">
+                            <div class="d-flex justify-content-between text-light mb-2">
+                                <small>Date de transaction : </small>
+                                <small>20/11/2023</small>
+                            </div>
+                            <div class="d-flex justify-content-between text-light">
+                                <small>Heure : </small>
+                                <small>10:45</small>
+                            </div>
+                            <hr style="border-bottom: 3px dashed #fff;">
+                            <div class="row text-light mb-3">
+                                <small class="col-3">Lieu : </small>
+                                <small class="col-9 text-end">Résidence Alassane Ouattara (Yopougon Sicogi sis
+                                    Cosmos)</small>
+                            </div>
+                            <div class="row text-light mb-3">
+                                <small class="col-4">Période : </small>
+                                <small class="col-8 text-end">20/11/2023 de 15:30 au 21/11/2023 à 18:00</small>
+                            </div>
+                            <div class="row text-light mb-3">
+                                <small class="col-7">Reservé au nom de : </small>
+                                <small class="col-5 text-end">Stéphane OLIVIER</small>
+                            </div>
+                            <hr style="border-bottom: 3px dashed #fff;">
+                            <div class="row text-light">
+                                <small class="col-4 fw-bold">Montant : </small>
+                                <small class="col-8 text-end fw-semibold fs-4">245,000 XOF</small>
+                            </div>
+                            <hr style="border-bottom: 3px dashed #fff;">
+                            <div class="row text-light mb-3">
+                                <small class="col-6 fw-bold">Adresse e-mail de l'hotel / la résidence : </small>
+                                <small class="col-6 text-end fw-semibold fs-4">hotelado@info.ci</small>
+                            </div>
+                            <div class="row text-light">
+                                <small class="col-6 fw-bold">Contact de l'hotel / la résidence : </small>
+                                <small class="col-6 text-end fw-semibold fs-4">22 07 89 67 89</small>
+                            </div>
+                            <div class="d-flex justify-content-between mt-5">
+                                <button type="button" class="btn btn-light">Demander une confirmation</button>
+                                <div>
+                                    <button type="button" class="btn btn-warning me-3">Rejeter</button>
+                                    <button type="button" class="btn btn-success">Valider</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

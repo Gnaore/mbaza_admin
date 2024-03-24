@@ -1,0 +1,192 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-dashboard text-primary"></i>
+                    Tableau de bord
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-dashboard text-primary"></i>
+                    Tableau de bord
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="rounded shadow bg-warning text-white" style="cursor: pointer;"
+                            (click)="goTo('tenant/0')">
+                            <div class="row px-3 py-3">
+                                <div class="col-8">
+                                    <h4 class="text-white">Locataires.</h4>
+                                    <h2><strong>{{nbreLocataires}}</strong></h2>
+                                </div>
+                                <div class="col-4 d-flex align-items-center justify-content-center">
+                                    <h2 class="mb-0 bg-white rounded p-2">
+                                        <i class="ti ti-users text-warning"></i>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="rounded shadow bg-info text-white" style="cursor: pointer;"
+                            (click)="goTo('lessor-manager')">
+                            <div class="row px-3 py-3">
+                                <div class="col-8">
+                                    <h4 class="text-white">Bailleurs.</h4>
+                                    <h2><strong>{{nbreBailleurs}}</strong></h2>
+                                </div>
+                                <div class="col-4 d-flex align-items-center justify-content-center">
+                                    <h2 class="mb-0 bg-white rounded p-2">
+                                        <i class="ti ti-user text-info"></i>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="rounded shadow bg-danger text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="row px-3 py-3">
+                                <div class="col-8">
+                                    <h4 class="text-white">Propriétés.</h4>
+                                    <h2><strong>{{nbreProprietes}}</strong></h2>
+                                </div>
+                                <div class="col-4 d-flex align-items-center justify-content-center">
+                                    <h2 class="mb-0 bg-white rounded p-2">
+                                        <i class="ti ti-home-dollar text-danger"></i>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="rounded shadow text-white bg-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal1">
+                            <div class="row px-3 py-3">
+                                <div class="col-8">
+                                    <h4 class="text-white">Revenu.</h4>
+                                    <h2><strong>{{totalRevenu}}</strong></h2>
+                                </div>
+                                <div class="col-4 d-flex align-items-center justify-content-center">
+                                    <h2 class="mb-0 bg-white rounded p-2">
+                                        <i class="ti ti-businessplan text-success"></i>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="fw-semibold text-opacity-75 mb-0">Statistiques des biens immobiliers</h4>
+                <small class="text-muted opacity-75">Effectifs des biens immobiliers enregistrés sur le site internet de
+                    M'baza</small>
+                <div class="d-flex justify-content-between mt-3">
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Total" subtitleFontSize="18"
+                        subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+                        [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+                        [animationDuration]="300"></circle-progress>
+
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Loués" subtitleFontSize="18"
+                        subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+                        [outerStrokeColor]="'#00a2c2'" [innerStrokeColor]="'#95e4df'" [animation]="true"
+                        [animationDuration]="300"></circle-progress>
+
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Achetés" subtitleFontSize="18"
+                        subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+                        [outerStrokeColor]="'#c23a00'" [innerStrokeColor]="'#e59a9a'" [animation]="true"
+                        [animationDuration]="300"></circle-progress>
+
+                    <circle-progress [percent]="0" [radius]="100" subtitle="Disponibles" subtitleFontSize="18"
+                        subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+                        [outerStrokeColor]="'#c200b2'" [innerStrokeColor]="'#e59ad7'" [animation]="true"
+                        [animationDuration]="300"></circle-progress>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <!--fusioncharts type="doughnut2d" [dataSource]="doughnutSource" height="400">
+                </fusioncharts-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal propriétés -->
+<div class="modal modal-xl fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLabel">
+                    <i class="ti ti-home-2 rounded-circle bg-white text-info p-2"></i>
+                    Propriétés
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <input type="search" class="form-control rounded-0" placeholder="Recherche">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-responsive table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Code.</th>
+                                    <th>Localisation.</th>
+                                    <th>Type de propriété.</th>
+                                    <th>Année de construction.</th>
+                                    <th>Prix d'achat / location.</th>
+                                    <th>Statut.</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let n of [].constructor(5); let i = index;">
+                                    <td>07827882TG</td>
+                                    <td>Cocody St Jean, en face de l'église</td>
+                                    <td>Villa</td>
+                                    <td>2020</td>
+                                    <th class="alert alert-info">135,000 F</th>
+                                    <td>
+                                        <div class="alert {{ i%2 == 0 ? 'alert-success' : 'alert-warning' }} py-1">{{
+                                            i%2 == 0 ? 'Disponible' : 'Loué' }}</div>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info">
+                                            <i class="ti ti-file-export"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
