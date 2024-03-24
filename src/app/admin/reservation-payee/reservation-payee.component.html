@@ -1,0 +1,188 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-calendar-time text-primary"></i>
+                    Reservations validées
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-calendar-time text-primary"></i>
+                    Reservations validées
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">Vous recevrez dans cette partie, la liste de toutes les reservations de résidences, hotel, etc... éffectuées sur la plateforme Mbaaza</div>
+                <p-table [scrollable]="true" #dt1
+                    currentPageReportTemplate="Affichage {first} de {last} à {totalRecords} entrées"
+                    [globalFilterFields]="['name', 'email', 'contact']" [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [value]="users"
+                    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                    [tableStyle]="{'min-width': '50rem', 'font-size': '15px'}">
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <span class="p-input-icon-left ml-auto w-50">
+                                <i class="ti ti-search"></i>
+                                <input pInputText type="text" class="form-control w-100" #search
+                                    (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>N° de reservation.</th>
+                            <th>Reservé au nom de.</th>
+                            <th>Contact du client.</th>
+                            <th>Statut de la reservation.</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-user>
+                        <tr data-bs-target="#exampleModal1" style="cursor: pointer;" data-bs-toggle="modal">
+                            <td>6272781RES2023</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.tel }}</td>
+                            <td>
+                                <ng-container *ngIf="user.statut === 0">
+                                    <p-tag severity="info" value="En attente de paiement"></p-tag>
+                                </ng-container>
+                                <ng-container *ngIf="user.statut === 1">
+                                    <p-tag severity="success" value="Payée"></p-tag> [ 245,340 XOF ]
+                                </ng-container>
+                                <ng-container *ngIf="user.statut === 2">
+                                    <p-tag severity="danger" value="Délai de paiement dépassé"></p-tag>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-coin text-primary"></i>
+                    Montant à déverser par hotel / résidence
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">Rassurez-vous après le déversement de chaque somme de clôturer la journée.</div>
+                <p-table [scrollable]="true" #dt1
+                    currentPageReportTemplate="Affichage {first} de {last} à {totalRecords} entrées"
+                    [globalFilterFields]="['name', 'email', 'contact']" [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [value]="users"
+                    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+                    [tableStyle]="{'min-width': '50rem', 'font-size': '15px'}">
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <span class="p-input-icon-left ml-auto w-50">
+                                <i class="ti ti-search"></i>
+                                <input pInputText type="text" class="form-control w-100" #search
+                                    (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nom de l'hotel / Résidence.</th>
+                            <th>E-mail</th>
+                            <th>Contact.</th>
+                            <th>Montant total perçu.</th>
+                            <th>Statut.</th>
+                            <th>Actions.</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-user>
+                        <tr>
+                            <td>HOTEL PROVIDENCE</td>
+                            <td>hotelhp@info.ci</td>
+                            <td>22 90 78 89 78</td>
+                            <th>[2,678,980 XOF]</th>
+                            <td>
+                                <i>En attente de clôture</i>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-sm">Clôturer la journée</button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pénalités -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div>
+                    <div class="p-0 rounded">
+                        <div class="background-primary px-4 pb-5 pt-3 h-100 rounded">
+                            <div class="text-end">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <h5 class="text-light text-center mb-5 fw-semibold">Détails de la réservation</h5>
+                            <div class="d-flex justify-content-between text-light">
+                                <small>N° de reservation : </small>
+                                <small>20112023TRS001X</small>
+                            </div>
+                            <hr class="border">
+                            <div class="d-flex justify-content-between text-light mb-2">
+                                <small>Date de transaction : </small>
+                                <small>20/11/2023</small>
+                            </div>
+                            <div class="d-flex justify-content-between text-light">
+                                <small>Heure : </small>
+                                <small>10:45</small>
+                            </div>
+                            <hr style="border-bottom: 3px dashed #fff;">
+                            <div class="row text-light mb-3">
+                                <small class="col-3">Lieu : </small>
+                                <small class="col-9 text-end">Résidence Alassane Ouattara (Yopougon Sicogi sis
+                                    Cosmos)</small>
+                            </div>
+                            <div class="row text-light mb-3">
+                                <small class="col-4">Période : </small>
+                                <small class="col-8 text-end">20/11/2023 de 15:30 au 21/11/2023 à 18:00</small>
+                            </div>
+                            <div class="row text-light mb-3">
+                                <small class="col-7">Reservé au nom de : </small>
+                                <small class="col-5 text-end">Stéphane OLIVIER</small>
+                            </div>
+                            <hr style="border-bottom: 3px dashed #fff;">
+                            <div class="row text-light">
+                                <small class="col-7 fw-bold">Montant de la reservation : </small>
+                                <small class="col-5 text-end fw-semibold fs-4">245,000 XOF</small>
+                            </div>
+                            <div class="row text-light">
+                                <small class="col-4 fw-bold">Frais : </small>
+                                <small class="col-8 text-end fw-semibold fs-4">340 XOF</small>
+                            </div>
+                            <hr style="border-bottom: 3px dashed #fff;">
+                            <div class="row text-light mb-3">
+                                <small class="col-6 fw-bold">Total : </small>
+                                <small class="col-6 text-end fw-semibold fs-4">245,340 XOF</small>
+                            </div>
+                            <div class="row text-light mb-3">
+                                <small class="col-6 fw-bold">Statut : </small>
+                                <small class="col-6 text-end text-success fw-semibold">Payée</small>
+                            </div>
+                            <div class="text-center mt-5">
+                                <button type="button" class="btn btn-light">Imprimer le reçu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,8 @@ import { ValidateAccountComponent } from './validate-account/validate-account.co
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { HelpMeBankComponent } from './help-me-bank/help-me-bank.component';
 import { PaysComponent } from './pays/pays.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { ReservationPayeeComponent } from './reservation-payee/reservation-payee.component';
 
 const routes: Routes = [
   { 
@@ -32,6 +34,8 @@ const routes: Routes = [
           { path: 'more-info/:id', component: MoreInfosComponent },
         ]
       },
+      { path: 'reservation', component: ReservationComponent },
+      { path: 'reservation-validee', component: ReservationPayeeComponent },
       { path: 'chattels', component: ChattelsComponent },
       { path: 'alerts/:id', component: AlertComponent },
       { path: 'validate-account', component: ValidateAccountComponent },
