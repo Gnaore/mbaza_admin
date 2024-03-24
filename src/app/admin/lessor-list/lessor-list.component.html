@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-users text-primary"></i>
+                    Gestion des bailleurs
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-users text-primary"></i>
+                    Gestion des bailleurs
+                </h3>
+                <a routerLink="/admin/lessor-manager/add-lessor" class="btn btn-primary">
+                    <i class="ti ti-user-plus text-primary"></i>
+                    Nouveau bailleur
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">Gérez vos bailleurs (Ajoutez, modifiez, supprimez, listez les
+                    locataires d'un bailleur).</div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <input type="search" class="form-control rounded-0" placeholder="Recherche">
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select rounded-0">
+                            <option value="">Filtrer par :</option>
+                            <option value="">Nom & prénom(s)</option>
+                            <option value="">Nombre de locataires</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select rounded-0">
+                            <option value="">Croissant</option>
+                            <option value="">Décroissant</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Image.</th>
+                                <th>Identifiant.</th>
+                                <th>Nom & Prénom(s).</th>
+                                <th>Email.</th>
+                                <th>Contact.</th>
+                                <th>Adresse.</th>
+                                <th>Locataires.</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let n of [].constructor(14)">
+                                <td align="center">
+                                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35"
+                                            class="rounded-circle">
+                                    </a>
+                                </td>
+                                <td>928899GH</td>
+                                <td><div class="text-overflow">Agence Albert Séraphin</div></td>
+                                <td><div class="text-overflow"><a href="#">agencealbert@info.ci</a></div></td>
+                                <td><div class="text-overflow">(+225) 22 07 98 90 56</div></td>
+                                <td><div class="text-overflow">Cocody Danga</div></td>
+                                <td class="fw-semibold">4</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="#" class="btn btn-sm btn-info">
+                                            <i class="ti ti-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-danger ms-2">
+                                            <i class="ti ti-trash"></i>
+                                        </a>
+                                        <a routerLink="/admin/lessor-manager/more-info/0" class="btn btn-sm btn-light ms-2">
+                                            <i class="ti ti-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4"><strong>Nombre d'enregistrement : 14</strong></td>
+                                <td colspan="4" class="py-0">
+                                    <nav aria-label="Page navigation example" class="float-end">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

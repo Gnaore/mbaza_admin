@@ -1,0 +1,62 @@
+<div class="vh-100" id="content">
+    <div class="row h-100 m-0">
+        <div class="col-8 h-100"></div>
+        <div class="col-4 shadow right-content h-100 d-flex align-items-center justify-content-center animate__animated animate__backInRight">
+            <form class="my-card" style="width: 350px;" [formGroup]="formGroup" (ngSubmit)="login()">
+                <div class="text-center mb-3">
+                    <img src="assets/logo.png" alt="Logo" width="80">
+                </div>
+                <h2 class="text-muted fw-semibold m-0">Se connecter</h2>
+                <div class="alert alert-warning mt-3">
+                    <small>En cas de problème lors de l'authentification, veuillez contacter l'administrateur.</small>
+                </div>
+                <div>
+                    <div class="form-group mb-3">
+                        <label for="" class="form-label fw-semibold">E-mail <span class="text-danger">*</span></label>
+                        <div class="input-group border border-info rounded border-opacity-50">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <input type="email" class="form-control border-0" formControlName="email" placeholder="john@mbaza.com">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="" class="form-label fw-semibold">Mot de passe <span class="text-danger">*</span></label>
+                        <div class="input-group border border-info rounded border-opacity-50">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="ti ti-lock"></i>
+                            </span>
+                            <input [type]="showPwd ? 'text' : 'password'" class="form-control border-0" formControlName="password" placeholder="***********">
+                            <span class="input-group-text" id="basic-addon1" style="cursor: pointer;" (click)="showPwd = !showPwd">
+                                <i class="ti {{ showPwd ? 'ti-eye-off' : 'ti-eye'}}"></i>
+                            </span>
+                        </div>
+                      </div>
+                </div>
+                <div class="mb-3 mt-3 text-end">
+                    <a (click)="visible = true" class="link-muted fw-semibold" style="cursor: pointer;"><small>Mot de passe oublié ?</small></a>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary w-100" routerLink="/admin" [disabled]="formGroup.invalid">Connexion</button>
+                </div>
+                <hr>
+                <small style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos mollitia sit dolor illo repudiandae eligendi consectetur accusamus deleniti id cum?</small>
+            </form>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Mot de passe oublié ?" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <form>
+        <div class="alert alert-danger">
+            <small>E-mail inexistant dans la base de données.</small>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label fw-semibold">E-mail <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" placeholder="xxx@mbaza.com">
+        </div>
+        <div class="text-center">
+            <a class="btn btn-primary w-100" type="button" href="/auth/reset-password">Vérifier</a>
+        </div>
+    </form>
+</p-dialog>

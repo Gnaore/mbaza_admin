@@ -1,0 +1,534 @@
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item"><a routerLink="/admin/lessor-manager">
+                        <i class="ti ti-users text-primary"></i>
+                        Gestion des bailleurs
+                    </a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="ti ti-user-plus text-primary"></i>
+                    Nouveau bailleur
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h3 class="card-title fw-semibold">
+                    <i class="ti ti-user-plus text-primary"></i>
+                    Editer un bailleur
+                </h3>
+                <a routerLink="/admin/lessor-manager" class="btn btn-warning">
+                    <i class="ti ti-arrow-back"></i>
+                    Retour
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">Vérifiez la conformité des informations avant l'enregistrement.</div>
+                <div class="row">
+                    <div class="col-12">
+                        <span>Informations personnelles</span>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="row p-3">
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nom complet <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg rounded-0"
+                                        placeholder="p.ex. John Doe / Agence Mbaza">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Adresse <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg rounded-0"
+                                        placeholder="p.ex. Riviera Bonoumin">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label"><i class="ti ti-phone"></i> Numéro de téléphone <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg rounded-0"
+                                        placeholder="+225 XX XX XX XX XX">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label"><i class="ti ti-mail"></i> E-mail <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg rounded-0"
+                                        placeholder="p.ex. name@domain">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Date de naissance <span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" class="form-control form-control-lg rounded-0">
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Numéro d'identification</label>
+                                    <input type="text" class="form-control form-control-lg rounded-0"
+                                        placeholder="p.ex. numéro de passport / sécurité sociale">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span>Informations financières</span>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="row p-3">
+                            <div class="col-12 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nom de la banque <span
+                                            class="text-danger">*</span></label>
+                                    <p-dropdown [options]="banks" [(ngModel)]="selectedBank" optionLabel="name"
+                                        styleClass="w-100" placeholder="-- Choisir ma banque --"></p-dropdown>
+
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Numéro de compte bancaire <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg rounded-0">
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Revenu annuel <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg rounded-0" appInputFormat>
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Taux d'intérêt <span class="text-danger">*</span></label>
+                                    <select class="form-select-lg form-select rounded-0">
+                                        <option value="">-- Choisir le taux --</option>
+                                        <option value="">4%</option>
+                                        <option value="">7%</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="col-6 mb-3">
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="ti ti-credit-card"></i>
+                                    Ajouter un mode de paiement mobile money
+                                </button>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <table class="table table-bordered table-responsive table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Mode de paiement.</th>
+                                            <th>Numéro.</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let n of [].constructor(2)">
+                                            <td align="center">
+                                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="../assets/images/profile/user-1.jpg" alt="" width="35"
+                                                        height="35" class="rounded-circle">
+                                                </a>
+                                            </td>
+                                            <td>Orange Money</td>
+                                            <td>+225 07 07 79 67 87</td>
+                                            <td>
+                                                <a href="#" class="btn btn-sm btn-danger ms-2">
+                                                    <i class="ti ti-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span>Contact d'urgence</span>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="row p-3">
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Personne à contacter en cas d'urgence</label>
+                                    <input type="text" class="form-control form-control-lg rounded-0">
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Relation avec le bailleur</label>
+                                    <input type="text" class="form-control form-control-lg rounded-0">
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Numéro de téléphone</label>
+                                    <input type="text" class="form-control form-control-lg rounded-0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span>Documents d'identification</span>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="row p-3">
+                            <div class="col-4 mb-3">
+                                <div class="form-group">
+                                    <label class="btn btn-light-primary" for="file"><i class="ti ti-upload"></i> Carte
+                                        d'identité / Passeport <span class="text-danger">*</span></label>
+                                    <input type="file" id="file" class="form-control form-control-lg rounded-0 d-none">
+                                </div>
+                            </div>
+                            <div class="col-2 mb-3">
+                                <div class="form-group">
+                                    <label class="btn btn-light-primary" for="file"><i class="ti ti-upload"></i> Photo /
+                                        Logo <span class="text-danger">*</span></label>
+                                    <input type="file" id="file" class="form-control form-control-lg rounded-0 d-none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span>Informations propriétés</span>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="row p-3">
+                            <div class="col-6 mb-3">
+                                <button class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal1">
+                                    <i class="ti ti-home-plus"></i>
+                                    Ajouter une propriété
+                                </button>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Code.</th>
+                                                <th>Localisation.</th>
+                                                <th>Type de propriété.</th>
+                                                <th>Année de construction.</th>
+                                                <th>Prix d'achat / location.</th>
+                                                <th>Actions.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let n of [].constructor(5); let i = index;">
+                                                <td>07827882TG</td>
+                                                <td>
+                                                    <div class="text-overflow">Cocody St Jean, en face de l'église</div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-overflow">Villa</div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-overflow">2020</div>
+                                                </td>
+                                                <td class="alert alert-info">
+                                                    <div class="text-overflow fw-semibold">135,000 F</div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a href="#" class="btn btn-sm btn-info">
+                                                            <i class="ti ti-edit"></i>
+                                                        </a>
+                                                        <a href="#" class="btn btn-sm btn-danger ms-2">
+                                                            <i class="ti ti-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row bg-light py-2 rounded">
+                    <div class="col-12 d-flex">
+                        <button class="btn btn-warning shadow" routerLink="/admin/lessor-manager">
+                            <i class="ti ti-arrow-back"></i>
+                            Retour
+                        </button>
+                        <button class="btn btn-danger ms-auto shadow">
+                            Annuler
+                        </button>
+                        <button class="btn btn-success ms-3 shadow">
+                            <i class="ti ti-database"></i>
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal ajout mode de paiement mobile money-->
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="ti ti-credit-card"></i> Ajouter un mode de paiement mobile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Mode de paiement mobile<span
+                                    class="text-danger">*</span></label>
+                            <select class="form-select rounded-0">
+                                <option value="">-- Choisir le mode de paiement --</option>
+                                <option value="">MTN MONEY</option>
+                                <option value="">ORANGE MONEY</option>
+                                <option value="">MOOV MONEY</option>
+                                <option value="">WAVE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Numéro de téléphone associé <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control rounded-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-success">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- Modal ajout propriété -->
+<div class="modal modal-lg fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-0">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLabel">
+                    <i class="ti ti-home-plus rounded-circle bg-white text-info p-2"></i>
+                    Nouvelle propriété
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="text-warning">Informations générales</h6>
+                    </div>
+                    <div class="col-5 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Adresse <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Type de propriété<span class="text-danger">*</span></label>
+                            <select class="form-select rounded-0">
+                                <option value="">-- Choisir le type de propriété --</option>
+                                <option value="Appartement">Appartement</option>
+                                <option value="Maison Individuelle">Maison Individuelle</option>
+                                <option value="Villa">Villa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Année de construction <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Surface (m<sup>2</sup>)</label>
+                            <input type="number" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Nbre d'étages</label>
+                            <input type="number" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Nbre de chambres</label>
+                            <input type="number" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Nbre de salles de bains</label>
+                            <input type="number" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea rows="5" class="form-control rounded-0"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-warning">Informations financières</h6>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Prix d'achat ou de location</label>
+                            <input type="text" class="form-control rounded-0" appInputFormat>
+                        </div>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Statut<span class="text-danger">*</span></label>
+                            <select class="form-select rounded-0">
+                                <option value="">Disponible</option>
+                                <option value="">Vendu</option>
+                                <option value="">Loué</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-5 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Hypothèques ou prêts liés à la propriété</label>
+                            <input type="text" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-warning">Caractéristiques spécifiques</h6>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-check d-inline-block me-3">
+                            <label class="form-check-label" for="jardin">Jardin</label>
+                            <input type="checkbox" class="form-check-input rounded-0" id="jardin">
+                        </div>
+                        <div class="form-check d-inline-block me-3">
+                            <label class="form-check-label" for="piscine">Piscine</label>
+                            <input type="checkbox" class="form-check-input rounded-0" id="piscine">
+                        </div>
+                        <div class="form-check d-inline-block me-3">
+                            <label class="form-check-label" for="garage">Garage ou espace de stationnement</label>
+                            <input type="checkbox" class="form-check-input rounded-0" id="garage">
+                        </div>
+                        <div class="form-check d-inline-block me-3">
+                            <label class="form-check-label" for="balcon">Balcon ou terrasse</label>
+                            <input type="checkbox" class="form-check-input rounded-0" id="balcon">
+                        </div>
+                        <div class="form-check d-inline-block me-3">
+                            <label class="form-check-label" for="cheminee">Cheminée</label>
+                            <input type="checkbox" class="form-check-input rounded-0" id="cheminee">
+                        </div>
+                        <div class="form-check d-inline-block me-3">
+                            <label class="form-check-label" for="climatisation">Système de climatisation</label>
+                            <input type="checkbox" class="form-check-input rounded-0" id="climatisation">
+                        </div>
+                        <div class="form-check d-inline-block me-3">
+                            <label class="form-check-label" for="supplémentaires">Équipements supplémentaires</label>
+                            <input type="checkbox" class="form-check-input rounded-0" [(ngModel)]="eqpmtSup"
+                                id="supplémentaires">
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3" *ngIf="eqpmtSup">
+                        <div class="d-flex mb-3">
+                            <div class="form-group w-100">
+                                <input type="text" class="form-control rounded-0" placeholder="Nom de l'équipement">
+                            </div>
+                            <button type="button" class="btn btn-primary ms-3">
+                                Ajouter
+                            </button>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Libéllé de l'équipement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Buanderie</td>
+                                </tr>
+                                <tr>
+                                    <td>Cuisine équipée</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-warning">Localisation</h6>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Coordonnées géopgraphiques</label>
+                            <div class="d-flex">
+                                <input type="number" class="form-control rounded-0" placeholder="Longitude">
+                                <input type="number" class="form-control rounded-0 ms-2" placeholder="Latitude">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Quartier ou zone</label>
+                            <input type="text" class="form-control rounded-0">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-warning">Images</h6>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="form-group">
+                            <label class="btn btn-light-primary" for="file2"><i class="ti ti-upload"></i> Sélectionner
+                                des images <span class="text-danger">*</span></label>
+                            <input type="file" id="file2" class="form-control form-control-lg rounded-0 d-none">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <div class="border" style="height: 200px;">
+                                <img src="assets/images/image.jpg" alt="" class="w-100 h-100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-success">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
