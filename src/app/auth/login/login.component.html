@@ -1,81 +1,153 @@
 <div class="vh-100" id="content">
-    <div class="row h-100 m-0">
-        <div class="col-8 h-100"></div>
-        <div
-            class="col-4 shadow right-content h-100 d-flex align-items-center justify-content-center animate__animated animate__backInRight">
-            <ngx-loading [show]="isLoading" [config]="{
-            animationType: ngxLoadingAnimationTypes.wanderingCubes,
-            primaryColour: primaryColour,
-            secondaryColour: secondaryColour,
-            backdropBorderRadius: '3px'
-          }"></ngx-loading>
-            <form class="my-card" style="width: 350px;" [formGroup]="formGroup" (ngSubmit)="login(formGroup.value)">
-                <div class="text-center mb-3">
-                    <img src="assets/logo2.png" alt="Logo" width="80">
-                </div>
-                <h2 class="text-muted fw-semibold mb-3">Se connecter</h2>
-                <div class="alert alert-danger mt-3" *ngIf="afficheErreur">
-                    <small>Problème d'authentification, verifiez votre login et mot de passe.</small>
-                    <small>Assurez-vous aussi de l'état de la touche Majuscule</small>
-                </div>
-                <div class="alert alert-danger mt-3" *ngIf="noAccess">
-                    <small>Votre compte ne bénéficie pas des droits pour accéder à cet espace.</small>
-                    <small>Merci de bien vouloir contacter votre administrateur pour plus d'informations.</small>
-                </div>
-                <div>
-                    <div class="form-group mb-3">
-                        <label for="" class="form-label fw-semibold">E-mail <span class="text-danger">*</span></label>
-                        <div class="input-group border border-info rounded border-opacity-50">
-                            <span class="input-group-text" id="basic-addon1">
-                                <i class="ti ti-mail"></i>
-                            </span>
-                            <input type="email" class="form-control border-0" formControlName="email"
-                                placeholder="john@mbaza.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="form-label fw-semibold">Mot de passe <span
-                                class="text-danger">*</span></label>
-                        <div class="input-group border border-info rounded border-opacity-50">
-                            <span class="input-group-text" id="basic-addon1">
-                                <i class="ti ti-lock"></i>
-                            </span>
-                            <input [type]="showPwd ? 'text' : 'password'" class="form-control border-0"
-                                formControlName="password" placeholder="***********">
-                            <span class="input-group-text" id="basic-addon1" style="cursor: pointer;"
-                                (click)="showPwd = !showPwd">
-                                <i class="ti {{ showPwd ? 'ti-eye-off' : 'ti-eye'}}"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 mt-3 text-end">
-                    <a (click)="visible = true" class="link-muted fw-semibold" style="cursor: pointer;"><small>Réinitialisez votre mot de passe ici !</small></a>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-primary w-100" type="submit"
-                        [disabled]="formGroup.invalid">Connexion</button>
-                </div>
-                <hr>
-                <small style="text-align: justify; color: green;" *ngIf="!afficheErreur">{{msgErreur}}</small>
-                <small style="text-align: justify; color: red;" *ngIf="afficheErreur">{{msgErreur}}</small>
-            </form>
+  <div class="row h-100 m-0">
+    <div class="col-8 h-100"></div>
+    <div
+      class="col-4 shadow right-content h-100 d-flex align-items-center justify-content-center animate__animated animate__backInRight"
+    >
+      <ngx-loading
+        [show]="isLoading"
+        [config]="{
+          animationType: ngxLoadingAnimationTypes.wanderingCubes,
+          primaryColour: primaryColour,
+          secondaryColour: secondaryColour,
+          backdropBorderRadius: '3px'
+        }"
+      ></ngx-loading>
+      <form
+        class="my-card"
+        style="width: 350px"
+        [formGroup]="formGroup"
+        (ngSubmit)="login(formGroup.value)"
+      >
+        <div class="text-center mb-3">
+          <img src="assets/logo2.png" alt="Logo" width="80" />
         </div>
-    </div>
-</div>
-
-<p-dialog header="Réinitialisez votre mot de passe ici!" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }"
-    [draggable]="false" [resizable]="false">
-    <form [formGroup]="email" (ngSubmit)="verifEmail()">
-        <div class="alert alert-danger" *ngIf="error.success">
-            <small>{{ error.errorMessage }}</small>
+        <h2 class="text-muted fw-semibold mb-3">Se connecter</h2>
+        <div class="alert alert-danger mt-3" *ngIf="afficheErreur">
+          <small
+            >Problème d'authentification, verifiez votre login et mot de
+            passe.</small
+          >
+          <small>Assurez-vous aussi de l'état de la touche Majuscule</small>
         </div>
-        <div class="form-group mb-3">
-            <label class="form-label fw-semibold">E-mail <span class="text-danger">*</span></label>
-            <input type="email" formControlName="email" class="form-control" placeholder="xxx@mbaza.com">
+        <div class="alert alert-danger mt-3" *ngIf="noAccess">
+          <small
+            >Votre compte ne bénéficie pas des droits pour accéder à cet
+            espace.</small
+          >
+          <small
+            >Merci de bien vouloir contacter votre administrateur pour plus
+            d'informations.</small
+          >
+        </div>
+        <div>
+          <div class="form-group mb-3">
+            <label for="" class="form-label fw-semibold"
+              >E-mail <span class="text-danger">*</span></label
+            >
+            <div
+              class="input-group border border-info rounded border-opacity-50"
+            >
+              <span class="input-group-text" id="basic-addon1">
+                <i class="ti ti-mail"></i>
+              </span>
+              <input
+                type="email"
+                class="form-control border-0"
+                formControlName="email"
+                placeholder="john@mbaza.com"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="form-label fw-semibold"
+              >Mot de passe <span class="text-danger">*</span></label
+            >
+            <div
+              class="input-group border border-info rounded border-opacity-50"
+            >
+              <span class="input-group-text" id="basic-addon1">
+                <i class="ti ti-lock"></i>
+              </span>
+              <input
+                [type]="showPwd ? 'text' : 'password'"
+                class="form-control border-0"
+                formControlName="password"
+                placeholder="***********"
+              />
+              <span
+                class="input-group-text"
+                id="basic-addon1"
+                style="cursor: pointer"
+                (click)="showPwd = !showPwd"
+              >
+                <i class="ti {{ showPwd ? 'ti-eye-off' : 'ti-eye' }}"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 mt-3 text-end">
+          <a
+            (click)="visible = true"
+            class="link-muted fw-semibold"
+            style="cursor: pointer"
+            ><small>Réinitialisez votre mot de passe ici !</small></a
+          >
         </div>
         <div class="text-center">
-            <button class="btn btn-primary w-100" type="submit" [disabled]="email.invalid">Vérifier</button>
+          <button
+            class="btn btn-primary w-100"
+            type="submit"
+            [disabled]="formGroup.invalid"
+          >
+            Connexion
+          </button>
         </div>
-    </form>
+        <hr />
+        <small
+          style="text-align: justify; color: green"
+          *ngIf="!afficheErreur"
+          >{{ msgErreur }}</small
+        >
+        <small style="text-align: justify; color: red" *ngIf="afficheErreur">{{
+          msgErreur
+        }}</small>
+      </form>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Réinitialisez votre mot de passe ici!"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '30vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="email" (ngSubmit)="verifEmail()">
+    <div class="alert alert-danger" *ngIf="error.success">
+      <small>{{ error.errorMessage }}</small>
+    </div>
+    <div class="form-group mb-3">
+      <label class="form-label fw-semibold"
+        >E-mail <span class="text-danger">*</span></label
+      >
+      <input
+        type="email"
+        formControlName="email"
+        class="form-control"
+        placeholder="xxx@mbaza.com"
+      />
+    </div>
+    <div class="text-center">
+      <button
+        class="btn btn-primary w-100"
+        type="submit"
+        [disabled]="email.invalid"
+      >
+        Vérifier
+      </button>
+    </div>
+  </form>
 </p-dialog>
