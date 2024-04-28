@@ -16,7 +16,7 @@
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h3 class="card-title fw-semibold">
                     <i class="ti ti-users text-primary"></i>
-                    Locataires [<span class="text-danger">14</span>]
+                    Locataires [<span class="text-danger">{{listeLocatireFiltre.length}}</span>]
                 </h3>
                 <a class="btn btn-warning" (click)="back()">
                     <i class="ti ti-arrow-back"></i>
@@ -24,87 +24,79 @@
                 </a>
             </div>
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <input type="search" class="form-control rounded-0" placeholder="Recherche">
-                    </div>
-                    <div class="col-3">
-                        <select class="form-select rounded-0">
-                            <option value="">-- Tous les bailleurs --</option>
-                            <option value="">Bailleur 1</option>
-                            <option value="">Bailleur 2</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <select class="form-select rounded-0">
-                            <option value="">-- Toutes les propriétés --</option>
-                            <option value="">Propriété 1</option>
-                            <option value="">Propriété 2</option>
-                        </select>
-                    </div>
+            
+    <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
+                      listeLocatireFiltre.length
+                    }} locataire(s)" [globalFilterFields]="['locataireRef', 'locataireNom', 'locataireTel', 'propriete.proprieteCode', 'bailleur.bailleurNomPrenoms']"
+        [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+        [value]="listeLocatireFiltre" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+        [tableStyle]="{ 'min-width': '80rem', 'font-size': '15px' }">
+        <ng-template pTemplate="caption">
+            <div class="d-flex flex-row justify-content-between">
+                <span class="p-input-icon-left ml-auto w-50">
+                    <i class="ti ti-search"></i>
+                    <input pInputText type="text" class="form-control w-100" #search 
+                        (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+                </span>
+                <div class="d-flex flex-row m-2">
+                      <select class="form-select rounded-0" #bailleur (change)="filtreBailleur(bailleur.value)">
+                    <option value="">-- Tous les bailleurs --</option>
+                    <option  *ngFor="let bailleur of listeBailleur"  value="{{bailleur.bailleurNomPrenoms}}">{{bailleur.bailleurNomPrenoms}}</option>
+                </select>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Image.</th>
-                                <th>Référence.</th>
-                                <th>Nom complet.</th>
-                                <th>Nationalité.</th>
-                                <th>Loyer mensuel.</th>
-                                <th>Pénalité.</th>
-                                <th><div class="text-overflow">Personnes à charges.</div></th>
-                                <th>Statut.</th>
-                                <th>Quittance.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let n of [].constructor(14); let i = index">
-                                <td align="center">
-                                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35"
-                                            class="rounded-circle">
-                                    </a>
-                                </td>
-                                <td>928899GH</td>
-                                <td><div class="text-overflow">Agence Albert Séraphin</div></td>
-                                <td><div class="text-overflow">Ivoirienne</div></td>
-                                <td><div class="text-overflow fw-semibold">55,000 F <i class="ti ti-report-money"></i></div></td>
-                                <td class="{{ i%2 == 0 ? 'alert alert-danger fw-semibold' : '' }}"><div class="text-overflow">{{ i%2 == 0 ? '12,000 F' : '-' }}</div></td>
-                                <td [width]="50">5</td>
-                                <td *ngIf="i%2 == 0"><div class="alert alert-danger p-1 px-2"><i class="ti ti-circle-x"></i> Dois</div></td>
-                                <td *ngIf="i%2 == 1"><div class="alert alert-success p-1 px-2"><i class="ti ti-check"></i> Réglé</div></td>
-                                <td *ngIf="i%2 == 1"><div class="btn btn-success btn-sm"><i class="ti ti-download"></i></div></td>
-                                <td *ngIf="i%2 == 0"><div class="btn btn-danger btn-sm disabled"><i class="ti ti-download-off"></i></div></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="4"><strong>Nombre d'enregistrement : 14</strong></td>
-                                <td colspan="5" class="py-0">
-                                    <nav aria-label="Page navigation example" class="float-end">
-                                        <ul class="pagination mb-0">
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Previous">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">Image.</th>
+                <th class="text-center">Référence.</th>
+                <th class="text-center">Nom & Prénom(s).</th>
+                <th class="text-center">Loyer mensuel.</th>
+                <th class="text-center">Contact.</th>
+                <th class="text-center">Propriété.</th>
+                <th class="text-center">Nbre Pers. charge.</th>
+                <th class="text-center">Caution.</th>
+                <th class="text-center">Bailleur.</th>
+                <th class="text-center" pFrozenColumn>Actions</th>
+            </tr>
+        </ng-template>
+    
+        <ng-template pTemplate="body" let-n>
+            <tr>
+                <td class="text-center">
+                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img *ngIf="!n.locatairePhoto" src="assets/images/profile/user-1.jpg" alt="" width="35"
+                            height="35" class="rounded-circle" />
+                        <img *ngIf="n.locatairePhoto" src="{{ urlimg }}{{ n.locatairePhoto }}" alt="" width="35"
+                            height="35" class="rounded-circle" />
+                    </a>
+                </td>
+                <td class="text-uppercase">{{ n.locataireRef }}</td>
+                <td class="text-capitalize">{{ n.locataireNom }}</td>
+                <td>{{ n.propriete.proprietePrix }}</td>
+                <td>{{ n.locataireTel }}</td>
+                <td>{{ n.propriete.proprieteCode }}</td>
+                <td>{{ n.locataireNbrecharge }}</td>
+                <td>{{ n. locataireCaution}}</td>
+                <td>{{ n.bailleur.bailleurNomPrenoms }}</td>
+                <td pFrozenColumn alignFrozen="right">
+                    <div class="d-flex align-items-center">
+                        <a routerLink="#" class="btn btn-sm btn-info me-2">
+                            <i class="ti ti-edit"></i>
+                        </a>
+                        <!--a class="btn btn-sm btn-danger me-2" (click)="supBailleur(n.bailleurId, n.proprietes.length )">
+                            <i class="ti ti-trash"></i>
+                        </a-->
+                        <a routerLink="#" class="btn btn-sm btn-light">
+                            <i class="ti ti-chevron-right"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+             
             </div>
         </div>
     </div>

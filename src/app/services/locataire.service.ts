@@ -129,6 +129,15 @@ export class LocataireService {
     return this.httpClient.get(this.urlG + "mois/" + moisEncours, { headers })
   }
 
+  allLocataire(): Observable<any>  {
+    const currentUser = localStorage.getItem('currentUser');
+    const currentUserJSON = JSON.parse(currentUser!.toString());
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${currentUserJSON.token}`,
+    });
+    return  this.httpClient.get<any>(`${this.urlG}locataire/all`, { headers })
+  }
 
   /*
   modifiBailleur(data: any): Observable<any> {

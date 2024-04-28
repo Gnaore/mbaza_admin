@@ -12,12 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ValidateAccountComponent
-  ],
+  declarations: [AppComponent, ValidateAccountComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,8 +33,9 @@ import { ngxLoadingAnimationTypes } from 'ngx-loading';
       tertiaryColour: '#ffffff',
       fullScreenBackdrop: false,
     }),
+    NgxPrintModule,
   ],
-  providers: [AuthService, {provide: LOCALE_ID, useValue: "fr" }],
-  bootstrap: [AppComponent]
+  providers: [AuthService, { provide: LOCALE_ID, useValue: 'fr' }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

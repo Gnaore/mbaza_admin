@@ -13,7 +13,7 @@
 
   <div class="col-12">
     <div class="card">
-      
+
       <div class="card-header d-flex align-items-center justify-content-between">
         <h3 class="card-title fw-semibold">
           <i class="ti ti-star text-primary"></i>
@@ -38,7 +38,8 @@
         }"></ngx-loading>
         <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
             listeBien?.length
-          }} utilisateur(s)" [globalFilterFields]="['bienReference', 'bienLibelle', 'typebien.libelleTypebien', 'bienNomBailleur']"
+          }} utilisateur(s)"
+          [globalFilterFields]="['bienReference', 'bienLibelle', 'typebien.libelleTypebien', 'bienNomBailleur']"
           [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
           [value]="listeBien!" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
           [tableStyle]="{ 'min-width': '50rem', 'font-size': '15px' }">
@@ -60,10 +61,11 @@
                 <p-columnFilter field="typebien" matchMode="in" display="menu" [showClearButton]="false"
                   [showApplyButton]="false" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                   <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                    <p-multiSelect [ngModel]="value" [options]="listTypeBien" placeholder="Filtrer par type de biens" (onChange)="filter($event.value)">
+                    <p-multiSelect [ngModel]="value" [options]="listTypeBien" placeholder="Filtrer par type de biens"
+                      (onChange)="filter($event.value)">
                       <ng-template let-option pTemplate="item">
                         <span>{{ option.libelleTypebien }}</span>
-                        
+
                       </ng-template>
                     </p-multiSelect>
                   </ng-template>
@@ -90,7 +92,7 @@
                     data-bs-target="#exampleModal1">
                     <i class="ti ti-edit"></i>
                   </a>
-                  <a class="btn btn-sm btn-danger" (click)="suprimeBien(n.bienId)">
+                  <a class="btn btn-sm btn-danger" (click)="suprimeBien(n.bienId, n.bienOqp)">
                     <i class="ti ti-trash"></i>
                   </a>
                 </div>
@@ -205,10 +207,21 @@
                 <input type="text" class="form-control rounded-0" formControlName="bienNomBailleur" />
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-3 mb-3">
               <div class="form-group">
                 <label class="form-label">Contact du bailleur <span class="text-danger">*</span></label>
                 <input type="text" class="form-control rounded-0" formControlName="bienContactBailleur" />
+              </div>
+            </div>
+            <div class="col-3 mb-3">
+              <div class="form-group">
+                <label class="form-label">Status du Bien </label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="bienOqp" formControlName="bienOqp">
+                  <label class="form-check-label" for="bienOqp">
+                    N'est plus disponible
+                  </label>
+                </div>
               </div>
             </div>
             <div class="col-6 mb-3">

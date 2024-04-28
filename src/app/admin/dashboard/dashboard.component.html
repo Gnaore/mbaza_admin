@@ -12,22 +12,20 @@
 
   <div class="col-12">
     <div class="card">
-      <div
-        class="card-header d-flex align-items-center justify-content-between"
-      >
+      <div class="card-header d-flex align-items-center justify-content-between">
         <h3 class="card-title fw-semibold">
           <i class="ti ti-dashboard text-primary"></i>
-          Tableau de bord
+          TABLEAU DE BORD
         </h3>
       </div>
       <div class="card-body">
+        <h4 class="fw-semibold text-opacity-75 mb-0">Statistiques des biens immobiliers</h4>
+        <small class="text-muted opacity-75">Effectifs des biens immobiliers enregistrés sur le site internet de
+          M'baaza</small>
+        <p></p>
         <div class="row">
           <div class="col-3">
-            <div
-              class="rounded shadow bg-warning text-white"
-              style="cursor: pointer"
-              (click)="goTo('tenant/0')"
-            >
+            <div class="rounded shadow bg-warning text-white" style="cursor: pointer" (click)="goTo('tenant/0')">
               <div class="row px-3 py-3">
                 <div class="col-8">
                   <h4 class="text-white">Locataires.</h4>
@@ -35,9 +33,7 @@
                     <strong>{{ nbreLocataires }}</strong>
                   </h2>
                 </div>
-                <div
-                  class="col-4 d-flex align-items-center justify-content-center"
-                >
+                <div class="col-4 d-flex align-items-center justify-content-center">
                   <h2 class="mb-0 bg-white rounded p-2">
                     <i class="ti ti-users text-warning"></i>
                   </h2>
@@ -46,11 +42,7 @@
             </div>
           </div>
           <div class="col-3">
-            <div
-              class="rounded shadow bg-info text-white"
-              style="cursor: pointer"
-              (click)="goTo('lessor-manager')"
-            >
+            <div class="rounded shadow bg-info text-white" style="cursor: pointer" (click)="goTo('lessor-manager')">
               <div class="row px-3 py-3">
                 <div class="col-8">
                   <h4 class="text-white">Bailleurs.</h4>
@@ -58,9 +50,7 @@
                     <strong>{{ nbreBailleurs }}</strong>
                   </h2>
                 </div>
-                <div
-                  class="col-4 d-flex align-items-center justify-content-center"
-                >
+                <div class="col-4 d-flex align-items-center justify-content-center">
                   <h2 class="mb-0 bg-white rounded p-2">
                     <i class="ti ti-user text-info"></i>
                   </h2>
@@ -69,12 +59,8 @@
             </div>
           </div>
           <div class="col-3">
-            <div
-              class="rounded shadow bg-danger text-white"
-              style="cursor: pointer"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            >
+            <div class="rounded shadow bg-danger text-white" style="cursor: pointer" data-bs-toggle="modal"
+              data-bs-target="#proprieteModal">
               <div class="row px-3 py-3">
                 <div class="col-8">
                   <h4 class="text-white">Propriétés.</h4>
@@ -82,9 +68,7 @@
                     <strong>{{ nbreProprietes }}</strong>
                   </h2>
                 </div>
-                <div
-                  class="col-4 d-flex align-items-center justify-content-center"
-                >
+                <div class="col-4 d-flex align-items-center justify-content-center">
                   <h2 class="mb-0 bg-white rounded p-2">
                     <i class="ti ti-home-dollar text-danger"></i>
                   </h2>
@@ -93,11 +77,7 @@
             </div>
           </div>
           <div class="col-3">
-            <div
-              class="rounded shadow text-white bg-success"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal1"
-            >
+            <div class="rounded shadow text-white bg-success" data-bs-toggle="modal" data-bs-target="#proprieteModal1">
               <div class="row px-3 py-3">
                 <div class="col-8">
                   <h4 class="text-white">Revenu.</h4>
@@ -105,9 +85,7 @@
                     <strong>{{ totalRevenu }}</strong>
                   </h2>
                 </div>
-                <div
-                  class="col-4 d-flex align-items-center justify-content-center"
-                >
+                <div class="col-4 d-flex align-items-center justify-content-center">
                   <h2 class="mb-0 bg-white rounded p-2">
                     <i class="ti ti-businessplan text-success"></i>
                   </h2>
@@ -126,70 +104,28 @@
         <h4 class="fw-semibold text-opacity-75 mb-0">
           Statistiques des biens immobiliers
         </h4>
-        <small class="text-muted opacity-75"
-          >Effectifs des biens immobiliers enregistrés sur le site internet de
-          M'baaza</small
-        >
+        <small class="text-muted opacity-75">Effectifs des biens immobiliers enregistrés sur le site internet de
+          M'baaza</small>
         <div class="d-flex justify-content-between mt-3">
-          <circle-progress
-            [percent]="0"
-            [radius]="100"
-            subtitle="Total"
-            subtitleFontSize="18"
-            subtitleFontWeight="700"
-            [showUnits]="false"
-            [outerStrokeWidth]="8"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#78C000'"
-            [innerStrokeColor]="'#C7E596'"
-            [animation]="true"
-            [animationDuration]="300"
-          ></circle-progress>
+          <circle-progress [percent]="nbreBiensP" [radius]="100" subtitle="Total : {{nbreBiens}}" subtitleFontSize="18"
+            subtitleFontWeight="700" [showUnits]="true" [outerStrokeWidth]="8" [innerStrokeWidth]="8"
+            [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+            [animationDuration]="300">%</circle-progress>
 
-          <circle-progress
-            [percent]="0"
-            [radius]="100"
-            subtitle="Loués"
-            subtitleFontSize="18"
-            subtitleFontWeight="700"
-            [showUnits]="false"
-            [outerStrokeWidth]="8"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#00a2c2'"
-            [innerStrokeColor]="'#95e4df'"
-            [animation]="true"
-            [animationDuration]="300"
-          ></circle-progress>
+          <circle-progress [percent]="nbreBiensLoueP" [radius]="100" subtitle="Loué(s) : {{nbreBiensLoue}}"
+            subtitleFontSize="18" subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8"
+            [innerStrokeWidth]="8" [outerStrokeColor]="'#00a2c2'" [innerStrokeColor]="'#95e4df'" [animation]="true"
+            [animationDuration]="300"></circle-progress>
 
-          <circle-progress
-            [percent]="0"
-            [radius]="100"
-            subtitle="Achetés"
-            subtitleFontSize="18"
-            subtitleFontWeight="700"
-            [showUnits]="false"
-            [outerStrokeWidth]="8"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#c23a00'"
-            [innerStrokeColor]="'#e59a9a'"
-            [animation]="true"
-            [animationDuration]="300"
-          ></circle-progress>
+          <circle-progress [percent]="nbreBiensAcheteP" [radius]="100" subtitle="Acheté(s) : {{nbreBiensAchete}}"
+            subtitleFontSize="18" subtitleFontWeight="700" [showUnits]="false" [outerStrokeWidth]="8"
+            [innerStrokeWidth]="8" [outerStrokeColor]="'#c23a00'" [innerStrokeColor]="'#e59a9a'" [animation]="true"
+            [animationDuration]="300"></circle-progress>
 
-          <circle-progress
-            [percent]="0"
-            [radius]="100"
-            subtitle="Disponibles"
-            subtitleFontSize="18"
-            subtitleFontWeight="700"
-            [showUnits]="false"
-            [outerStrokeWidth]="8"
-            [innerStrokeWidth]="8"
-            [outerStrokeColor]="'#c200b2'"
-            [innerStrokeColor]="'#e59ad7'"
-            [animation]="true"
-            [animationDuration]="300"
-          ></circle-progress>
+          <circle-progress [percent]="nbreBiensDisponibleP" [radius]="100"
+            subtitle="Disponible(s) : {{nbreBiensDisponible}}" subtitleFontSize="18" subtitleFontWeight="700"
+            [showUnits]="false" [outerStrokeWidth]="8" [innerStrokeWidth]="8" [outerStrokeColor]="'#c200b2'"
+            [innerStrokeColor]="'#e59ad7'" [animation]="true" [animationDuration]="300"></circle-progress>
         </div>
       </div>
     </div>
@@ -206,74 +142,73 @@
 </div>
 
 <!-- Modal propriétés -->
-<div
-  class="modal modal-xl fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal modal-xl fade" id="proprieteModal" tabindex="-1" aria-labelledby="proprieteModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-0">
       <div class="modal-header bg-dark">
-        <h5 class="modal-title text-white" id="exampleModalLabel">
+        <h5 class="modal-title text-white" id="proprieteModalLabel">
           <i class="ti ti-home-2 rounded-circle bg-white text-info p-2"></i>
           Propriétés
         </h5>
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-12">
-            <input
-              type="search"
-              class="form-control rounded-0"
-              placeholder="Recherche"
-            />
-          </div>
-          <div class="table-responsive">
-            <table class="table table-bordered table-responsive table-hover">
-              <thead class="table-dark">
-                <tr>
-                  <th>Code.</th>
-                  <th>Localisation.</th>
-                  <th>Type de propriété.</th>
-                  <th>Année de construction.</th>
-                  <th>Prix d'achat / location.</th>
-                  <th>Statut.</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let n of [].constructor(5); let i = index">
-                  <td>07827882TG</td>
-                  <td>Cocody St Jean, en face de l'église</td>
-                  <td>Villa</td>
-                  <td>2020</td>
-                  <th class="alert alert-info">135,000 F</th>
-                  <td>
-                    <div
-                      class="alert {{
-                        i % 2 == 0 ? 'alert-success' : 'alert-warning'
-                      }} py-1"
-                    >
-                      {{ i % 2 == 0 ? "Disponible" : "Loué" }}
-                    </div>
-                  </td>
-                  <td>
-                    <a href="#" class="btn btn-sm btn-info">
-                      <i class="ti ti-file-export"></i>
+
+          <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
+                              nbreProprietes
+                            }} proriété(s)"
+            [globalFilterFields]="['bailleur.bailleurNomPrenoms','proprieteCode','proprieteQuartier','typebien.libelleTypebien','proprieteAnnee']"
+            [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            [value]="proprietes" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+            [tableStyle]="{ 'min-width': '80rem', 'font-size': '15px' }">
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                <span class="p-input-icon-left ml-auto w-50">
+                  <i class="ti ti-search"></i>
+                  <input pInputText type="text" class="form-control w-100" #search
+                    (input)="dt1.filterGlobal(search.value, 'contains')" placeholder="Mots clés" />
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="text-center">Bailleur.</th>
+                <th class="text-center">Code.</th>
+                <th class="text-center">Localisation.</th>
+                <th class="text-center">Type de propriété.</th>
+                <th class="text-center">Année de construction.</th>
+                <th class="text-center">Prix.</th>
+                <th class="text-center" pFrozenColumn>Actions</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-n>
+              <tr>
+
+                <td class="text-uppercase">{{ n.bailleur.bailleurNomPrenoms }}</td>
+                <td class="text-uppercase">{{ n.proprieteCode }}</td>
+                <td class="text-capitalize">{{ n.proprieteQuartier }}</td>
+                <td>{{ n.typebien.libelleTypebien }}</td>
+                <td>{{ n.proprieteAnnee }}</td>
+                <td>{{ n.proprietePrix }}</td>
+                <td pFrozenColumn alignFrozen="right">
+                  <div class="d-flex align-items-center">
+                    <a routerLink="#" class="btn btn-sm btn-info me-2">
+                      <i class="ti ti-edit"></i>
                     </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                    <a class="btn btn-sm btn-danger me-2">
+                      <i class="ti ti-trash"></i>
+                    </a>
+                    <a routerLink="#" class="btn btn-sm btn-light">
+                      <i class="ti ti-chevron-right"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
         </div>
       </div>
       <div class="modal-footer">

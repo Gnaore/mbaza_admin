@@ -26,17 +26,20 @@
                             selectionMode="range" styleClass="w-100" [readonlyInput]="true"></p-calendar>
                     </div>
                     <div class="col-5">
-                        <p-dropdown [options]="bailleurs" [(ngModel)]="selectedBailleur" optionLabel="bailleurNomPrenoms"
-                            styleClass="w-100" placeholder="-- Choisir le bailleur --"></p-dropdown>
+                        <p-dropdown [options]="bailleurs" [(ngModel)]="selectedBailleur"
+                            optionLabel="bailleurNomPrenoms" styleClass="w-100"
+                            placeholder="-- Choisir le bailleur --"></p-dropdown>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-lg btn-primary w-100" (click)="paiementParBailleur()" [disabled]="!selectedBailleur || !rangeDates">
+                        <button class="btn btn-lg btn-primary w-100" (click)="paiementParBailleur()"
+                            [disabled]="!selectedBailleur || !rangeDates">
                             <span class="ti ti-search"></span>
                             Rechercher
                         </button>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-lg btn-light w-100">
+                        <button class="btn btn-lg btn-light w-100" printSectionId="print" styleSheetFile="styles.css"
+                            ngxPrint>
                             <span class="ti ti-printer"></span>
                             Imprimer
                         </button>
@@ -50,8 +53,7 @@
                           }"></ngx-loading>
                         <p-table [scrollable]="true" #dt1 currentPageReportTemplate="Affichage {first} sur {last} pour {{
                             paiements.length
-                          }} utilisateur(s)"
-                            [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5"
+                          }} utilisateur(s)" [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [rows]="5"
                             [showCurrentPageReport]="true" [value]="paiements"
                             styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
                             [tableStyle]="{ 'min-width': '80rem', 'font-size': '15px' }">
@@ -66,9 +68,9 @@
                             </ng-template>
 
                             <ng-template pTemplate="body" let-n>
-                                <tr (click)="visible = true; detailPaiement = n">
+                                <tr (click)="visible = true; detailPaiement = n" style="cursor: pointer;">
                                     <td class="text-uppercase">{{ n.idWave }}</td>
-                                    <td class="text-capitalize">{{ n.when_completed }}</td>
+                                    <td class="text-capitalize">{{ n.when_completed | date:'dd/MM/YYYY HH:MM'}}</td>
                                     <td>{{ n.locataireRef }}</td>
                                     <td>{{ n.locataireNom }}</td>
                                     <td>{{ n.amount }}</td>
@@ -82,8 +84,8 @@
     </div>
 </div>
 
-<p-dialog header="Fiche paiement N° 0002090" [(visible)]="visible" [modal]="true" [style]="{ width: '40vw' }"
-    [draggable]="false" [resizable]="false">
+<p-dialog header="Fiche paiement N° {{detailPaiement?.idWave}}" [(visible)]="visible" [modal]="true"
+    [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
     <div class="mb-3">
         <h5><strong class="text-warning">Informations locataire</strong></h5>
         <div class="row">
@@ -119,7 +121,8 @@
             </div>
             <div class="col-6 form-group mb-3">
                 <label class="form-label">Date et heure de paiement</label>
-                <input type="text" class="form-control" disabled [value]="detailPaiement?.when_completed">
+                <input type="text" class="form-control" disabled
+                    [value]="detailPaiement?.when_completed | date:'dd/MM/YYYY HH:MM' ">
             </div>
             <div class="col-12 form-group mb-3">
                 <label class="form-label">Montant</label>
@@ -130,13 +133,97 @@
     <hr>
     <div class="row">
         <div class="col-12 mb-2">
-            <label class="form-label">Frais de prestation : <strong class="text-info">{{ activeBailleur?.bailleurTaux }}%</strong></label>
+            <label class="form-label">Frais de prestation : <strong class="text-info">{{ activeBailleur?.bailleurTaux
+                    }}%</strong></label>
         </div>
         <div class="col-12 mb-2">
-            <label class="form-label">Montant à verser au bailleur : <strong class="text-danger">{{ detailPaiement?.amount - (detailPaiement?.amount * activeBailleur?.bailleurTaux)/100 }} FCFA</strong></label>
+            <label class="form-label">Montant à verser au bailleur : <strong class="text-danger">{{
+                    detailPaiement?.amount - (detailPaiement?.amount * activeBailleur?.bailleurTaux)/100 }}
+                    FCFA</strong></label>
         </div>
         <div class="col-12 mb-2">
-            <label class="form-label">Montant à verser à Mbaza : <strong class="text-success">{{ (detailPaiement?.amount * activeBailleur?.bailleurTaux)/100 }} FCFA</strong></label>
+            <label class="form-label">Montant à verser à Mbaza : <strong class="text-success">{{ (detailPaiement?.amount
+                    * activeBailleur?.bailleurTaux)/100 }} FCFA</strong></label>
         </div>
     </div>
 </p-dialog>
+
+<div class="col-12" id="print" hidden>
+    <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-center">
+            <h3 class="card-title fw-semibold">
+                RELEVÉ DE PAIEMENT : [<span class="text-danger">{{ selectedBailleur?.bailleurNomPrenoms}}</span>]
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div style="text-align: center;">
+                    <h4>
+                        <a> Période du {{this.dateStart | date:'dd/MM/YYYY'}}</a>
+
+                        <a> au {{this.dateEnd | date:'dd/MM/YYYY'}}</a>
+                    </h4>
+
+                </div>
+                <div class="d-flex justify-content-center p-4">
+                    <div class="col-8 mb-8 " style="text-align: center;">
+                        Sauf erreur de notre part, trouvez ci-dessous la totalité de vos paiement sur la période
+                        ci-dessus
+                        mentionnée.
+                        Ce documents vous est fourni pour valoir ce que de droit.
+                    </div>
+                </div>
+                <div class="col-12 mb-4">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="col">Numéro de paiement.</th>
+                                <th class="col">Date de paiement.</th>
+                                <th class="col">Identifiant du locataire.</th>
+                                <th class="col">Nom complet du locataire.</th>
+                                <th class="col">Montant versé.</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr *ngFor="let n of paiements">
+                                <td scope="row">{{ n.idWave }}</td>
+                                <td>{{ n.when_completed | date:'dd/MM/YYYY HH:MM'}}</td>
+                                <td>{{ n.locataireRef }}</td>
+                                <td>{{ n.locataireNom }}</td>
+                                <td>{{ n.amount }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Frais de prestation : <strong class="text-info">{{
+                                selectedBailleur?.bailleurTaux
+                                }}%</strong></label>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Montant Total : <strong class="text-danger">{{totalPaiement}}
+                                FCFA</strong></label>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Montant à verser au bailleur : <strong
+                                class="text-danger">{{totalBailleur}}
+                                FCFA</strong></label>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <label class="form-label">Montant à verser à Mbaza : <strong
+                                class="text-success">{{totalMbaaza}}
+                                FCFA</strong></label>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center p-4">
+                    <img src="assets/signature.png" width="80px" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

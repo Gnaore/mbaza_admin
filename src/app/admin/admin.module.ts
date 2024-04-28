@@ -32,7 +32,7 @@ import { BankComponent } from './bank/bank.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { HelpMeBankComponent } from './help-me-bank/help-me-bank.component';
 import { DialogModule } from 'primeng/dialog';
-import {  BadgeModule } from "primeng/badge";
+import { BadgeModule } from 'primeng/badge';
 import { ToastrModule } from 'ngx-toastr';
 import { TypebienComponent } from './typebien/typebien.component';
 import { PaysComponent } from './pays/pays.component';
@@ -40,7 +40,7 @@ import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TagModule } from 'primeng/tag';
-import { ToastModule } from "primeng/toast";
+import { ToastModule } from 'primeng/toast';
 
 import { NgxLoadingModule } from 'ngx-loading';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
@@ -49,6 +49,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TenantListComponent } from './tenant-list/tenant-list.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { ReservationPayeeComponent } from './reservation-payee/reservation-payee.component';
+import { NgxPrintModule } from 'ngx-print';
 
 //FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -77,7 +78,7 @@ import { ReservationPayeeComponent } from './reservation-payee/reservation-payee
   imports: [
     CommonModule,
     AdminRoutingModule,
-  // FusionChartsModule,
+    // FusionChartsModule,
     FormsModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({}),
@@ -106,7 +107,8 @@ import { ReservationPayeeComponent } from './reservation-payee/reservation-payee
       tertiaryColour: '#ffffff',
       fullScreenBackdrop: false,
     }),
+    NgxPrintModule,
   ],
- providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class AdminModule {}

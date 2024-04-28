@@ -1,11 +1,9 @@
 import { Router } from '@angular/router';
 import { ConfigService } from './../../services/config.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { BailleurService } from 'src/app/services/bailleur.service';
 import Swal from 'sweetalert2';
-
-
 
 @Component({
   selector: 'app-lessor-list',
@@ -17,7 +15,7 @@ export class LessorListComponent implements OnInit {
     private bailleurService: BailleurService,
     private configService: ConfigService,
     private router: Router
-  ) { }
+  ) {}
   listeBailleur: any[] = [];
   urlg = '';
   urlgimg = '';
@@ -33,15 +31,21 @@ export class LessorListComponent implements OnInit {
     this.readAllBailleur();
   }
 
+  back() {
+    this.router.navigateByUrl('/admin/dashboard');
+  }
+
   readAllBailleur() {
-    this.loading = true
+    this.loading = true;
     this.bailleurService.AllBailleur().subscribe(
       (ret) => {
         this.listeBailleur = ret.data;
-        this.loading = false
+        this.loading = false;
       },
       (err) => {
-        if (err.status) { this.router.navigateByUrl("/auth") }
+        if (err.status) {
+          this.router.navigateByUrl('/auth');
+        }
       }
     );
   }
@@ -51,9 +55,9 @@ export class LessorListComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "Vous ne pouvez pas supprimer un bailleur qui a au moins 1 bien",
+        text: 'Vous ne pouvez pas supprimer un bailleur qui a au moins 1 bien',
       });
-      return
+      return;
     }
     Swal.fire({
       title: 'Etes-vous vraiment certain ?',
@@ -64,24 +68,25 @@ export class LessorListComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
-
       if (result.isConfirmed) {
-        this.loading = true
+        this.loading = true;
         this.bailleurService.supBailleur(id).subscribe(
           (ret) => {
             this.readAllBailleur();
-            this.loading = false
+            this.loading = false;
           },
           (err) => {
-            if (err.error.status === 401) { this.router.navigateByUrl("/auth") }
-            this.loading = false
+            if (err.error.status === 401) {
+              this.router.navigateByUrl('/auth');
+            }
+            this.loading = false;
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: err.statusText,
             });
           }
-        )
+        );
       }
     });
   }

@@ -15,9 +15,6 @@ import Swal from 'sweetalert2';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { Router } from '@angular/router';
 
-
-
-
 @Component({
   selector: 'app-chattels',
   templateUrl: './chattels.component.html',
@@ -30,13 +27,13 @@ export class ChattelsComponent implements OnInit {
     private uploadService: UploadService,
     private bienService: BienService,
     private router: Router
-  ) { }
+  ) {}
 
   @ViewChild('closeModal') closeModal!: ElementRef;
 
   listTypeBien: any;
   listeBien: any;
-  oneBien: any
+  oneBien: any;
 
   builder = inject(FormBuilder);
   bienFormGroup!: FormGroup;
@@ -77,28 +74,39 @@ export class ChattelsComponent implements OnInit {
       bienContactBailleur: ['', Validators.required],
       bienContrat: ['', Validators.required],
       bienImage: ['', Validators.required],
+      bienOqp: [false],
     });
   }
 
   listeTypeBien() {
     this.loading = true;
-    this.tpyebienService.AllTypebien().subscribe((ret) => {
-      this.listTypeBien = ret.data;
-      this.loading = false;
-    }, (err) => {
-      if (err.error.statusCode == 401) { this.router.navigateByUrl("/auth") }
-    });
+    this.tpyebienService.AllTypebien().subscribe(
+      (ret) => {
+        this.listTypeBien = ret.data;
+        this.loading = false;
+      },
+      (err) => {
+        if (err.error.statusCode == 401) {
+          this.router.navigateByUrl('/auth');
+        }
+      }
+    );
   }
 
   listBien() {
-    this.loading = true
-    this.bienService.AllBien().subscribe((ret) => {
-      this.listeBien = ret.data;
-      this.loading = false
-    }, (err) => {
-      if (err.error.statusCode == 401) { this.router.navigateByUrl("/auth") }
-      this.loading = false
-    });
+    this.loading = true;
+    this.bienService.AllBien().subscribe(
+      (ret) => {
+        this.listeBien = ret.data;
+        this.loading = false;
+      },
+      (err) => {
+        if (err.error.statusCode == 401) {
+          this.router.navigateByUrl('/auth');
+        }
+        this.loading = false;
+      }
+    );
   }
 
   submitBien(f: any) {
@@ -118,10 +126,11 @@ export class ChattelsComponent implements OnInit {
       bienContactBailleur: f.bienContactBailleur,
       bienContrat: f.bienContrat,
       bienImage: f.bienImage,
+      bienOqp: f.bienOqp,
     };
     if (f.bienId) {
       //Mise a jour
-      this.isLoading = true
+      this.isLoading = true;
       this.bienService.modifiBien(body).subscribe(
         (ret) => {
           Swal.fire({
@@ -131,25 +140,26 @@ export class ChattelsComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.isLoading = false
+          this.isLoading = false;
           this.closeModal.nativeElement.click();
           this.listBien();
-          this.bienFormGroup.reset()
-
+          this.bienFormGroup.reset();
         },
         (err) => {
-          if (err.error.statusCode == 401) { this.router.navigateByUrl("/auth") }
+          if (err.error.statusCode == 401) {
+            this.router.navigateByUrl('/auth');
+          }
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: err.statusText,
           });
-          this.isLoading = false
+          this.isLoading = false;
         }
       );
     } else {
       //Nouveau
-      this.isLoading = true
+      this.isLoading = true;
       this.bienService.ajoutBien(body).subscribe(
         (ret) => {
           Swal.fire({
@@ -159,20 +169,21 @@ export class ChattelsComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.isLoading = false
+          this.isLoading = false;
           this.closeModal.nativeElement.click();
           this.listBien();
-          this.bienFormGroup.reset()
-
+          this.bienFormGroup.reset();
         },
         (err) => {
-          if (err.error.statusCode == 401) { this.router.navigateByUrl("/auth") }
+          if (err.error.statusCode == 401) {
+            this.router.navigateByUrl('/auth');
+          }
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: err.statusText,
           });
-          this.isLoading = false
+          this.isLoading = false;
         }
       );
     }
@@ -187,7 +198,7 @@ export class ChattelsComponent implements OnInit {
       this.uploadService.upload(formData).subscribe(
         (ret) => {
           console.log(ret);
-          this.lienPhotoretourPropriete = this.configService.urlg + ret.data;
+          this.lienPhotoretourPropriete = this.configService.urlgimg + ret.data;
           this.file = ret.data;
           this.bienFormGroup.controls['bienImage'].setValue(ret.data);
         },
@@ -221,59 +232,99 @@ export class ChattelsComponent implements OnInit {
   }
 
   resetForm() {
-    this.bienFormGroup.reset()
-    this.libelleContrat = "";
-    this.bienFormGroup.controls['bienContrat'].reset()
-    this.lienPhotoretourPropriete = "";
-    this.file = "";
+    this.bienFormGroup.reset();
+    this.libelleContrat = '';
+    this.bienFormGroup.controls['bienContrat'].reset();
+    this.lienPhotoretourPropriete = '';
+    this.file = '';
     this.bienFormGroup.controls['bienImage'].reset();
   }
 
   supContrat(libelleContrat: any) {
-    alert(libelleContrat)
+    alert(libelleContrat);
   }
 
   getOneBien(id: any) {
-    this.isLoading = true
-    this.bienService.oneBien(id).subscribe(rep => {
-      this.oneBien = rep.data
-      this.bienFormGroup.controls['bienId'].setValue(this.oneBien.bienId)
-      this.bienFormGroup.controls['bienLibelle'].setValue(this.oneBien.bienLibelle)
-      this.bienFormGroup.controls['typebienId'].setValue(this.oneBien.typebien.typebienId)
-      this.bienFormGroup.controls['bienCategorie'].setValue(this.oneBien.bienCategorie)
-      this.bienFormGroup.controls['bienDescription'].setValue(this.oneBien.bienDescription)
-      this.bienFormGroup.controls['bienSurface'].setValue(this.oneBien.bienSurface)
-      this.bienFormGroup.controls['bienNbrePiece'].setValue(this.oneBien.bienNbrePiece)
-      this.bienFormGroup.controls['bienPrix'].setValue(this.oneBien.bienPrix)
-      this.bienFormGroup.controls['bienVille'].setValue(this.oneBien.bienVille)
-      this.bienFormGroup.controls['bienCommuneQuartier'].setValue(this.oneBien.bienCommuneQuartier)
-      this.bienFormGroup.controls['bienAdresse'].setValue(this.oneBien.bienAdresse)
-      this.bienFormGroup.controls['bienNomBailleur'].setValue(this.oneBien.bienNomBailleur)
-      this.bienFormGroup.controls['bienContactBailleur'].setValue(this.oneBien.bienContactBailleur)
-      this.bienFormGroup.controls['bienContrat'].setValue(this.oneBien.bienContrat)
-      this.lienPhotoretourPropriete = this.configService.urlg + this.oneBien.bienImage;
-      this.libelleContrat = this.oneBien.bienContrat
-      this.bienFormGroup.controls['bienImage'].setValue(this.oneBien.bienImage)
-      this.isLoading = false
-    }, (err) => {
-      if (err.error.statusCode == 401) { this.router.navigateByUrl("/auth") }
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: err.statusText,
-      });
-      this.isLoading = false
-    });
+    this.isLoading = true;
+    this.bienService.oneBien(id).subscribe(
+      (rep) => {
+        this.oneBien = rep.data;
+        this.bienFormGroup.controls['bienId'].setValue(this.oneBien.bienId);
+        this.bienFormGroup.controls['bienLibelle'].setValue(
+          this.oneBien.bienLibelle
+        );
+        this.bienFormGroup.controls['typebienId'].setValue(
+          this.oneBien.typebien.typebienId
+        );
+        this.bienFormGroup.controls['bienCategorie'].setValue(
+          this.oneBien.bienCategorie
+        );
+        this.bienFormGroup.controls['bienDescription'].setValue(
+          this.oneBien.bienDescription
+        );
+        this.bienFormGroup.controls['bienSurface'].setValue(
+          this.oneBien.bienSurface
+        );
+        this.bienFormGroup.controls['bienNbrePiece'].setValue(
+          this.oneBien.bienNbrePiece
+        );
+        this.bienFormGroup.controls['bienPrix'].setValue(this.oneBien.bienPrix);
+        this.bienFormGroup.controls['bienVille'].setValue(
+          this.oneBien.bienVille
+        );
+        this.bienFormGroup.controls['bienCommuneQuartier'].setValue(
+          this.oneBien.bienCommuneQuartier
+        );
+        this.bienFormGroup.controls['bienAdresse'].setValue(
+          this.oneBien.bienAdresse
+        );
+        this.bienFormGroup.controls['bienNomBailleur'].setValue(
+          this.oneBien.bienNomBailleur
+        );
+        this.bienFormGroup.controls['bienContactBailleur'].setValue(
+          this.oneBien.bienContactBailleur
+        );
+        this.bienFormGroup.controls['bienContrat'].setValue(
+          this.oneBien.bienContrat
+        );
+        this.bienFormGroup.controls['bienOqp'].setValue(this.oneBien.bienOqp);
+        this.lienPhotoretourPropriete =
+          this.configService.urlgimg + this.oneBien.bienImage;
+        this.libelleContrat = this.oneBien.bienContrat;
+        this.bienFormGroup.controls['bienImage'].setValue(
+          this.oneBien.bienImage
+        );
+        this.isLoading = false;
+      },
+      (err) => {
+        if (err.error.statusCode == 401) {
+          this.router.navigateByUrl('/auth');
+        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.statusText,
+        });
+        this.isLoading = false;
+      }
+    );
   }
 
   openDoc(libelleContrat: any) {
-    window.open(this.configService.urlg + libelleContrat, '_blank')
+    window.open(this.configService.urlg + libelleContrat, '_blank');
   }
   openDoc2(lienImage: any) {
-    window.open(lienImage, '_blank')
+    window.open(lienImage, '_blank');
   }
 
-  suprimeBien(bienId: any) {
+  suprimeBien(bienId: any, status: boolean) {
+    if (status == true) {
+      Swal.fire(
+        'Impossible de supprimer',
+        'Le Bien ne peut être supprimé, car il est marqué comme non disponible'
+      );
+      return;
+    }
     Swal.fire({
       title: 'Etes-vous vraiment certain ?',
       text: 'Cet enregistrement sera supprimé !',
@@ -284,7 +335,7 @@ export class ChattelsComponent implements OnInit {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.loading = true
+        this.loading = true;
         this.bienService.supBien(bienId).subscribe(
           (ret) => {
             Swal.fire({
@@ -295,20 +346,21 @@ export class ChattelsComponent implements OnInit {
               timer: 1500,
             });
             this.listBien();
-            this.loading = false
+            this.loading = false;
           },
           (err) => {
-            if(err.error.statusCode == 401){this.router.navigateByUrl("/auth")}
+            if (err.error.statusCode == 401) {
+              this.router.navigateByUrl('/auth');
+            }
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: err.statusText,
             });
-            this.loading = false
+            this.loading = false;
           }
         );
       }
     });
   }
-  
 }
