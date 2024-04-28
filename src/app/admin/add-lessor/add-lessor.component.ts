@@ -30,17 +30,14 @@ interface UploadEvent {
   files: File[];
 }
 
-
 @Component({
   selector: 'app-add-lessor',
   templateUrl: './add-lessor.component.html',
   styleUrls: ['./add-lessor.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class AddLessorComponent {
-
   uploadedFiles: any[] = [];
-
 
   previewImage: any;
   lienPhotoretour: any;
@@ -79,13 +76,15 @@ export class AddLessorComponent {
     private messageService: MessageService,
     private smsService: SmsService,
     private datePipe: DatePipe
-  ) { }
-
+  ) {}
 
   formatDate(): string {
     const currentDate = new Date();
     // Formater la date actuelle au format "YYYY-MM-DD HH:mm:ss"
-    const formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd HH:mm:ss');
+    const formattedDate = this.datePipe.transform(
+      currentDate,
+      'yyyy-MM-dd HH:mm:ss'
+    );
     return formattedDate || ''; // Assurer que la valeur retournée n'est pas nulle
   }
 
@@ -101,21 +100,23 @@ export class AddLessorComponent {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    if (this.id !== '0')
-      this.oneBailleur(this.id);
+    if (this.id !== '0') this.oneBailleur(this.id);
     this.initForm();
     this.allBanque();
     this.listeTypepropriete();
   }
 
-  onUpload(event:UploadEvent) {
-    for(let file of event.files) {
-        this.uploadedFiles.push(file);
+  onUpload(event: UploadEvent) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
     }
 
-    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}
-
+    this.messageService.add({
+      severity: 'info',
+      summary: 'File Uploaded',
+      detail: '',
+    });
+  }
 
   initForm() {
     this.formGroup = this.formBuilder.group({
@@ -136,7 +137,7 @@ export class AddLessorComponent {
       bailleurlienCNI: [''],
       bailleurLienPhoto: [''],
       bailleurTelHussier: [''],
-      bailleurEmailHussier: ['']
+      bailleurEmailHussier: [''],
     });
 
     this.formProprieteGroup = this.formBuilder.group({
@@ -175,24 +176,29 @@ export class AddLessorComponent {
     });
   }
 
-  envoiSms(to: string, email: string, ){
-    let text = "Cher bailleur, votre compte Mbaaza est désormais actif! Vos identifiants de connexion ont été envoyés à votre adresse e-mail "+ email +" . Connectez-vous dès maintenant pour gérer vos biens en toute transparence sur Mbaaza. \n https://www.mbaaza.com" 
+  envoiSms(to: string, email: string) {
+    let text =
+      'Cher bailleur, votre compte Mbaaza est désormais actif! Vos identifiants de connexion ont été envoyés à votre adresse e-mail ' +
+      email +
+      ' . Connectez-vous dès maintenant pour suivre vos biens en toute transparence sur Mbaaza. \n https://www.mbaaza.com';
     var boby = {
-      sender:'MBAAZA',
+      sender: 'MBAAZA',
       to: to,
       text: text,
       url: 'mbaaza.com',
       type: 'unicode',
-      datetime: this.formatDate()
-    }
-    this.smsService.sms(boby).subscribe((ret)=>{
-      this.toastr.success("SMS ENVOIE");
-    },(error)=>{
-      console.log(error);
-      this.toastr.success("Erreur " + error );
-    });
+      datetime: this.formatDate(),
+    };
+    this.smsService.sms(boby).subscribe(
+      (ret) => {
+        this.toastr.success('SMS ENVOIE');
+      },
+      (error) => {
+        console.log(error);
+        this.toastr.success('Erreur ' + error);
+      }
+    );
   }
-
 
   onSubmit(f: any) {
     this.isLoading = true;
@@ -215,11 +221,10 @@ export class AddLessorComponent {
       bailleurLienPhoto: this.file2,
       bailleurTelHussier: f.bailleurTelHussier,
       bailleurEmailHussier: f.bailleurEmailHussier,
-
-    }
+    };
 
     // Subject: Ouverture de compte M'baaza
-    // Message: 
+    // Message:
     //    Bonjour cher abonné Mbaaza !
     //    Votre compte vient d'être créé avec succès.
     //    Pour accéder à votre espace bailleur, veuillez cliquer sur le lien suivant : <a href="">Accéder à mon espace</a>.
@@ -378,13 +383,13 @@ export class AddLessorComponent {
       role: 'BAILLEUR',
       username: f.bailleurNomPrenoms,
       lienphoto: this.file2,
-      bailleurId: bailleurId
+      bailleurId: bailleurId,
     };
 
     this.usersService.saveUser(body).subscribe(
       (result) => {
         this.toastr.success("L'utilisateur créé avec succés");
-        this.envoiSms(f.bailleurTelephone,f.bailleurEmail);
+        this.envoiSms(f.bailleurTelephone, f.bailleurEmail);
       },
       (err) => {
         this.toastr.error(err);
@@ -482,7 +487,7 @@ export class AddLessorComponent {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.isLoading = true
+        this.isLoading = true;
         this.proprieteService.supPropriete(proprieteId).subscribe(
           (ret) => {
             Swal.fire({
@@ -492,8 +497,8 @@ export class AddLessorComponent {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.isLoading = false
-            this.allProprieteByBailleur(this.id)
+            this.isLoading = false;
+            this.allProprieteByBailleur(this.id);
           },
           (err) => {
             Swal.fire({
@@ -505,7 +510,6 @@ export class AddLessorComponent {
         );
       }
     });
-
   }
 
   resetPropriete() {
@@ -544,9 +548,11 @@ export class AddLessorComponent {
     };
 
     if (!f.proprieteId) {
-      if (f.proprieteStatu != "Disponible") {
-        alert("Le statut passerra automatiquement en DISPONIBLE car c'est une nouvelle propriété.")
-        body.proprieteStatu =  "Disponible"
+      if (f.proprieteStatu != 'Disponible') {
+        alert(
+          "Le statut passerra automatiquement en DISPONIBLE car c'est une nouvelle propriété."
+        );
+        body.proprieteStatu = 'Disponible';
         console.log(body);
       }
       this.proprieteService.ajoutPropriete(body).subscribe((ret) => {
@@ -570,7 +576,8 @@ export class AddLessorComponent {
 
   setFormPropriete(f: any) {
     console.log(f);
-    this.lienPhotoretourPropriete = this.configService.urlgimg + f.proprieteLienPhoto;
+    this.lienPhotoretourPropriete =
+      this.configService.urlgimg + f.proprieteLienPhoto;
     this.formProprieteGroup.patchValue({
       proprieteId: f.proprieteId,
       proprieteAnnee: f.proprieteAnnee,
@@ -597,7 +604,7 @@ export class AddLessorComponent {
       bailleurId: this.MbailleurId,
       typebienId: f.typebien.typebienId,
       proprieteAdresse: f.proprieteAdresse,
-    })
+    });
   }
 
   onFileChangePropriete(event: any) {
@@ -610,8 +617,8 @@ export class AddLessorComponent {
         (ret) => {
           console.log(ret);
           this.formProprieteGroup.patchValue({
-            proprieteLienPhoto: ret.data
-          })
+            proprieteLienPhoto: ret.data,
+          });
           this.lienPhotoretourPropriete = this.configService.urlgimg + ret.data;
           console.log(this.lienPhotoretourPropriete);
           // this.previewImagePropriete =  ret.data;
@@ -627,16 +634,16 @@ export class AddLessorComponent {
     }
   }
 
-  fermeFenPropriete(){
-    this.formProprieteGroup.reset()
+  fermeFenPropriete() {
+    this.formProprieteGroup.reset();
     //this.allProprieteByBailleur(this.id);
-    this.lienPhotoretourPropriete = ""
-    this.uploadedFiles = []
+    this.lienPhotoretourPropriete = '';
+    this.uploadedFiles = [];
     this.oneBailleur(this.id);
   }
 
-  OuvrirAjoutPropriete(){
-    this.formProprieteGroup.reset()
+  OuvrirAjoutPropriete() {
+    this.formProprieteGroup.reset();
     this.oneBailleur(this.id);
   }
 }

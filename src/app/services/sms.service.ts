@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SmsService {
   urlG: string = '';
@@ -16,9 +16,7 @@ export class SmsService {
     this.urlG = configService.urlg;
   }
 
-
   sms(data: any): Observable<any> {
     return this.httpClient.post(this.urlG + 'sms/envoisms', data);
   }
-  
 }
