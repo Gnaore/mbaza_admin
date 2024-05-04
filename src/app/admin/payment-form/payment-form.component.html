@@ -38,8 +38,8 @@
                         </button>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-lg btn-light w-100" printSectionId="print" styleSheetFile="styles.css"
-                            ngxPrint>
+                        <button class="btn btn-lg btn-light w-100" [useExistingCss]="true" printSectionId="print"
+                            styleSheetFile="styles.css" ngxPrint>
                             <span class="ti ti-printer"></span>
                             Imprimer
                         </button>
